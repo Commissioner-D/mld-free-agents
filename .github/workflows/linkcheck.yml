@@ -1,14 +1,21 @@
 name: Linkcheck
 on: workflow_dispatch
+permissions:
+  contents: write
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v6
       - run: |
-          for u in "https://www.fleaflicker.com/nfl/leagues/294292/players/8800" "https://www.fleaflicker.com/nfl/players/8800" "https://www.fleaflicker.com/nfl/leagues/294292/players/8800/case-keenum" "https://www.fleaflicker.com/nfl/players/8800/case-keenum" "https://www.fleaflicker.com/nfl/leagues/294292/players?playerId=8800" ; do
+          set +e
+          : > out.txt
+          for u in "https://www.fleaflicker.com/nfl/leagues/294292/players/8800" "https://www.fleaflicker.com/nfl/players/8800" "https://www.fleaflicker.com/nfl/leagues/294292/players/8800/case-keenum" "https://www.fleaflicker.com/nfl/players/8800/case-keenum" ; do
             code=$(curl -sL -A "mld-fa/1.0" -o p.html -w "%{http_code} %{url_effective}" "$u")
             t=$(grep -o "<title>[^<]*" p.html | head -1)
             k=$(grep -c "Keenum" p.html)
-            echo "RES $u => $code | $t | keenum=$k"
+            echo "RES $u => $code | $t | keenum=$k" >> out.txt
           done
-          curl -s -A "mld-fa/1.0" "https://www.fleaflicker.com/nfl/leagues/294292/players?statType=1" | grep -o 'href="[^"]*players/[0-9][^"]*"' | head -5 | sed 's/^/HREF /'
+          curl -s -A "mld-fa/1.0" "https://www.fleaflicker.com/nfl/leagues/294292/players?statType=1" | grep -o 'href="[^"]*player[^"]*"' | sort -u | head -15 >> out.txt
+          git config user.name a; git config user.email a@a
+          git checkout --orphan lc; git rm -rf --cached . -q; git add out.txt; git commit -qm lc; git push -f origin HEAD:linkcheck
