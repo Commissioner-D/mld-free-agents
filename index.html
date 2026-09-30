@@ -93,7 +93,7 @@ tbody tr:hover{background:rgba(106,166,216,.07)}
   <p class="legend">
     Punkt links: <span class="tier t-hot"></span>heiß (Top der Position) <span class="tier t-signal"></span>Signal (Trigger ausgelöst)
     <span class="tier t-radar"></span>Radar. Score = Perzentil innerhalb der Position aus Form, Niveau, Rolle, Rollentrend,
-    Ownership und Projektion. Verläufe zeigen die letzten Wochen, der Wert rechts ist die letzte Woche.
+    Ownership und Projektion. Verläufe zeigen die letzten Wochen, der Wert rechts ist die letzte Woche. Nutzung: Tackles (IDP), Carries + Targets (RB), Target Share (WR/TE).
     Mit der Maus auf den Namen (am Handy antippen) für News und Details.
   </p>
 </div>
@@ -101,7 +101,7 @@ tbody tr:hover{background:rgba(106,166,216,.07)}
 
 <script>
 const POS = ["Alle","QB","RB","WR","TE","DL","LB","S","Ohne Wertung"];
-const FLAG = {SNAP_JUMP:"Snaps ↑",TARGETS:"Targets 20 %+",EVERY_DOWN:"Every Down",NEWS:"News +",YOUNG_RISER:"Jung & steigend",INJURED:"verletzt"};
+const FLAG = {SNAP_JUMP:"Snaps ↑",TARGETS:"Targets 20 %+",EVERY_DOWN:"Every Down",NEWS:"News +",YOUNG_RISER:"Jung & steigend",WORKLOAD:"12+ Touches",INJURED:"verletzt"};
 const TIER_ORDER = {hot:0,signal:1,radar:2,rest:3,unscored:4};
 const COLS = [
   {k:"name",l:"Spieler",c:"l"},
@@ -142,8 +142,8 @@ function usageSeries(p){
     const n=Math.max(s.length,a.length); if(!n) return null;
     return {s:Array.from({length:n},(_,i)=>s[i]==null&&a[i]==null?null:(s[i]||0)+(a[i]||0)),max:14,pct:false,lab:"Tackles"};
   }
+  if(p.group==="RB"||p.pos==="RB") return t.opps?{s:t.opps,max:25,pct:false,lab:"Opportunities (Carries + Targets)"}:null;
   if(t.target_share) return {s:t.target_share,max:.4,pct:true,lab:"Target Share"};
-  if(t.carries) return {s:t.carries,max:25,pct:false,lab:"Carries"};
   return null;
 }
 function val(p,k){
