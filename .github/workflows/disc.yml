@@ -1,0 +1,28 @@
+name: Discovery
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  d:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: |
+          mkdir out
+          python3 - << 'EOF'
+          import urllib.request, urllib.error, json
+          filt = {"players": {"limit": 60, "sortPercChanged": {"sortPriority": 1, "sortAsc": False}}}
+          u = "https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl/seasons/2026/segments/0/leaguedefaults/3?view=kona_player_info"
+          req = urllib.request.Request(u, headers={"User-Agent": "mld-fa/1.0", "X-Fantasy-Filter": json.dumps(filt), "Accept": "application/json"})
+          try:
+              b = urllib.request.urlopen(req, timeout=30).read()
+              d = json.loads(b)
+              out = [{"n": p["player"].get("fullName"), "pos": p["player"].get("defaultPositionId"),
+                      "chg": (p["player"].get("ownership") or {}).get("percentChange"),
+                      "own": (p["player"].get("ownership") or {}).get("percentOwned")} for p in d.get("players", [])]
+          except urllib.error.HTTPError as e:
+              out = {"error": e.code, "body": e.read()[:300].decode("utf-8", "ignore")}
+          open("out/res.json", "w").write(json.dumps(out, indent=1))
+          EOF
+          git config user.name a; git config user.email a@a
+          git checkout --orphan disc; git rm -rf --cached . -q; git add out; git commit -qm d; git push -f origin HEAD:disc
