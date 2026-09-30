@@ -275,6 +275,27 @@ def def_profile(sd, pos, snap_avg=None):
             "press": round((sd["qbh"] + sd["tfl"]) / sd["def_snaps"], 3), "role": role}
 
 
+# ---------- Sleeper Trending Adds (Summe aller "Must Add"-Empfehlungen, live) ----------
+def fetch_sleeper_trending(limit=100, hours=48):
+    trend = json.loads(get(f"https://api.sleeper.app/v1/players/nfl/trending/add?lookback_hours={hours}&limit={limit}"))
+    db = json.loads(get("https://api.sleeper.app/v1/players/nfl"))
+    out = {}
+    for i, t in enumerate(trend):
+        pl = db.get(t["player_id"]) or {}
+        if not pl.get("full_name"):
+            continue                                       # Team-Defense u.a.
+        out[(norm(pl["full_name"]), pl.get("team") or "FA")] = {"rank": i + 1, "adds": t.get("count"),
+                                                                "pos": pl.get("position")}
+    return out
+
+
+def load_scouting():
+    """Manuell/recherchiert gepflegte Infos: scouting.json {Name: {role, note, source, date, badge}}."""
+    if not os.path.exists("scouting.json"):
+        return {}
+    return {k: v for k, v in json.load(open("scouting.json")).items() if not k.startswith("_")}
+
+
 # ---------- Depth Chart + Injury Report ----------
 DEPTH_GROUP = {"QB": "QB", "RB": "RB", "FB": "RB", "WR": "WR", "TE": "TE",
                "LDE": "DL", "RDE": "DL", "LDT": "DL", "RDT": "DL", "NT": "DL",
@@ -405,6 +426,10 @@ def metrics(p):
         flags.append("NEWS")
     if p.get("age") is not None and p["age"] <= 24.5 and (snap_delta or 0) >= 0.10 and (snap_last or 0) >= 0.40:
         flags.append("YOUNG_RISER")
+    if p.get("trending") and p["trending"]["rank"] <= 50:
+        flags.append("TRENDING")
+    if (p.get("scout") or {}).get("badge"):
+        flags.append("SCOUT")
     if p.get("injury") in BAD_INJ:
         flags.append("INJURED")
     p["flags"] = flags
@@ -469,6 +494,15 @@ def main():
     except Exception as e:
         print("Depth Chart nicht verfuegbar:", e)
         injuries, depth_teams, depth_player, depth_date = {}, {}, {}, None
+    try:
+        trending = fetch_sleeper_trending()
+    except Exception as e:
+        print("Sleeper nicht verfuegbar:", e)
+        trending = {}
+    tr_by_name = {}
+    for (n, t), v in trending.items():
+        tr_by_name.setdefault(n, []).append(v)
+    scouting = load_scouting()
     unmatched, review = [], []
     for p in league:                                   # Referenz: nur Trend + Defense-Profil noetig
         n = norm(equiv.get(p["name"], p["name"])); t = TEAM_MAP.get(p["team"], p["team"])
@@ -500,6 +534,15 @@ def main():
             cand = bio[bio_by_name[n][0]]
             if same_group(p["pos"] or "", cand.get("pos") or ""):
                 b = cand
+        tv = trending.get((norm(p["name"]), p["team"]))
+        if not tv and len(tr_by_name.get(norm(p["name"]), [])) == 1 and \
+                same_group(p["pos"] or "", tr_by_name[norm(p["name"])][0].get("pos") or ""):
+            tv = tr_by_name[norm(p["name"])][0]
+        p["trending"] = {"rank": tv["rank"], "adds": tv["adds"]} if tv else None
+        p["scout"] = scouting.get(p["name"])
+        if p["scout"] and p["scout"].get("role") and p.get("defense"):
+            p["defense"]["role_proxy"] = p["defense"].get("role")
+            p["defense"]["role"] = p["scout"]["role"]          # recherchierte Rolle schlaegt Proxy
         p["age"] = age(b["birth"]) if b else None
         p["draft"] = f'R{b["draft_round"]}/{b["draft_pick"]}' if b and b.get("draft_round") else ("UDFA" if b else None)
         p["exp"] = int(b["exp"]) if b and b.get("exp") not in (None, "") else None
