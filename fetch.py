@@ -289,6 +289,25 @@ def fetch_sleeper_trending(limit=100, hours=48):
     return out
 
 
+def fetch_espn_trending(limit=100):
+    """ESPN: Spieler mit dem groessten Ownership-Zuwachs (inoffizielle, aber oeffentliche Schnittstelle)."""
+    filt = {"players": {"limit": limit, "sortPercChanged": {"sortPriority": 1, "sortAsc": False}}}
+    url = (f"https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl/seasons/{SEASON}"
+           f"/segments/0/leaguedefaults/3?view=kona_player_info")
+    req = urllib.request.Request(url, headers={**UA, "X-Fantasy-Filter": json.dumps(filt), "Accept": "application/json"})
+    d = json.loads(urllib.request.urlopen(req, timeout=60).read())
+    out, rank = {}, 0
+    for p in d.get("players", []):
+        pl = p.get("player") or {}
+        chg = (pl.get("ownership") or {}).get("percentChange") or 0
+        if not pl.get("fullName") or "D/ST" in pl["fullName"] or chg <= 0:
+            continue
+        rank += 1
+        pos = {1: "QB", 2: "RB", 3: "WR", 4: "TE", 5: "K"}.get(pl.get("defaultPositionId"))
+        out.setdefault(norm(pl["fullName"]), {"rank": rank, "chg": round(chg, 2), "pos": pos})
+    return out
+
+
 def load_scouting():
     """Manuell/recherchiert gepflegte Infos: scouting.json {Name: {role, note, source, date, badge}}."""
     if not os.path.exists("scouting.json"):
@@ -424,9 +443,9 @@ def metrics(p):
     if n.get("time") and NOW.timestamp() * 1000 - float(n["time"]) <= 7 * 86400000 and \
             NEWS_POS.search(f'{n.get("text") or ""} {n.get("analysis") or ""}'):
         flags.append("NEWS")
-    if p.get("age") is not None and p["age"] <= 24.5 and (snap_delta or 0) >= 0.10 and (snap_last or 0) >= 0.40:
+    if p.get("age") is not None and int(p["age"]) <= 25 and (snap_delta or 0) >= 0.10 and (snap_last or 0) >= 0.40:
         flags.append("YOUNG_RISER")
-    if p.get("trending") and p["trending"]["rank"] <= 50:
+    if (p.get("trending") and p["trending"]["rank"] <= 50) or (p.get("espn") and p["espn"]["rank"] <= 50):
         flags.append("TRENDING")
     if (p.get("scout") or {}).get("badge"):
         flags.append("SCOUT")
@@ -499,6 +518,11 @@ def main():
     except Exception as e:
         print("Sleeper nicht verfuegbar:", e)
         trending = {}
+    try:
+        espn = fetch_espn_trending()
+    except Exception as e:
+        print("ESPN nicht verfuegbar:", e)
+        espn = {}
     tr_by_name = {}
     for (n, t), v in trending.items():
         tr_by_name.setdefault(n, []).append(v)
@@ -539,6 +563,8 @@ def main():
                 same_group(p["pos"] or "", tr_by_name[norm(p["name"])][0].get("pos") or ""):
             tv = tr_by_name[norm(p["name"])][0]
         p["trending"] = {"rank": tv["rank"], "adds": tv["adds"]} if tv else None
+        ev = espn.get(norm(p["name"]))
+        p["espn"] = {"rank": ev["rank"], "chg": ev["chg"]} if ev and ev["pos"] == p["pos"] else None   # Namensgleichheit + Position
         p["scout"] = scouting.get(p["name"])
         if p["scout"] and p["scout"].get("role") and p.get("defense"):
             p["defense"]["role_proxy"] = p["defense"].get("role")
