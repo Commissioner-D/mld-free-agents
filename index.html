@@ -121,6 +121,7 @@ let DATA=[], state={pos:"Alle",sort:"score",dir:-1};
 const $=id=>document.getElementById(id);
 const fmt=(v,d=1)=>v==null?"–":Number(v).toFixed(d);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const slug=n=>n.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/['.]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 const isIdp=p=>["DL","LB","S"].includes(p.group)||["CB","DB"].includes(p.pos);
 
 function spark(series,max,pct){
@@ -202,7 +203,7 @@ function tipHtml(p){
     (n.text?`<p>${esc(n.text)}</p>`:"<p>Keine aktuelle News.</p>")+
     (n.analysis?`<p class="an">${esc(n.analysis)}</p>`:"")+
     (when?`<div class="meta">News vom ${when}</div>`:"")+
-    `<a href="https://www.fleaflicker.com/nfl/leagues/294292/players/${p.fl_id}" target="_blank" rel="noopener">Auf Fleaflicker öffnen</a>`;
+    `<a href="https://www.fleaflicker.com/nfl/leagues/294292/players/${slug(p.name)}-${p.fl_id}" target="_blank" rel="noopener">Auf Fleaflicker öffnen</a>`;
 }
 let tipFor=null;
 function showTip(el){
