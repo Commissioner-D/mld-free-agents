@@ -108,6 +108,7 @@ tbody tr.is-mine:hover{background:rgba(199,163,75,.14)}
   <input type="search" id="q" placeholder="Spieler oder Team suchen" aria-label="Suche">
   <label class="tog"><input type="checkbox" id="noinj" checked> Verletzte ausblenden</label>
   <label class="tog"><input type="checkbox" id="young"> Nur ≤ 25 Jahre</label>
+  <label class="tog"><input type="checkbox" id="rookie"> Nur Rookies</label>
   <label class="tog"><input type="checkbox" id="mine" checked> Mein Kader zum Vergleich</label>
   <span class="count" id="count"></span>
 </div>
@@ -202,7 +203,8 @@ function filtered(){
       if(t==="hsr"&&!["hot","signal","radar"].includes(p.tier))return false;
     }
     if($("noinj").checked&&p.flags&&p.flags.includes("INJURED"))return false;
-    if($("young").checked&&!(p.age!=null&&p.age<=25))return false;
+    if($("young").checked&&!(p.age!=null&&Math.floor(p.age)<=25))return false;   // 25,9 zählt noch als 25
+    if($("rookie").checked&&!p.rookie)return false;
     if(q&&!(p.name.toLowerCase().includes(q)||(p.team||"").toLowerCase()===q))return false;
     return true;
   }).sort((a,b)=>{
@@ -219,7 +221,7 @@ function render(){
   $("body").innerHTML=rows.map(p=>{
     const i=DATA.indexOf(p), snapS=(p.trend||{})[isIdp(p)?"def_pct":"off_pct"], u=usageSeries(p);
     const flags=(p.flags||[]).map(f=>f==="INJURED"?`<span class="flag inj">${esc(p.injury)}</span>`:
-      f==="TRENDING"?`<span class="flag trend" title="Sleeper Trending Adds, letzte 48 h">Sleeper #${p.trending.rank}</span>`:
+      f==="TRENDING"?`<span class="flag trend" title="Sleeper: meiste Adds der letzten 48 h. ESPN: größter Ownership-Zuwachs.">${[p.trending&&p.trending.rank<=50?"Sleeper #"+p.trending.rank:null,p.espn&&p.espn.rank<=50?"ESPN #"+p.espn.rank:null].filter(Boolean).join(" · ")}</span>`:
       f==="SCOUT"?`<span class="flag scout" title="${esc(p.scout.source||"")}">${esc(p.scout.badge)}</span>`:
       `<span class="flag">${FLAG[f]}</span>`).join("");
     const rl=(p.scout&&p.scout.role)||(p.defense&&p.defense.role);
@@ -245,6 +247,7 @@ function tipHtml(p){
   return `<h3>${esc(p.name)}</h3><div class="meta">${esc(meta)}</div>`+
     (p.scout&&p.scout.note?`<div class="scout"><p>${esc(p.scout.note)}</p><div class="meta">Recherche${p.scout.source?": "+esc(p.scout.source):""}${p.scout.date?", "+esc(p.scout.date):""}</div></div>`:"")+
     (p.trending?`<div class="meta">Sleeper Trending Adds: #${p.trending.rank} der letzten 48 h</div>`:"")+
+    (p.espn?`<div class="meta">ESPN Ownership-Zuwachs: #${p.espn.rank} (+${p.espn.chg} %-Punkte)</div>`:"")+
     (n.text?`<p>${esc(n.text)}</p>`:"<p>Keine aktuelle News.</p>")+
     (n.analysis?`<p class="an">${esc(n.analysis)}</p>`:"")+
     (when?`<div class="meta">News vom ${when}</div>`:"")+
@@ -327,7 +330,7 @@ function sortBy(k){
 $("pos").innerHTML=POS.map(p=>`<button class="chip" aria-pressed="${p===state.pos}" data-p="${p}">${p}</button>`).join("");
 $("pos").addEventListener("click",e=>{const b=e.target.closest(".chip"); if(!b)return; state.pos=b.dataset.p;
   [...$("pos").children].forEach(c=>c.setAttribute("aria-pressed",c===b)); render()});
-["tier","noinj","young","mine"].forEach(id=>$(id).addEventListener("change",render));
+["tier","noinj","young","rookie","mine"].forEach(id=>$(id).addEventListener("change",render));
 $("q").addEventListener("input",render);
 
 fetch("https://raw.githubusercontent.com/Commissioner-D/mld-free-agents/data/data/free_agents.json?v="+Date.now()).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(d=>{
