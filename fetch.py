@@ -231,6 +231,11 @@ TREND_KEYS = ["off_pct", "def_pct", "st_pct", "targets", "target_share", "wopr",
               "def_tackles_solo", "def_tackle_assists", "def_sacks", "def_pass_defended", "qbh", "tfl"]
 
 
+def snap_avg(tr):
+    v = [x for x in ((tr or {}).get("def_pct") or []) if x is not None]
+    return sum(v) / len(v) if v else None
+
+
 def trends(weekly, weeks):
     for w in weeks:                                   # Opportunities = Carries + Targets
         wk = weekly.get(w)
@@ -244,8 +249,10 @@ def trends(weekly, weeks):
     return out
 
 
-def def_profile(sd, pos):
-    """Saison-Profil Defense: Tackles/Snap, Lauf-Anteil, Tackle-Tiefe, Rolle (nur S, ab 10 Tackles)."""
+def def_profile(sd, pos, snap_avg=None):
+    """Saison-Profil Defense: Tackles/Snap, Lauf-Anteil, Tackle-Tiefe, Rolle.
+    S (ab 10 Tackles): Box / Hybrid / Deep aus Tackle-Tiefe + Lauf-Anteil.
+    LB (ab 40 Snaps): Pass Rush / Every Down / Early Down / Rotation aus Snap-Anteil + QB-Hits/TFL."""
     if not sd or not sd["def_snaps"]:
         return None
     d = sorted(sd["depth"])
@@ -254,6 +261,10 @@ def def_profile(sd, pos):
     role = None
     if pos == "S" and sd["tk"] >= 10 and med is not None:
         role = "Box" if med <= 6 and (run_share or 0) >= 0.45 else "Deep" if med >= 9 else "Hybrid"
+    if pos == "LB" and sd["def_snaps"] >= 40 and snap_avg is not None:
+        press = (sd["qbh"] + sd["tfl"]) / sd["def_snaps"]
+        role = ("Pass Rush" if press >= 0.05 and sd["qbh"] >= 3 else
+                "Every Down" if snap_avg >= 0.85 else "Early Down" if snap_avg >= 0.60 else "Rotation")
     return {"snaps": sd["def_snaps"], "tk": sd["tk"], "tps": round(sd["tk"] / sd["def_snaps"], 3),
             "run_share": round(run_share, 2) if run_share is not None else None, "depth": med,
             "qbh": sd["qbh"], "tfl": sd["tfl"],
@@ -460,7 +471,7 @@ def main():
         key = (n, t) if (n, t) in agg else ((n, by_name[n][0]) if len(by_name.get(n, [])) == 1 and
                                             same_group(p["pos"] or "", pos_of.get((n, by_name[n][0]), "")) else None)
         p["trend"] = trends(agg[key], weeks) if key else None
-        p["defense"] = def_profile(season.get(key), p["pos"]) if key and SCORE_GROUP.get(p["pos"]) in ("DL", "LB", "S") else None
+        p["defense"] = def_profile(season.get(key), p["pos"], snap_avg(p["trend"])) if key and SCORE_GROUP.get(p["pos"]) in ("DL", "LB", "S") else None
     for p in fas + mine:
         n = norm(equiv.get(p["name"], p["name"]))
         t = TEAM_MAP.get(p["team"], p["team"])
@@ -476,7 +487,7 @@ def main():
         dk = key if key in depth_player else (n, t) if (n, t) in depth_player else None
         p["depth"] = {k: depth_player[dk][k] for k in ("lab", "grp", "team")} if dk else None
         p["_key"] = dk
-        p["defense"] = def_profile(season.get(key), p["pos"]) if key and p["pos"] in SCORE_GROUP and \
+        p["defense"] = def_profile(season.get(key), p["pos"], snap_avg(p["trend"])) if key and p["pos"] in SCORE_GROUP and \
             SCORE_GROUP[p["pos"]] in ("DL", "LB", "S") else None
         if not key and (p.get("pts_total") or 0) > 0:
             unmatched.append(f'{p["name"]} ({p["pos"]}, {p["team"]})')
