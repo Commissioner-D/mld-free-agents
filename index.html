@@ -64,6 +64,12 @@ tbody tr:hover{background:rgba(106,166,216,.07)}
 #tip th{color:var(--muted);font-weight:500}
 #tip td.lbl{text-align:left;color:var(--muted)}
 .trendcell{cursor:help}
+tbody tr.is-mine{background:rgba(199,163,75,.09);box-shadow:inset 3px 0 0 var(--brass)}
+tbody tr.is-mine:hover{background:rgba(199,163,75,.14)}
+.t-mine{background:var(--brass);border-radius:2px}
+.kader{font-size:12px;color:var(--brass);margin-left:8px}
+.role{display:inline-block;font-size:12px;padding:0 6px;margin-left:8px;border:1px solid var(--line);border-radius:4px;color:var(--text)}
+#tip .sum{color:var(--text);font-size:13px;margin:2px 0 6px}
 .empty{padding:30px;color:var(--muted);text-align:center}
 @media (max-width:700px){header,.controls,.wrap{padding-left:12px;padding-right:12px}.count{margin-left:0}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -85,6 +91,7 @@ tbody tr:hover{background:rgba(106,166,216,.07)}
   <input type="search" id="q" placeholder="Spieler oder Team suchen" aria-label="Suche">
   <label class="tog"><input type="checkbox" id="noinj" checked> Verletzte ausblenden</label>
   <label class="tog"><input type="checkbox" id="young"> Nur ≤ 25 Jahre</label>
+  <label class="tog"><input type="checkbox" id="mine" checked> Mein Kader zum Vergleich</label>
   <span class="count" id="count"></span>
 </div>
 
@@ -97,7 +104,8 @@ tbody tr:hover{background:rgba(106,166,216,.07)}
   </div>
   <p class="legend">
     Punkt links: <span class="tier t-hot"></span>heiß (Top der Position) <span class="tier t-signal"></span>Signal (Trigger ausgelöst)
-    <span class="tier t-radar"></span>Radar. Score = Perzentil innerhalb der Position aus Form, Niveau, Rolle, Rollentrend,
+    <span class="tier t-radar"></span>Radar <span class="tier t-mine"></span>dein Kader (gleicher Score-Maßstab wie die Free Agents).
+    Rolle bei Safeties aus Tackle-Tiefe und Lauf-Anteil: Box, Hybrid, Deep (ab 10 Tackles). Score = Perzentil innerhalb der Position aus Form, Niveau, Rolle, Rollentrend,
     Ownership und Projektion. Verläufe zeigen die letzten Wochen, der Wert rechts ist die letzte Woche. Nutzung: Tackles (IDP), Carries + Targets (RB), Target Share (WR/TE). RZ: Targets + Carries innerhalb der 20-Yard-Linie, letzte 3 Wochen.
     Mit der Maus auf den Namen (am Handy antippen) für News und Details.
   </p>
@@ -106,8 +114,8 @@ tbody tr:hover{background:rgba(106,166,216,.07)}
 
 <script>
 const POS = ["Alle","QB","RB","WR","TE","DL","LB","S","Ohne Wertung"];
-const FLAG = {SNAP_JUMP:"Snaps ↑",TARGETS:"Targets 20 %+",EVERY_DOWN:"Every Down",NEWS:"News +",YOUNG_RISER:"Jung & steigend",WORKLOAD:"12+ Touches",RED_ZONE:"Red Zone",INJURED:"verletzt"};
-const TIER_ORDER = {hot:0,signal:1,radar:2,rest:3,unscored:4};
+const FLAG = {SNAP_JUMP:"Snaps ↑",TARGETS:"Targets 20 %+",EVERY_DOWN:"Every Down",NEWS:"News +",YOUNG_RISER:"Jung & steigend",WORKLOAD:"12+ Touches",RED_ZONE:"Red Zone",PASS_RUSH:"Pass Rush",INJURED:"verletzt"};
+const SLOT_ORDER = {Start:0,Bank:1,Taxi:2,IR:3};
 const COLS = [
   {k:"name",l:"Spieler",c:"l"},
   {k:"age",l:"Alter"},
@@ -168,6 +176,10 @@ function filtered(){
   return DATA.filter(p=>{
     if(state.pos==="Ohne Wertung"){if(p.group)return false}
     else if(state.pos!=="Alle"&&p.group!==state.pos)return false;
+    if(p.mine){                                          // Kader: nur Position + Suche filtern
+      if(!$("mine").checked) return false;
+      return !q||p.name.toLowerCase().includes(q)||(p.team||"").toLowerCase()===q;
+    }
     if(state.pos!=="Ohne Wertung"){
       if(t==="hs"&&!["hot","signal"].includes(p.tier))return false;
       if(t==="hsr"&&!["hot","signal","radar"].includes(p.tier))return false;
@@ -177,7 +189,6 @@ function filtered(){
     if(q&&!(p.name.toLowerCase().includes(q)||(p.team||"").toLowerCase()===q))return false;
     return true;
   }).sort((a,b)=>{
-    if(state.sort==="score"&&state.dir===-1){const d=(TIER_ORDER[a.tier]??9)-(TIER_ORDER[b.tier]??9); if(d) return d;}
     const va=val(a,state.sort),vb=val(b,state.sort);
     if(va==null&&vb==null)return 0; if(va==null)return 1; if(vb==null)return -1;
     return (typeof va==="string"?va.localeCompare(vb):va-vb)*state.dir;
@@ -191,8 +202,10 @@ function render(){
   $("body").innerHTML=rows.map(p=>{
     const i=DATA.indexOf(p), snapS=(p.trend||{})[isIdp(p)?"def_pct":"off_pct"], u=usageSeries(p);
     const flags=(p.flags||[]).map(f=>`<span class="flag ${f==="INJURED"?"inj":""}">${f==="INJURED"?esc(p.injury):FLAG[f]}</span>`).join("");
-    return `<tr>
-      <td class="l"><span class="tier t-${p.tier}" title="${p.tier}"></span><span class="name" tabindex="0" data-i="${i}">${esc(p.name)}</span><span class="sub">${esc(p.pos)} · ${esc(p.team)}</span></td>
+    const role=p.defense&&p.defense.role?`<span class="role">${p.defense.role}</span>`:"";
+    const own=p.mine?`<span class="kader">Kader · ${esc(p.slot)}</span>`:"";
+    return `<tr class="${p.mine?"is-mine":""}">
+      <td class="l"><span class="tier t-${p.tier}" title="${p.mine?"Mein Kader":p.tier}"></span><span class="name" tabindex="0" data-i="${i}">${esc(p.name)}</span><span class="sub">${esc(p.pos)} · ${esc(p.team)}</span>${role}${own}</td>
       <td>${p.age==null?"–":Math.floor(p.age)}${p.rookie?' <span class="sv">R</span>':""}</td>
       <td class="score">${p.score==null?"–":fmt(p.score,0)}</td>
       <td class="l">${flags}</td>
@@ -223,6 +236,8 @@ function trendHtml(p){
     rows.push(["Tackles assist", t.def_tackle_assists, nm]);
     if(t.def_sacks) rows.push(["Sacks", t.def_sacks, nm]);
     if(t.def_pass_defended) rows.push(["Pass defended", t.def_pass_defended, nm]);
+    if(t.qbh) rows.push(["QB-Hits", t.qbh, nm]);
+    if(t.tfl) rows.push(["Tackles for Loss", t.tfl, nm]);
   } else {
     if(t.carries) rows.push(["Carries", t.carries, nm]);
     if(t.targets) rows.push(["Targets", t.targets, nm]);
@@ -232,7 +247,13 @@ function trendHtml(p){
   }
   const head="<tr><th></th>"+WEEKS.map(w=>`<th>W${w}</th>`).join("")+"</tr>";
   const body=rows.filter(r=>r[1]).map(([l,s,f])=>`<tr><td class="lbl">${l}</td>`+WEEKS.map((w,i)=>`<td>${f(s[i])}</td>`).join("")+"</tr>").join("");
-  return `<h3>${esc(p.name)}</h3><div class="meta">${esc(p.pos)}, ${esc(p.team)}. Leer = keine Daten (Bye, inaktiv, verletzt).</div>`+
+  const dp=p.defense;
+  const sum=dp?`<div class="sum">Saison: ${dp.tk} Tackles in ${dp.snaps} Snaps (${dp.tps.toFixed(3)} pro Snap)`+
+    (dp.run_share!=null?`, ${Math.round(dp.run_share*100)} % bei Laufspielzügen`:"")+
+    (dp.depth!=null?`, Tackle-Tiefe Ø ${dp.depth} Yds`:"")+
+    ((dp.qbh||dp.tfl)?`, ${dp.qbh} QB-Hits, ${dp.tfl} TFL`:"")+
+    (dp.role?`. Rolle: ${dp.role}`:"")+`</div>`:"";
+  return `<h3>${esc(p.name)}</h3><div class="meta">${esc(p.pos)}, ${esc(p.team)}. Leer = keine Daten (Bye, inaktiv, verletzt).</div>`+sum+
     (body?`<table>${head}${body}</table>`:"<p>Keine Wochendaten.</p>");
 }
 let tipFor=null;
@@ -269,13 +290,13 @@ function sortBy(k){
 $("pos").innerHTML=POS.map(p=>`<button class="chip" aria-pressed="${p===state.pos}" data-p="${p}">${p}</button>`).join("");
 $("pos").addEventListener("click",e=>{const b=e.target.closest(".chip"); if(!b)return; state.pos=b.dataset.p;
   [...$("pos").children].forEach(c=>c.setAttribute("aria-pressed",c===b)); render()});
-["tier","noinj","young"].forEach(id=>$(id).addEventListener("change",render));
+["tier","noinj","young","mine"].forEach(id=>$(id).addEventListener("change",render));
 $("q").addEventListener("input",render);
 
 fetch("https://raw.githubusercontent.com/Commissioner-D/mld-free-agents/data/data/free_agents.json?v="+Date.now()).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(d=>{
   DATA=d.players; WEEKS=d.trend_weeks||[];
   const t=new Date(d.generated_utc.replace(" ","T")+"Z");
-  $("stand").textContent=`Stand ${t.toLocaleString("de-AT",{weekday:"short",day:"numeric",month:"numeric",hour:"2-digit",minute:"2-digit"})} · ${d.count} Free Agents · NFL-Wochen ${d.trend_weeks.join(", ")}`;
+  $("stand").textContent=`Stand ${t.toLocaleString("de-AT",{weekday:"short",day:"numeric",month:"numeric",hour:"2-digit",minute:"2-digit"})} · ${d.count} Free Agents + ${d.roster_count||0} im Kader · NFL-Wochen ${d.trend_weeks.join(", ")}`;
   render();
 }).catch(err=>{$("stand").textContent="Daten konnten nicht geladen werden ("+err.message+"). Workflow „Fetch Free Agents“ im Repo starten.";});
 </script>
