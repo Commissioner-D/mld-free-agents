@@ -3,10 +3,14 @@ name: Fetch Free Agents
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 5 * * *"   # taeglich 05:00 UTC, wird an Waiver-Zeit angepasst
+    - cron: "0 */4 * * *"   # alle 4 Stunden (UTC). GitHub startet oft 5-30 min verspaetet.
 
 permissions:
   contents: write
+
+concurrency:
+  group: fetch
+  cancel-in-progress: false
 
 jobs:
   fetch:
@@ -18,13 +22,15 @@ jobs:
           python-version: "3.12"
       - name: Fetch
         run: python fetch.py
-      - name: Commit
+      - name: Publish to data branch (overwrite, no history growth)
         run: |
+          mkdir -p /tmp/out && cp data/free_agents.json /tmp/out/
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+          git checkout --orphan data-tmp
+          git rm -rf --cached . -q
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          mkdir data && cp /tmp/out/free_agents.json data/
           git add data
-          git commit -m "FA update $(date -u +%Y-%m-%d_%H%M)" || exit 0
-          git fetch origin main
-          git reset --soft origin/main
-          git commit -m "FA update $(date -u +%Y-%m-%d_%H%M)" || exit 0
-          git push
+          git commit -q -m "FA data $(date -u +%Y-%m-%d_%H%M)"
+          git push -f origin HEAD:data
