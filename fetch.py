@@ -216,17 +216,18 @@ def score_players(fas):
                   "role": role, "role_trend": role_delta, "own": p.get("pct_owned"), "proj": p.get("proj"),
                   "snap_last": role_last, "ts_last": ts_last}
         flags = []
-        if role_delta is not None and role_delta >= 0.20:
+        if role_delta is not None and role_delta >= 0.20 and (role_last or 0) >= 0.50:
             flags.append("SNAP_JUMP")
         if g in ("WR", "TE", "RB") and ts_last is not None and ts_last >= 0.20:
             flags.append("TARGETS")
-        if (g in ("LB", "S") and role_last and role_last >= 0.90) or (g == "DL" and role_last and role_last >= 0.75):
+        if (g in ("LB", "S") and role_last and role_last >= 0.90) or (g == "DL" and role_last and role_last >= 0.80):
             flags.append("EVERY_DOWN")
         n = p.get("news") or {}
         if n.get("time") and now_ms - float(n["time"]) <= week_ms and \
                 NEWS_POS.search(f'{n.get("text") or ""} {n.get("analysis") or ""}'):
             flags.append("NEWS")
-        if p.get("age") is not None and p["age"] <= 24.5 and role_delta is not None and role_delta >= 0.10:
+        if p.get("age") is not None and p["age"] <= 24.5 and role_delta is not None and role_delta >= 0.10 \
+                and (role_last or 0) >= 0.40:
             flags.append("YOUNG_RISER")
         if p.get("injury") in BAD_INJ:
             flags.append("INJURED")
@@ -244,11 +245,12 @@ def score_players(fas):
         for i, p in enumerate(ps):
             p["group_rank"] = i + 1
             trig = [f for f in p["flags"] if f != "INJURED"]
-            if i < HOT_N[g]:
+            rising = (p["m"]["role_trend"] or 0) >= 0.10 and (p["m"]["snap_last"] or 0) >= 0.40
+            if i < HOT_N[g] and p["score"] >= 70:
                 p["tier"] = "hot"
-            elif trig:
+            elif trig and p["score"] >= 45:
                 p["tier"] = "signal"
-            elif p["score"] >= 55 or (p["m"]["role_trend"] or 0) > 0.05:
+            elif p["score"] >= 65 or trig or rising:      # schwache Signale: nicht verlieren, aber nur Radar
                 p["tier"] = "radar"
             else:
                 p["tier"] = "rest"
