@@ -1,5 +1,5 @@
 """MLD Free Agents: Fleaflicker FA-Liste + nflverse-Trends (Snaps, Targets, IDP)."""
-import csv, io, json, os, re, time, unicodedata, urllib.request, urllib.error
+import csv, gzip, io, json, os, re, time, unicodedata, urllib.request, urllib.error
 from datetime import datetime, timezone
 
 LEAGUE_ID = 294292
@@ -125,6 +125,25 @@ def build_nflverse():
                       "def_tackles_solo", "def_tackle_assists", "def_sacks", "def_pass_defended"]:
                 if r.get(k) not in (None, "", "NA"):
                     s[k] = num(r[k])
+    # Red Zone aus Play-by-Play (yardline_100 <= 20): Targets + Carries pro Spieler/Woche
+    gsis = {r["player_id"]: (norm(r["player_display_name"]), r["team"]) for r in stats}
+    try:
+        raw = gzip.decompress(get(f"{NFLV}/pbp/play_by_play_{SEASON}.csv.gz")).decode("utf-8")
+        for r in csv.DictReader(io.StringIO(raw)):
+            if r.get("season_type") != "REG" or not r.get("week") or int(r["week"]) not in keep:
+                continue
+            try:
+                if float(r.get("yardline_100") or 99) > 20:
+                    continue
+            except ValueError:
+                continue
+            pt, wk = r.get("play_type"), int(r["week"])
+            pid = r.get("receiver_player_id") if pt == "pass" else r.get("rusher_player_id") if pt == "run" else None
+            if pid and pid in gsis and gsis[pid] in agg:
+                s = agg[gsis[pid]].setdefault(wk, {})
+                s["rz_opps"] = s.get("rz_opps", 0) + 1
+    except Exception as e:                            # pbp faellt aus -> Rest laeuft weiter
+        print("pbp nicht verfuegbar:", e)
     by_name = {}
     for (n, t) in agg:
         by_name.setdefault(n, []).append(t)
@@ -158,7 +177,7 @@ def trends(weekly, weeks):
         wk = weekly.get(w)
         if wk and ("carries" in wk or "targets" in wk):
             wk["opps"] = (wk.get("carries") or 0) + (wk.get("targets") or 0)
-    for k in ["off_pct", "def_pct", "st_pct", "targets", "target_share", "wopr", "carries", "opps",
+    for k in ["off_pct", "def_pct", "st_pct", "targets", "target_share", "wopr", "carries", "opps", "rz_opps",
               "def_tackles_solo", "def_tackle_assists", "def_sacks", "def_pass_defended"]:
         series = [weekly.get(w, {}).get(k) for w in weeks]
         if any(v for v in series):          # nur Null/None -> weglassen
@@ -171,7 +190,7 @@ def trends(weekly, weeks):
 SCORE_GROUP = {"QB": "QB", "RB": "RB", "WR": "WR", "TE": "TE", "EDR": "DL", "IL": "DL",
                "EDR/IL": "DL", "LB": "LB", "S": "S"}          # CB, DB, K: keine Wertung, bleiben aber drin
 HOT_N = {"QB": 5, "RB": 8, "WR": 10, "TE": 5, "DL": 6, "LB": 8, "S": 6}
-WEIGHTS = {"form1": .20, "form3": .20, "avg": .10, "role": .20, "role_trend": .15, "own": .05, "proj": .10}
+WEIGHTS = {"form1": .18, "form3": .18, "avg": .08, "role": .20, "role_trend": .14, "rz": .10, "own": .04, "proj": .08}
 NEWS_POS = re.compile(r"\b(will start|expected to start|in line to start|starting role|named (the )?starter|"
                       r"promot|first-team|first team|expanded role|increased role|bigger role|"
                       r"lead back|atop the depth chart|top of the depth chart|take over|takes over|"
@@ -217,11 +236,13 @@ def score_players(fas):
         role = role_last
         if g in ("WR", "TE") and ts_last is not None:
             role = 0.5 * (role_last or 0) + 0.5 * min(ts_last * 3, 1)   # Target Share 33 % = voll
-        elif g == "RB" and opps_last is not None:
-            role = 0.5 * (role_last or 0) + 0.5 * min(opps_last / 20, 1)  # 20 Opportunities = voll
+        elif g == "RB":                                 # Touches zaehlen, Snaps allein (Fullback) kaum
+            role = 0.2 * (role_last or 0) + 0.8 * min((opps_last or 0) / 18, 1)
         p["m"] = {"form1": p.get("pts_last1"), "form3": p.get("pts_last3"), "avg": p.get("pts_avg"),
                   "role": role, "role_trend": role_delta, "own": p.get("pct_owned"), "proj": p.get("proj"),
-                  "snap_last": role_last, "ts_last": ts_last, "opps_last": opps_last}
+                  "snap_last": role_last, "ts_last": ts_last, "opps_last": opps_last,
+                  "rz": (sum(v for v in (tr.get("rz_opps") or [])[-3:] if v) or None) if g in ("RB", "WR", "TE") else None,
+                  "rz_last": ([v for v in (tr.get("rz_opps") or []) if v is not None] or [None])[-1]}
         flags = []
         if role_delta is not None and role_delta >= 0.20 and (role_last or 0) >= 0.50:
             flags.append("SNAP_JUMP")
@@ -229,6 +250,8 @@ def score_players(fas):
             flags.append("TARGETS")
         if g == "RB" and opps_last is not None and opps_last >= 12:
             flags.append("WORKLOAD")
+        if g in ("RB", "WR", "TE") and (p["m"]["rz_last"] or 0) >= 3:
+            flags.append("RED_ZONE")
         if (g in ("LB", "S") and role_last and role_last >= 0.90) or (g == "DL" and role_last and role_last >= 0.80):
             flags.append("EVERY_DOWN")
         n = p.get("news") or {}
@@ -249,7 +272,12 @@ def score_players(fas):
     for g, ps in groups.items():
         ranks = {k: pct_rank([p["m"][k] for p in ps]) for k in WEIGHTS}
         for i, p in enumerate(ps):
-            p["score"] = round(100 * sum(WEIGHTS[k] * ranks[k][i] for k in WEIGHTS), 1)
+            sc = 100 * sum(WEIGHTS[k] * ranks[k][i] for k in WEIGHTS)
+            if g == "RB":                              # wenig Touches (Fullback, Garbage-Time) -> nach hinten
+                o = [v for v in ((p.get("trend") or {}).get("opps") or []) if v is not None]
+                avg_o = sum(o) / len(o) if o else 0
+                sc *= min(1.0, 0.5 + avg_o / 10)
+            p["score"] = round(sc, 1)
         ps.sort(key=lambda p: -p["score"])
         for i, p in enumerate(ps):
             p["group_rank"] = i + 1
