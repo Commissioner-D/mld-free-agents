@@ -111,10 +111,11 @@ def build_nflverse():
                       "def_tackles_solo", "def_tackle_assists", "def_sacks", "def_pass_defended"]:
                 if r.get(k) not in (None, "", "NA"):
                     s[k] = num(r[k])
-    by_name = {}
+    by_name, by_last = {}, {}
     for (n, t) in agg:
         by_name.setdefault(n, []).append(t)
-    return agg, by_name, keep
+        by_last.setdefault((n.split(" ")[-1], t), []).append(n)
+    return agg, by_name, by_last, keep
 
 
 def trends(weekly, weeks):
@@ -122,7 +123,7 @@ def trends(weekly, weeks):
     for k in ["off_pct", "def_pct", "st_pct", "targets", "target_share", "wopr", "carries",
               "def_tackles_solo", "def_tackle_assists", "def_sacks", "def_pass_defended"]:
         series = [weekly.get(w, {}).get(k) for w in weeks]
-        if any(v is not None for v in series):
+        if any(v for v in series):          # nur Null/None -> weglassen
             out[k] = series
     return out
 
@@ -132,7 +133,7 @@ def main():
     if os.path.exists("overrides.json"):
         overrides = json.load(open("overrides.json"))  # {"fl_id": "nflverse name|TEAM"}
     fas = fetch_free_agents()
-    agg, by_name, weeks = build_nflverse()
+    agg, by_name, by_last, weeks = build_nflverse()
     unmatched = []
     for p in fas:
         key = None
@@ -146,6 +147,8 @@ def main():
                 key = (n, t)
             elif len(by_name.get(n, [])) == 1:        # Teamwechsel: Name eindeutig
                 key = (n, by_name[n][0])
+            elif len(by_last.get((n.split(" ")[-1], t), [])) == 1:   # Spitzname: Nachname+Team eindeutig
+                key = (by_last[(n.split(" ")[-1], t)][0], t)
         if key and key in agg:
             p["trend"] = trends(agg[key], weeks)
         else:
