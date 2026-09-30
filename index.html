@@ -85,6 +85,8 @@ tbody tr.is-mine:hover{background:rgba(199,163,75,.14)}
 .role.checked{border-color:var(--green);color:var(--green)}
 .flag.trend{background:rgba(106,166,216,.18);color:var(--blue)}
 .flag.scout{background:rgba(79,168,138,.2);color:var(--green)}
+.flag.scout.stale{background:rgba(159,179,198,.12);color:var(--muted);text-decoration:line-through}
+#tip .scout.stale-note{opacity:.6}
 .flag.scout.interim{background:rgba(199,163,75,.16);color:var(--brass)}
 #tip .scout{border-left:2px solid var(--green);padding-left:8px;margin:0 0 8px}
 .empty{padding:30px;color:var(--muted);text-align:center}
@@ -223,10 +225,11 @@ function render(){
     const i=DATA.indexOf(p), snapS=(p.trend||{})[isIdp(p)?"def_pct":"off_pct"], u=usageSeries(p);
     const flags=(p.flags||[]).map(f=>f==="INJURED"?`<span class="flag inj">${esc(p.injury)}</span>`:
       f==="TRENDING"?`<span class="flag trend" title="Sleeper: meiste Adds der letzten 48 h. ESPN: größter Ownership-Zuwachs.">${[p.trending&&p.trending.rank<=50?"Sleeper #"+p.trending.rank:null,p.espn&&p.espn.rank<=50?"ESPN #"+p.espn.rank:null].filter(Boolean).join(" · ")}</span>`:
-      f==="SCOUT"?`<span class="flag scout${p.scout.interim_for?" interim":""}" title="${esc(p.scout.source||"")}">${esc(p.scout.badge)}${p.scout.interim_for?` · vertritt ${esc(p.scout.interim_for)}`:""}${p.scout.until?` · ${esc(p.scout.until)}`:""}</span>`:
+      f==="SCOUT"?`<span class="flag scout${p.scout.stale?" stale":p.scout.interim_for?" interim":""}" title="${esc(p.scout.source||"")}">${esc(p.scout.badge)}${p.scout.interim_for?` · vertritt ${esc(p.scout.interim_for)}`:""}${p.scout.until?` · ${esc(p.scout.until)}`:""}${p.scout.stale?" (veraltet)":""}</span>`:
       `<span class="flag">${FLAG[f]}</span>`).join("");
-    const rl=(p.scout&&p.scout.role)||(p.defense&&p.defense.role);
-    const role=rl?`<span class="role${p.scout&&p.scout.role?" checked":""}" title="${p.scout&&p.scout.role?"recherchiert":"aus Tackle-Daten geschätzt"}">${esc(rl)}${p.scout&&p.scout.role?" ✓":""}</span>`:"";
+    const fresh=p.scout&&!p.scout.stale&&p.scout.role;
+    const rl=(fresh&&p.scout.role)||(p.defense&&p.defense.role);
+    const role=rl?`<span class="role${fresh?" checked":""}" title="${fresh?"recherchiert":"aus Tackle-Daten geschätzt"}">${esc(rl)}${fresh?" ✓":""}</span>`:"";
     const dep=p.depth?`<span class="depth" tabindex="0" data-i="${i}">${p.depth.lab}</span>`:"";
     const own=p.mine?`<span class="kader">Kader · ${esc(p.slot)}</span>`:"";
     return `<tr class="${p.mine?"is-mine":""}">
@@ -247,7 +250,7 @@ function tipHtml(p){
               p.group_rank?"#"+p.group_rank+" "+p.group:null].filter(Boolean).join(" | ");
   return `<h3>${esc(p.name)}</h3><div class="meta">${esc(meta)}</div>`+
     (p.scout&&p.scout.interim_for?`<p class="scout"><b>Vertritt:</b> ${esc(p.scout.interim_for)}${p.scout.until?`<br><b>Voraussichtlich:</b> ${esc(p.scout.until)}`:""}${p.scout.until_detail?`<br>${esc(p.scout.until_detail)}`:""}</p>`:"")+
-    (p.scout&&p.scout.note?`<div class="scout"><p>${esc(p.scout.note)}</p><div class="meta">Recherche${p.scout.source?": "+esc(p.scout.source):""}${p.scout.date?", "+esc(p.scout.date):""}</div></div>`:"")+
+    (p.scout&&p.scout.note?`<div class="scout"><p>${esc(p.scout.note)}</p><div class="meta">${p.scout.auto?"Automatische Recherche":"Recherche"}${p.scout.source?": "+esc(p.scout.source):""}${p.scout.date?", "+esc(p.scout.date):""}${p.scout.stale?` · <b>veraltet</b> (${p.scout.age_days} Tage alt)`:""}</div></div>`:"")+
     (p.trending?`<div class="meta">Sleeper Trending Adds: #${p.trending.rank} der letzten 48 h</div>`:"")+
     (p.espn?`<div class="meta">ESPN Ownership-Zuwachs: #${p.espn.rank} (+${p.espn.chg} %-Punkte)</div>`:"")+
     (n.text?`<p>${esc(n.text)}</p>`:"<p>Keine aktuelle News.</p>")+
