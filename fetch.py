@@ -252,7 +252,7 @@ def trends(weekly, weeks):
 
 def def_profile(sd, pos, snap_avg=None):
     """Saison-Profil Defense: Tackles/Snap, Lauf-Anteil, Tackle-Tiefe, Rolle.
-    S (ab 10 Tackles): Box / Hybrid / Deep aus Tackle-Tiefe + Lauf-Anteil.
+    S (ab 10 Tackles): Box (>=40 % der Tackles innerhalb 4 Yds) / Hybrid / Deep (<=25 %).
     LB (ab 40 Snaps): Pass Rush / Every Down / Early Down / Rotation aus Snap-Anteil + QB-Hits/TFL."""
     if not sd or not sd["def_snaps"]:
         return None
@@ -260,14 +260,17 @@ def def_profile(sd, pos, snap_avg=None):
     med = d[len(d) // 2] if d else None
     run_share = sd["run"] / sd["tk"] if sd["tk"] else None
     role = None
-    if pos == "S" and sd["tk"] >= 10 and med is not None:
-        role = "Box" if med <= 6 and (run_share or 0) >= 0.45 else "Deep" if med >= 9 else "Hybrid"
+    near = sum(1 for y in d if y <= 4) / len(d) if d else None     # Anteil Tackles nahe der Line
+    if pos == "S" and sd["tk"] >= 10 and near is not None:
+        role = "Box" if near >= 0.40 else "Deep" if near <= 0.25 else "Hybrid"
     if pos == "LB" and sd["def_snaps"] >= 40 and snap_avg is not None:
         press = (sd["qbh"] + sd["tfl"]) / sd["def_snaps"]
         role = ("Pass Rush" if press >= 0.05 and sd["qbh"] >= 3 else
                 "Every Down" if snap_avg >= 0.85 else "Early Down" if snap_avg >= 0.60 else "Rotation")
     return {"snaps": sd["def_snaps"], "tk": sd["tk"], "tps": round(sd["tk"] / sd["def_snaps"], 3),
             "run_share": round(run_share, 2) if run_share is not None else None, "depth": med,
+            "near_los": round(near, 2) if near is not None else None,
+            "depth_avg": round(sum(d) / len(d), 1) if d else None,
             "qbh": sd["qbh"], "tfl": sd["tfl"],
             "press": round((sd["qbh"] + sd["tfl"]) / sd["def_snaps"], 3), "role": role}
 
