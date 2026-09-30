@@ -93,7 +93,7 @@ tbody tr:hover{background:rgba(106,166,216,.07)}
   <p class="legend">
     Punkt links: <span class="tier t-hot"></span>heiß (Top der Position) <span class="tier t-signal"></span>Signal (Trigger ausgelöst)
     <span class="tier t-radar"></span>Radar. Score = Perzentil innerhalb der Position aus Form, Niveau, Rolle, Rollentrend,
-    Ownership und Projektion. Verläufe zeigen die letzten Wochen, der Wert rechts ist die letzte Woche. Nutzung: Tackles (IDP), Carries + Targets (RB), Target Share (WR/TE).
+    Ownership und Projektion. Verläufe zeigen die letzten Wochen, der Wert rechts ist die letzte Woche. Nutzung: Tackles (IDP), Carries + Targets (RB), Target Share (WR/TE). RZ: Targets + Carries innerhalb der 20-Yard-Linie, letzte 3 Wochen.
     Mit der Maus auf den Namen (am Handy antippen) für News und Details.
   </p>
 </div>
@@ -101,7 +101,7 @@ tbody tr:hover{background:rgba(106,166,216,.07)}
 
 <script>
 const POS = ["Alle","QB","RB","WR","TE","DL","LB","S","Ohne Wertung"];
-const FLAG = {SNAP_JUMP:"Snaps ↑",TARGETS:"Targets 20 %+",EVERY_DOWN:"Every Down",NEWS:"News +",YOUNG_RISER:"Jung & steigend",WORKLOAD:"12+ Touches",INJURED:"verletzt"};
+const FLAG = {SNAP_JUMP:"Snaps ↑",TARGETS:"Targets 20 %+",EVERY_DOWN:"Every Down",NEWS:"News +",YOUNG_RISER:"Jung & steigend",WORKLOAD:"12+ Touches",RED_ZONE:"Red Zone",INJURED:"verletzt"};
 const TIER_ORDER = {hot:0,signal:1,radar:2,rest:3,unscored:4};
 const COLS = [
   {k:"name",l:"Spieler",c:"l"},
@@ -113,6 +113,7 @@ const COLS = [
   {k:"pts_avg",l:"Ø Saison"},
   {k:"proj",l:"Proj."},
   {k:"pct_owned",l:"Owned"},
+  {k:"rz",l:"RZ 3 Wo."},
   {k:"snap",l:"Snaps",c:"l"},
   {k:"usage",l:"Nutzung",c:"l"},
 ];
@@ -150,6 +151,7 @@ function val(p,k){
   if(k==="snap"){const s=(p.trend||{})[isIdp(p)?"def_pct":"off_pct"];return s?[...s].reverse().find(v=>v!=null)??null:null}
   if(k==="usage"){const u=usageSeries(p);return u?[...u.s].reverse().find(v=>v!=null)??null:null}
   if(k==="name") return p.name;
+  if(k==="rz") return p.m?p.m.rz:null;
   return p[k];
 }
 function filtered(){
@@ -187,6 +189,7 @@ function render(){
       <td class="l">${flags}</td>
       <td>${fmt(p.pts_last1)}</td><td>${fmt(p.pts_last3)}</td><td>${fmt(p.pts_avg)}</td><td>${fmt(p.proj)}</td>
       <td>${p.pct_owned==null?"–":Math.round(p.pct_owned*100)+" %"}</td>
+      <td title="Red-Zone-Targets + Carries, letzte 3 Wochen">${p.m&&p.m.rz!=null?p.m.rz:"–"}</td>
       <td class="l">${spark(snapS,1,true)}</td>
       <td class="l" title="${u?u.lab:""}">${u?spark(u.s,u.max,u.pct):'<span class="sv">–</span>'}</td>
     </tr>`}).join("");
