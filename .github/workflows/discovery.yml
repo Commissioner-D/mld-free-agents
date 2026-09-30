@@ -1,0 +1,28 @@
+name: API Discovery
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Fetch test
+        run: |
+          mkdir -p discovery
+          B="https://www.fleaflicker.com/api/FetchPlayerListing?sport=NFL&league_id=294292"
+          curl -s "$B&filter.free_agent_only=true&sort=SORT_PROJECTED" -o discovery/fa_test.json
+          curl -s "$B&filter.free_agent_only=true&filter.position.eligibility=LB" -o discovery/fa_test_lb.json
+          curl -s "$B&filter.free_agent_only=true&result_offset=30" -o discovery/fa_test_offset30.json
+          ls -la discovery
+      - name: Commit
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add discovery
+          git commit -m "API discovery" || echo "nothing to commit"
+          git push
