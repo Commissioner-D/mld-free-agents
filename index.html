@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admirals FA-Radar</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚓</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#10243a; --surface:#17314d; --line:#27486b; --text:#e9eef2; --muted:#9fb3c6;
+  --brass:#c7a34b; --red:#d2553f; --green:#4fa88a; --blue:#6aa6d8;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--text);
+  font:15px/1.45 "Barlow Semi Condensed",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{padding:20px 20px 8px;max-width:1400px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px}
+h1{margin:0;font-size:28px;font-weight:700;letter-spacing:.2px}
+h1 span{color:var(--brass)}
+.stand{color:var(--muted);font-size:14px}
+.controls{max-width:1400px;margin:0 auto;padding:10px 20px 14px;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;
+  position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;border-bottom:1px solid var(--line)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:transparent;color:var(--text);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font:inherit;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--brass);border-color:var(--brass);color:#1a1a1a;font-weight:600}
+select,input[type=search]{background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:5px 9px;font:inherit}
+input[type=search]{min-width:170px}
+label.tog{display:flex;gap:6px;align-items:center;color:var(--muted);cursor:pointer}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.count{color:var(--muted);margin-left:auto}
+.wrap{max-width:1400px;margin:0 auto;padding:0 20px 40px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:1050px}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th{position:sticky;top:0;background:var(--surface);color:var(--muted);font-weight:600;cursor:pointer;user-select:none}
+th.l,td.l{text-align:left}
+th[aria-sort="descending"]::after{content:" ▾";color:var(--brass)}
+th[aria-sort="ascending"]::after{content:" ▴";color:var(--brass)}
+tbody tr:hover{background:rgba(106,166,216,.07)}
+.name{font-weight:600;cursor:help;border-bottom:1px dotted var(--muted)}
+.sub{color:var(--muted);font-size:13px;margin-left:6px}
+.tier{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.t-hot{background:var(--red)} .t-signal{background:var(--brass)} .t-radar{background:var(--blue)} .t-rest,.t-unscored{background:var(--line)}
+.score{font-weight:700}
+.flag{display:inline-block;font-size:12px;padding:1px 7px;border-radius:4px;margin:0 3px 0 0;background:rgba(199,163,75,.16);color:var(--brass)}
+.flag.inj{background:rgba(210,85,63,.18);color:#f08a76}
+.spark{vertical-align:middle}
+.sv{font-size:12px;color:var(--muted);margin-left:5px}
+.up{color:var(--green)} .down{color:var(--red)}
+.legend{color:var(--muted);font-size:13px;margin:14px 0 0;max-width:80ch}
+#tip{position:fixed;z-index:20;max-width:380px;background:var(--surface);border:1px solid var(--brass);border-radius:8px;
+  padding:12px 14px;box-shadow:0 8px 28px rgba(0,0,0,.45);display:none;font-size:14px;line-height:1.45}
+#tip h3{margin:0 0 4px;font-size:17px}
+#tip .meta{color:var(--muted);font-size:13px;margin-bottom:8px}
+#tip p{margin:0 0 8px}
+#tip .an{color:var(--muted)}
+#tip a{color:var(--brass)}
+.empty{padding:30px;color:var(--muted);text-align:center}
+@media (max-width:700px){header,.controls,.wrap{padding-left:12px;padding-right:12px}.count{margin-left:0}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <h1>FA-Radar <span>MLD</span></h1>
+  <div class="stand" id="stand">Lade Daten …</div>
+</header>
+
+<div class="controls">
+  <div class="chips" id="pos" role="group" aria-label="Position"></div>
+  <select id="tier" aria-label="Stufe">
+    <option value="hs">Heiß + Signal</option>
+    <option value="hsr">+ Radar</option>
+    <option value="all">Alle Free Agents</option>
+  </select>
+  <input type="search" id="q" placeholder="Spieler oder Team suchen" aria-label="Suche">
+  <label class="tog"><input type="checkbox" id="noinj" checked> Verletzte ausblenden</label>
+  <label class="tog"><input type="checkbox" id="young"> Nur ≤ 25 Jahre</label>
+  <span class="count" id="count"></span>
+</div>
+
+<div class="wrap">
+  <div class="scroll">
+    <table>
+      <thead><tr id="head"></tr></thead>
+      <tbody id="body"></tbody>
+    </table>
+  </div>
+  <p class="legend">
+    Punkt links: <span class="tier t-hot"></span>heiß (Top der Position) <span class="tier t-signal"></span>Signal (Trigger ausgelöst)
+    <span class="tier t-radar"></span>Radar. Score = Perzentil innerhalb der Position aus Form, Niveau, Rolle, Rollentrend,
+    Ownership und Projektion. Verläufe zeigen die letzten Wochen, der Wert rechts ist die letzte Woche.
+    Mit der Maus auf den Namen (am Handy antippen) für News und Details.
+  </p>
+</div>
+<div id="tip" role="tooltip"></div>
+
+<script>
+const POS = ["Alle","QB","RB","WR","TE","DL","LB","S","Ohne Wertung"];
+const FLAG = {SNAP_JUMP:"Snaps ↑",TARGETS:"Targets 20 %+",EVERY_DOWN:"Every Down",NEWS:"News +",YOUNG_RISER:"Jung & steigend",INJURED:"verletzt"};
+const TIER_ORDER = {hot:0,signal:1,radar:2,rest:3,unscored:4};
+const COLS = [
+  {k:"name",l:"Spieler",c:"l"},
+  {k:"age",l:"Alter"},
+  {k:"score",l:"Score"},
+  {k:"flags",l:"Signale",c:"l",nosort:true},
+  {k:"pts_last1",l:"Letzte"},
+  {k:"pts_last3",l:"Ø 3"},
+  {k:"pts_avg",l:"Ø Saison"},
+  {k:"proj",l:"Proj."},
+  {k:"pct_owned",l:"Owned"},
+  {k:"snap",l:"Snaps",c:"l"},
+  {k:"usage",l:"Nutzung",c:"l"},
+];
+let DATA=[], state={pos:"Alle",sort:"score",dir:-1};
+const $=id=>document.getElementById(id);
+const fmt=(v,d=1)=>v==null?"–":Number(v).toFixed(d);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const isIdp=p=>["DL","LB","S"].includes(p.group)||["CB","DB"].includes(p.pos);
+
+function spark(series,max,pct){
+  if(!series||!series.some(v=>v!=null)) return '<span class="sv">–</span>';
+  const w=54,h=18,n=series.length,step=n>1?w/(n-1):0;
+  const pts=series.map((v,i)=>v==null?null:[i*step,h-2-(Math.min(v,max)/max)*(h-4)]);
+  let d="",pen=false;
+  pts.forEach(p=>{if(!p){pen=false;return}d+=(pen?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1);pen=true});
+  const vals=series.filter(v=>v!=null), last=vals[vals.length-1], first=vals[0];
+  const cls=vals.length>1?(last>first+(pct?.05:.5)?"up":last<first-(pct?.05:.5)?"down":""):"";
+  const col=cls==="up"?"var(--green)":cls==="down"?"var(--red)":"var(--blue)";
+  const dots=pts.filter(Boolean).map(p=>`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="1.8" fill="${col}"/>`).join("");
+  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><path d="${d}" fill="none" stroke="${col}" stroke-width="1.6"/>${dots}</svg>`+
+         `<span class="sv ${cls}">${pct?Math.round(last*100)+" %":fmt(last,0)}</span>`;
+}
+function usageSeries(p){
+  const t=p.trend||{};
+  if(isIdp(p)){
+    const s=t.def_tackles_solo||[],a=t.def_tackle_assists||[];
+    const n=Math.max(s.length,a.length); if(!n) return null;
+    return {s:Array.from({length:n},(_,i)=>s[i]==null&&a[i]==null?null:(s[i]||0)+(a[i]||0)),max:14,pct:false,lab:"Tackles"};
+  }
+  if(t.target_share) return {s:t.target_share,max:.4,pct:true,lab:"Target Share"};
+  if(t.carries) return {s:t.carries,max:25,pct:false,lab:"Carries"};
+  return null;
+}
+function val(p,k){
+  if(k==="snap"){const s=(p.trend||{})[isIdp(p)?"def_pct":"off_pct"];return s?[...s].reverse().find(v=>v!=null)??null:null}
+  if(k==="usage"){const u=usageSeries(p);return u?[...u.s].reverse().find(v=>v!=null)??null:null}
+  if(k==="name") return p.name;
+  return p[k];
+}
+function filtered(){
+  const q=$("q").value.trim().toLowerCase(), t=$("tier").value;
+  return DATA.filter(p=>{
+    if(state.pos==="Ohne Wertung"){if(p.group)return false}
+    else if(state.pos!=="Alle"&&p.group!==state.pos)return false;
+    if(state.pos!=="Ohne Wertung"){
+      if(t==="hs"&&!["hot","signal"].includes(p.tier))return false;
+      if(t==="hsr"&&!["hot","signal","radar"].includes(p.tier))return false;
+    }
+    if($("noinj").checked&&p.flags&&p.flags.includes("INJURED"))return false;
+    if($("young").checked&&!(p.age!=null&&p.age<=25))return false;
+    if(q&&!(p.name.toLowerCase().includes(q)||(p.team||"").toLowerCase()===q))return false;
+    return true;
+  }).sort((a,b)=>{
+    if(state.sort==="score"&&state.dir===-1){const d=(TIER_ORDER[a.tier]??9)-(TIER_ORDER[b.tier]??9); if(d) return d;}
+    const va=val(a,state.sort),vb=val(b,state.sort);
+    if(va==null&&vb==null)return 0; if(va==null)return 1; if(vb==null)return -1;
+    return (typeof va==="string"?va.localeCompare(vb):va-vb)*state.dir;
+  });
+}
+function render(){
+  $("head").innerHTML=COLS.map(c=>`<th class="${c.c||""}" data-k="${c.k}" ${c.nosort?"":'tabindex="0"'} ${state.sort===c.k?`aria-sort="${state.dir<0?"descending":"ascending"}"`:""}>${c.l}</th>`).join("");
+  const rows=filtered();
+  $("count").textContent=rows.length+" Spieler";
+  if(!rows.length){$("body").innerHTML=`<tr><td colspan="${COLS.length}" class="empty">Keine Spieler für diese Filter. Stufe auf „Alle Free Agents" stellen oder Filter lockern.</td></tr>`;return}
+  $("body").innerHTML=rows.map(p=>{
+    const i=DATA.indexOf(p), snapS=(p.trend||{})[isIdp(p)?"def_pct":"off_pct"], u=usageSeries(p);
+    const flags=(p.flags||[]).map(f=>`<span class="flag ${f==="INJURED"?"inj":""}">${f==="INJURED"?esc(p.injury):FLAG[f]}</span>`).join("");
+    return `<tr>
+      <td class="l"><span class="tier t-${p.tier}" title="${p.tier}"></span><span class="name" tabindex="0" data-i="${i}">${esc(p.name)}</span><span class="sub">${esc(p.pos)} · ${esc(p.team)}</span></td>
+      <td>${p.age==null?"–":Math.floor(p.age)}${p.rookie?' <span class="sv">R</span>':""}</td>
+      <td class="score">${p.score==null?"–":fmt(p.score,0)}</td>
+      <td class="l">${flags}</td>
+      <td>${fmt(p.pts_last1)}</td><td>${fmt(p.pts_last3)}</td><td>${fmt(p.pts_avg)}</td><td>${fmt(p.proj)}</td>
+      <td>${p.pct_owned==null?"–":Math.round(p.pct_owned*100)+" %"}</td>
+      <td class="l">${spark(snapS,1,true)}</td>
+      <td class="l" title="${u?u.lab:""}">${u?spark(u.s,u.max,u.pct):'<span class="sv">–</span>'}</td>
+    </tr>`}).join("");
+}
+function tipHtml(p){
+  const n=p.news||{}, when=n.time?new Date(Number(n.time)).toLocaleDateString("de-AT",{day:"numeric",month:"numeric",hour:"2-digit",minute:"2-digit"}):null;
+  const meta=[p.pos+", "+p.team, p.age!=null?Math.floor(p.age)+" J.":null, p.draft, p.exp!=null?p.exp+" J. NFL":null, p.bye?"Bye W"+p.bye:null,
+              p.group_rank?"#"+p.group_rank+" "+p.group:null].filter(Boolean).join(" | ");
+  return `<h3>${esc(p.name)}</h3><div class="meta">${esc(meta)}</div>`+
+    (n.text?`<p>${esc(n.text)}</p>`:"<p>Keine aktuelle News.</p>")+
+    (n.analysis?`<p class="an">${esc(n.analysis)}</p>`:"")+
+    (when?`<div class="meta">News vom ${when}</div>`:"")+
+    `<a href="https://www.fleaflicker.com/nfl/leagues/294292/players/${p.fl_id}" target="_blank" rel="noopener">Auf Fleaflicker öffnen</a>`;
+}
+let tipFor=null;
+function showTip(el){
+  const p=DATA[+el.dataset.i]; const tip=$("tip");
+  tip.innerHTML=tipHtml(p); tip.style.display="block"; tipFor=el;
+  const r=el.getBoundingClientRect(), tw=tip.offsetWidth, th=tip.offsetHeight;
+  let x=Math.min(r.left, window.innerWidth-tw-10), y=r.bottom+6;
+  if(y+th>window.innerHeight-10) y=Math.max(10,r.top-th-6);
+  tip.style.left=Math.max(10,x)+"px"; tip.style.top=y+"px";
+}
+function hideTip(){$("tip").style.display="none";tipFor=null}
+
+document.addEventListener("mouseover",e=>{const n=e.target.closest(".name"); if(n) showTip(n)});
+document.addEventListener("mouseout",e=>{const n=e.target.closest(".name"); if(n&&!$("tip").contains(e.relatedTarget)) hideTip()});
+$("tip").addEventListener("mouseleave",hideTip);
+document.addEventListener("focusin",e=>{const n=e.target.closest(".name"); if(n) showTip(n)});
+document.addEventListener("click",e=>{
+  const n=e.target.closest(".name");
+  if(n){ if(tipFor===n) hideTip(); else showTip(n); return; }
+  if(!e.target.closest("#tip")) hideTip();
+  const th=e.target.closest("th[data-k]"); if(th) sortBy(th.dataset.k);
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape") hideTip();
+  if(e.key==="Enter"){const th=e.target.closest("th[data-k]"); if(th) sortBy(th.dataset.k);}
+});
+window.addEventListener("scroll",hideTip,{passive:true});
+function sortBy(k){
+  const c=COLS.find(c=>c.k===k); if(!c||c.nosort) return;
+  if(state.sort===k) state.dir*=-1; else {state.sort=k; state.dir=k==="name"?1:-1;}
+  render();
+}
+$("pos").innerHTML=POS.map(p=>`<button class="chip" aria-pressed="${p===state.pos}" data-p="${p}">${p}</button>`).join("");
+$("pos").addEventListener("click",e=>{const b=e.target.closest(".chip"); if(!b)return; state.pos=b.dataset.p;
+  [...$("pos").children].forEach(c=>c.setAttribute("aria-pressed",c===b)); render()});
+["tier","noinj","young"].forEach(id=>$(id).addEventListener("change",render));
+$("q").addEventListener("input",render);
+
+fetch("data/free_agents.json?v="+Date.now()).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(d=>{
+  DATA=d.players;
+  const t=new Date(d.generated_utc.replace(" ","T")+"Z");
+  $("stand").textContent=`Stand ${t.toLocaleString("de-AT",{weekday:"short",day:"numeric",month:"numeric",hour:"2-digit",minute:"2-digit"})} · ${d.count} Free Agents · NFL-Wochen ${d.trend_weeks.join(", ")}`;
+  render();
+}).catch(err=>{$("stand").textContent="Daten konnten nicht geladen werden ("+err.message+"). Workflow „Fetch Free Agents" im Repo starten.";});
+</script>
+</body>
+</html>
