@@ -14,15 +14,16 @@ jobs:
       - name: Fetch test
         run: |
           mkdir -p discovery
+          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36"
           B="https://www.fleaflicker.com/api/FetchPlayerListing?sport=NFL&league_id=294292"
-          curl -s "$B&filter.free_agent_only=true&sort=SORT_PROJECTED" -o discovery/fa_test.json
-          curl -s "$B&filter.free_agent_only=true&filter.position.eligibility=LB" -o discovery/fa_test_lb.json
-          curl -s "$B&filter.free_agent_only=true&result_offset=30" -o discovery/fa_test_offset30.json
-          ls -la discovery
+          curl -s -A "$UA" -H "Accept: application/json" "$B&filter.free_agent_only=true&sort=SORT_PROJECTED" -o discovery/fa_test.json -w "fa_test %{http_code}\n"
+          curl -s -A "$UA" -H "Accept: application/json" "$B&filter.free_agent_only=true&filter.position.eligibility=LB" -o discovery/fa_test_lb.json -w "lb %{http_code}\n"
+          curl -s -A "$UA" -H "Accept: application/json" "$B&filter.free_agent_only=true&result_offset=30" -o discovery/fa_test_offset30.json -w "off30 %{http_code}\n"
+          curl -s "https://www.fleaflicker.com/api/FetchLeagueStandings?sport=NFL&league_id=294292" -o discovery/standings_noua.json -w "standings_noUA %{http_code}\n"
       - name: Commit
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add discovery
-          git commit -m "API discovery" || echo "nothing to commit"
+          git commit -m "API discovery v2" || echo "nothing to commit"
           git push
