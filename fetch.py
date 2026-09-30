@@ -239,6 +239,62 @@ def def_profile(sd, pos):
             "press": round((sd["qbh"] + sd["tfl"]) / sd["def_snaps"], 3), "role": role}
 
 
+# ---------- Depth Chart + Injury Report ----------
+DEPTH_GROUP = {"QB": "QB", "RB": "RB", "FB": "RB", "WR": "WR", "TE": "TE",
+               "LDE": "DL", "RDE": "DL", "LDT": "DL", "RDT": "DL", "NT": "DL",
+               "WLB": "LB", "SLB": "LB", "MLB": "LB", "LILB": "LB", "RILB": "LB",
+               "SS": "S", "FS": "S", "LCB": "CB", "RCB": "CB", "NB": "CB"}
+SLOT_ORDER = list(DEPTH_GROUP)
+
+
+def build_injuries():
+    rows = read_csv(f"injuries/injuries_{SEASON}.csv")
+    if not rows:
+        return {}
+    wk = max(int(r["week"]) for r in rows)
+    out = {}
+    for r in rows:
+        if int(r["week"]) != wk:
+            continue
+        st = r.get("report_status") or ""
+        pr = r.get("practice_status") or ""
+        if not st and "Did Not" in pr:
+            st = "DNP"
+        elif not st and "Limited" in pr:
+            st = "Limited"
+        if st:
+            inj = r.get("report_primary_injury") or r.get("practice_primary_injury") or ""
+            out[(norm(r["full_name"]), r["team"])] = f"{st} ({inj})" if inj and "Not injury" not in inj else st
+    return out
+
+
+def build_depth(players_csv, injuries):
+    gname = {r["gsis_id"]: r["display_name"] for r in players_csv if r.get("gsis_id")}
+    rows = read_csv(f"depth_charts/depth_charts_{SEASON}.csv")
+    last = max(r["dt"] for r in rows)
+    teams, player = {}, {}
+    for r in rows:
+        if r["dt"] != last or r["pos_abb"] not in DEPTH_GROUP:
+            continue
+        grp, rank = DEPTH_GROUP[r["pos_abb"]], int(r["pos_rank"])
+        name = gname.get(r.get("gsis_id"), r["player_name"])
+        key = (norm(name), r["team"])
+        lab = f'{r["pos_abb"]}{rank}'
+        entries = teams.setdefault(r["team"], {}).setdefault(grp, [])
+        if any(e["key"] == key for e in entries):
+            continue                                      # Spieler doppelt gelistet -> erster Eintrag zaehlt
+        entries.append({"key": key, "name": name, "lab": lab,
+                        "sort": ((r["pos_abb"] == "FB") * 100 + rank if grp in ("QB", "RB", "WR", "TE")
+                                 else SLOT_ORDER.index(r["pos_abb"]) * 10 + rank),
+                        "inj": injuries.get(key)})
+        if key not in player or rank < player[key]["rank"]:
+            player[key] = {"lab": lab, "grp": grp, "team": r["team"], "rank": rank}
+    for t in teams.values():
+        for g in t:
+            t[g].sort(key=lambda e: e["sort"])
+    return teams, player, last[:10]
+
+
 # ---------- Scoring ----------
 SCORE_GROUP = {"QB": "QB", "RB": "RB", "WR": "WR", "TE": "TE", "EDR": "DL", "IL": "DL",
                "EDR/IL": "DL", "LB": "LB", "S": "S"}          # CB, DB, K: keine Wertung, bleiben aber drin
@@ -363,6 +419,12 @@ def main():
     players_csv = read_csv("players/players.csv")
     agg, by_name, pos_of, season, weeks = build_nflverse(players_csv)
     bio, bio_by_name = build_bio(players_csv)
+    try:
+        injuries = build_injuries()
+        depth_teams, depth_player, depth_date = build_depth(players_csv, injuries)
+    except Exception as e:
+        print("Depth Chart nicht verfuegbar:", e)
+        injuries, depth_teams, depth_player, depth_date = {}, {}, {}, None
     unmatched, review = [], []
     for p in fas + mine:
         n = norm(equiv.get(p["name"], p["name"]))
@@ -376,6 +438,9 @@ def main():
                 key = cand
                 review.append(f'{p["name"]} ({p["pos"]}, {p["team"]}) -> {cand[0]} ({pos_of.get(cand)}, {cand[1]})')
         p["trend"] = trends(agg[key], weeks) if key else None
+        dk = key if key in depth_player else (n, t) if (n, t) in depth_player else None
+        p["depth"] = {k: depth_player[dk][k] for k in ("lab", "grp", "team")} if dk else None
+        p["_key"] = dk
         p["defense"] = def_profile(season.get(key), p["pos"]) if key and p["pos"] in SCORE_GROUP and \
             SCORE_GROUP[p["pos"]] in ("DL", "LB", "S") else None
         if not key and (p.get("pts_total") or 0) > 0:
@@ -390,10 +455,19 @@ def main():
         p["exp"] = int(b["exp"]) if b and b.get("exp") not in (None, "") else None
         p["rookie"] = bool(b and b.get("rookie"))
     score_all(fas, mine)
+    # Depth-Chart-Ausgabe: je Team/Gruppe mit MLD-Status (FA / Kader / vergeben)
+    status = {}
+    for p in fas + mine:
+        if p.get("_key"):
+            status[p["_key"]] = "Kader" if p["mine"] else "FA"
+        p.pop("_key", None)
+    depth_out = {t: {g: [{"n": e["name"], "l": e["lab"], "i": e["inj"], "s": status.get(e["key"], "vergeben")}
+                         for e in es] for g, es in gs.items()} for t, gs in depth_teams.items()}
     os.makedirs("data", exist_ok=True)
     result = {"generated_utc": NOW.strftime("%Y-%m-%d %H:%M"), "season": SEASON, "trend_weeks": weeks,
               "count": len(fas), "roster_count": len(mine),
               "unmatched_with_points": unmatched, "team_change_matches": review,
+              "depth_date": depth_date, "depth_charts": depth_out,
               "players": fas + mine}
     json.dump(result, open("data/free_agents.json", "w"), ensure_ascii=False, separators=(",", ":"))
     print(f"{len(fas)} FAs + {len(mine)} Kader, Wochen {weeks}, "
