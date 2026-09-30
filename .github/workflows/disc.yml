@@ -1,0 +1,24 @@
+name: Discovery
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  d:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: |
+          mkdir out
+          python3 - << 'EOF'
+          import urllib.request, json
+          H = {"User-Agent": "mld-fa/1.0"}
+          res = {}
+          for name, u in [("trend", "https://api.sleeper.app/v1/players/nfl/trending/add?lookback_hours=48&limit=60")]:
+              res[name] = json.loads(urllib.request.urlopen(urllib.request.Request(u, headers=H), timeout=30).read())
+          players = json.loads(urllib.request.urlopen(urllib.request.Request("https://api.sleeper.app/v1/players/nfl", headers=H), timeout=60).read())
+          res["sample"] = {pid: {k: players.get(pid, {}).get(k) for k in ("full_name", "team", "position", "gsis_id")} for pid in [t["player_id"] for t in res["trend"][:60]]}
+          res["n_players"] = len(players)
+          open("out/res.json", "w").write(json.dumps(res, indent=1))
+          EOF
+          git config user.name a; git config user.email a@a
+          git checkout --orphan disc; git rm -rf --cached . -q; git add out; git commit -qm d; git push -f origin HEAD:disc
