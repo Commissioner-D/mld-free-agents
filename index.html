@@ -82,6 +82,10 @@ tbody tr.is-mine:hover{background:rgba(199,163,75,.14)}
 #tip .st-FA{background:rgba(79,168,138,.2);color:var(--green)}
 #tip .st-Kader{background:rgba(199,163,75,.2);color:var(--brass)}
 #tip .st-vergeben{color:var(--muted)}
+.role.checked{border-color:var(--green);color:var(--green)}
+.flag.trend{background:rgba(106,166,216,.18);color:var(--blue)}
+.flag.scout{background:rgba(79,168,138,.2);color:var(--green)}
+#tip .scout{border-left:2px solid var(--green);padding-left:8px;margin:0 0 8px}
 .empty{padding:30px;color:var(--muted);text-align:center}
 @media (max-width:700px){header,.controls,.wrap{padding-left:12px;padding-right:12px}.count{margin-left:0}}
 @media (max-height:560px){body{display:block;height:auto;overflow:auto}.wrap{display:block}.scroll{overflow-x:auto;overflow-y:visible}}
@@ -117,7 +121,7 @@ tbody tr.is-mine:hover{background:rgba(199,163,75,.14)}
   <p class="legend">
     Punkt links: <span class="tier t-hot"></span>heiß (Top der Position) <span class="tier t-signal"></span>Signal (Trigger ausgelöst)
     <span class="tier t-radar"></span>Radar <span class="tier t-mine"></span>dein Kader (gleicher Score-Maßstab wie die Free Agents).
-    Rolle bei Safeties aus dem Anteil der Tackles innerhalb von 4 Yards: Box (40 %+), Hybrid, Deep (bis 25 %), ab 10 Tackles. Bei LBs aus Snap-Anteil und QB-Hits/TFL: Every Down (85 %+), Early Down (60–85 %), Rotation (unter 60 %), Pass Rush. Score = Perzentil innerhalb der Position aus Form, Niveau, Rolle, Rollentrend,
+    Rolle bei Safeties aus dem Anteil der Tackles innerhalb von 4 Yards: Box (40 %+), Hybrid, Deep (bis 25 %), ab 10 Tackles. Grün mit ✓ = recherchiert statt geschätzt. Bei LBs aus Snap-Anteil und QB-Hits/TFL: Every Down (85 %+), Early Down (60–85 %), Rotation (unter 60 %), Pass Rush. Score = Perzentil innerhalb der Position aus Form, Niveau, Rolle, Rollentrend,
     Ownership und Projektion. Verläufe zeigen die letzten Wochen, der Wert rechts ist die letzte Woche. Nutzung: Tackles (IDP), Carries + Targets (RB), Target Share (WR/TE). RZ: Targets + Carries innerhalb der 20-Yard-Linie, letzte 3 Wochen.
     Mit der Maus auf den Namen (am Handy antippen) für News und Details, auf das blaue Depth-Badge für die ganze Position des Teams.
   </p>
@@ -127,7 +131,7 @@ tbody tr.is-mine:hover{background:rgba(199,163,75,.14)}
 
 <script>
 const POS = ["Alle","QB","RB","WR","TE","DL","LB","S","Ohne Wertung"];
-const FLAG = {SNAP_JUMP:"Snaps ↑",TARGETS:"Targets 20 %+",EVERY_DOWN:"Every Down",NEWS:"News +",YOUNG_RISER:"Jung & steigend",WORKLOAD:"12+ Touches",RED_ZONE:"Red Zone",PASS_RUSH:"Pass Rush",INJURED:"verletzt"};
+const FLAG = {SNAP_JUMP:"Snaps ↑",TARGETS:"Targets 20 %+",EVERY_DOWN:"Every Down",NEWS:"News +",YOUNG_RISER:"Jung & steigend",WORKLOAD:"12+ Touches",RED_ZONE:"Red Zone",PASS_RUSH:"Pass Rush",TRENDING:"Sleeper",SCOUT:"Tipp",INJURED:"verletzt"};
 const SLOT_ORDER = {Start:0,Bank:1,Taxi:2,IR:3};
 const COLS = [
   {k:"name",l:"Spieler",c:"l"},
@@ -214,8 +218,12 @@ function render(){
   if(!rows.length){$("body").innerHTML=`<tr><td colspan="${COLS.length}" class="empty">Keine Spieler für diese Filter. Stufe auf „Alle Free Agents“ stellen oder Filter lockern.</td></tr>`;return}
   $("body").innerHTML=rows.map(p=>{
     const i=DATA.indexOf(p), snapS=(p.trend||{})[isIdp(p)?"def_pct":"off_pct"], u=usageSeries(p);
-    const flags=(p.flags||[]).map(f=>`<span class="flag ${f==="INJURED"?"inj":""}">${f==="INJURED"?esc(p.injury):FLAG[f]}</span>`).join("");
-    const role=p.defense&&p.defense.role?`<span class="role">${p.defense.role}</span>`:"";
+    const flags=(p.flags||[]).map(f=>f==="INJURED"?`<span class="flag inj">${esc(p.injury)}</span>`:
+      f==="TRENDING"?`<span class="flag trend" title="Sleeper Trending Adds, letzte 48 h">Sleeper #${p.trending.rank}</span>`:
+      f==="SCOUT"?`<span class="flag scout" title="${esc(p.scout.source||"")}">${esc(p.scout.badge)}</span>`:
+      `<span class="flag">${FLAG[f]}</span>`).join("");
+    const rl=(p.scout&&p.scout.role)||(p.defense&&p.defense.role);
+    const role=rl?`<span class="role${p.scout&&p.scout.role?" checked":""}" title="${p.scout&&p.scout.role?"recherchiert":"aus Tackle-Daten geschätzt"}">${esc(rl)}${p.scout&&p.scout.role?" ✓":""}</span>`:"";
     const dep=p.depth?`<span class="depth" tabindex="0" data-i="${i}">${p.depth.lab}</span>`:"";
     const own=p.mine?`<span class="kader">Kader · ${esc(p.slot)}</span>`:"";
     return `<tr class="${p.mine?"is-mine":""}">
@@ -235,6 +243,8 @@ function tipHtml(p){
   const meta=[p.pos+", "+p.team, p.age!=null?Math.floor(p.age)+" J.":null, p.draft, p.exp!=null?p.exp+" J. NFL":null, p.bye?"Bye W"+p.bye:null,
               p.group_rank?"#"+p.group_rank+" "+p.group:null].filter(Boolean).join(" | ");
   return `<h3>${esc(p.name)}</h3><div class="meta">${esc(meta)}</div>`+
+    (p.scout&&p.scout.note?`<div class="scout"><p>${esc(p.scout.note)}</p><div class="meta">Recherche${p.scout.source?": "+esc(p.scout.source):""}${p.scout.date?", "+esc(p.scout.date):""}</div></div>`:"")+
+    (p.trending?`<div class="meta">Sleeper Trending Adds: #${p.trending.rank} der letzten 48 h</div>`:"")+
     (n.text?`<p>${esc(n.text)}</p>`:"<p>Keine aktuelle News.</p>")+
     (n.analysis?`<p class="an">${esc(n.analysis)}</p>`:"")+
     (when?`<div class="meta">News vom ${when}</div>`:"")+
