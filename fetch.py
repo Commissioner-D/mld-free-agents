@@ -154,7 +154,11 @@ def age(birth):
 
 def trends(weekly, weeks):
     out = {}
-    for k in ["off_pct", "def_pct", "st_pct", "targets", "target_share", "wopr", "carries",
+    for w in weeks:                                   # Opportunities = Carries + Targets
+        wk = weekly.get(w)
+        if wk and ("carries" in wk or "targets" in wk):
+            wk["opps"] = (wk.get("carries") or 0) + (wk.get("targets") or 0)
+    for k in ["off_pct", "def_pct", "st_pct", "targets", "target_share", "wopr", "carries", "opps",
               "def_tackles_solo", "def_tackle_assists", "def_sacks", "def_pass_defended"]:
         series = [weekly.get(w, {}).get(k) for w in weeks]
         if any(v for v in series):          # nur Null/None -> weglassen
@@ -209,17 +213,22 @@ def score_players(fas):
         snap_key = "def_pct" if is_idp else "off_pct"
         role_last, role_delta = last_and_prior(tr.get(snap_key))
         ts_last, _ = last_and_prior(tr.get("target_share"))
+        opps_last, opps_delta = last_and_prior(tr.get("opps"))
         role = role_last
-        if g in ("WR", "TE", "RB") and ts_last is not None:
+        if g in ("WR", "TE") and ts_last is not None:
             role = 0.5 * (role_last or 0) + 0.5 * min(ts_last * 3, 1)   # Target Share 33 % = voll
+        elif g == "RB" and opps_last is not None:
+            role = 0.5 * (role_last or 0) + 0.5 * min(opps_last / 20, 1)  # 20 Opportunities = voll
         p["m"] = {"form1": p.get("pts_last1"), "form3": p.get("pts_last3"), "avg": p.get("pts_avg"),
                   "role": role, "role_trend": role_delta, "own": p.get("pct_owned"), "proj": p.get("proj"),
-                  "snap_last": role_last, "ts_last": ts_last}
+                  "snap_last": role_last, "ts_last": ts_last, "opps_last": opps_last}
         flags = []
         if role_delta is not None and role_delta >= 0.20 and (role_last or 0) >= 0.50:
             flags.append("SNAP_JUMP")
-        if g in ("WR", "TE", "RB") and ts_last is not None and ts_last >= 0.20:
+        if g in ("WR", "TE") and ts_last is not None and ts_last >= 0.20:
             flags.append("TARGETS")
+        if g == "RB" and opps_last is not None and opps_last >= 12:
+            flags.append("WORKLOAD")
         if (g in ("LB", "S") and role_last and role_last >= 0.90) or (g == "DL" and role_last and role_last >= 0.80):
             flags.append("EVERY_DOWN")
         n = p.get("news") or {}
