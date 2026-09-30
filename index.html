@@ -59,6 +59,11 @@ tbody tr:hover{background:rgba(106,166,216,.07)}
 #tip p{margin:0 0 8px}
 #tip .an{color:var(--muted)}
 #tip a{color:var(--brass)}
+#tip table{min-width:0;width:auto;border-collapse:collapse;margin-top:4px}
+#tip th,#tip td{padding:3px 8px;border-bottom:1px solid var(--line);position:static;background:none;cursor:default;font-size:13px}
+#tip th{color:var(--muted);font-weight:500}
+#tip td.lbl{text-align:left;color:var(--muted)}
+.trendcell{cursor:help}
 .empty{padding:30px;color:var(--muted);text-align:center}
 @media (max-width:700px){header,.controls,.wrap{padding-left:12px;padding-right:12px}.count{margin-left:0}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -117,7 +122,7 @@ const COLS = [
   {k:"snap",l:"Snaps",c:"l"},
   {k:"usage",l:"Nutzung",c:"l"},
 ];
-let DATA=[], state={pos:"Alle",sort:"score",dir:-1};
+let DATA=[], WEEKS=[], state={pos:"Alle",sort:"score",dir:-1};
 const $=id=>document.getElementById(id);
 const fmt=(v,d=1)=>v==null?"–":Number(v).toFixed(d);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -128,13 +133,16 @@ function spark(series,max,pct){
   if(!series||!series.some(v=>v!=null)) return '<span class="sv">–</span>';
   const w=54,h=18,n=series.length,step=n>1?w/(n-1):0;
   const pts=series.map((v,i)=>v==null?null:[i*step,h-2-(Math.min(v,max)/max)*(h-4)]);
-  let d="",pen=false;
-  pts.forEach(p=>{if(!p){pen=false;return}d+=(pen?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1);pen=true});
+  let d="",gap="",pen=false,prev=null,hole=false;
+  pts.forEach(p=>{
+    if(!p){pen=false;hole=true;return}
+    if(prev&&hole) gap+="M"+prev[0].toFixed(1)+" "+prev[1].toFixed(1)+"L"+p[0].toFixed(1)+" "+p[1].toFixed(1);
+    d+=(pen?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1);pen=true;prev=p;hole=false});
   const vals=series.filter(v=>v!=null), last=vals[vals.length-1], first=vals[0];
   const cls=vals.length>1?(last>first+(pct?.05:.5)?"up":last<first-(pct?.05:.5)?"down":""):"";
   const col=cls==="up"?"var(--green)":cls==="down"?"var(--red)":"var(--blue)";
   const dots=pts.filter(Boolean).map(p=>`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="1.8" fill="${col}"/>`).join("");
-  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><path d="${d}" fill="none" stroke="${col}" stroke-width="1.6"/>${dots}</svg>`+
+  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true">${gap?`<path d="${gap}" fill="none" stroke="${col}" stroke-width="1.2" stroke-dasharray="2 2" opacity=".6"/>`:""}<path d="${d}" fill="none" stroke="${col}" stroke-width="1.6"/>${dots}</svg>`+
          `<span class="sv ${cls}">${pct?Math.round(last*100)+" %":fmt(last,0)}</span>`;
 }
 function usageSeries(p){
@@ -191,8 +199,8 @@ function render(){
       <td>${fmt(p.pts_last1)}</td><td>${fmt(p.pts_last3)}</td><td>${fmt(p.pts_avg)}</td><td>${fmt(p.proj)}</td>
       <td>${p.pct_owned==null?"–":Math.round(p.pct_owned*100)+" %"}</td>
       <td title="Red-Zone-Targets + Carries, letzte 3 Wochen">${p.m&&p.m.rz!=null?p.m.rz:"–"}</td>
-      <td class="l">${spark(snapS,1,true)}</td>
-      <td class="l" title="${u?u.lab:""}">${u?spark(u.s,u.max,u.pct):'<span class="sv">–</span>'}</td>
+      <td class="l trendcell" data-i="${i}">${spark(snapS,1,true)}</td>
+      <td class="l trendcell" data-i="${i}">${u?spark(u.s,u.max,u.pct):'<span class="sv">–</span>'}</td>
     </tr>`}).join("");
 }
 function tipHtml(p){
@@ -205,10 +213,32 @@ function tipHtml(p){
     (when?`<div class="meta">News vom ${when}</div>`:"")+
     `<a href="https://www.fleaflicker.com/nfl/leagues/294292/players/${slug(p.name)}-${p.fl_id}" target="_blank" rel="noopener">Auf Fleaflicker öffnen</a>`;
 }
+function trendHtml(p){
+  const t=p.trend||{}, idp=isIdp(p);
+  const pc=v=>v==null?"–":Math.round(v*100)+" %", nm=v=>v==null?"–":(Math.round(v*10)/10);
+  const rows=[];
+  rows.push(["Snaps", t[idp?"def_pct":"off_pct"], pc]);
+  if(idp){
+    rows.push(["Tackles solo", t.def_tackles_solo, nm]);
+    rows.push(["Tackles assist", t.def_tackle_assists, nm]);
+    if(t.def_sacks) rows.push(["Sacks", t.def_sacks, nm]);
+    if(t.def_pass_defended) rows.push(["Pass defended", t.def_pass_defended, nm]);
+  } else {
+    if(t.carries) rows.push(["Carries", t.carries, nm]);
+    if(t.targets) rows.push(["Targets", t.targets, nm]);
+    if(t.target_share) rows.push(["Target Share", t.target_share, pc]);
+    if(p.group==="RB"&&t.opps) rows.push(["Opportunities", t.opps, nm]);
+    if(t.rz_opps) rows.push(["Red Zone", t.rz_opps, nm]);
+  }
+  const head="<tr><th></th>"+WEEKS.map(w=>`<th>W${w}</th>`).join("")+"</tr>";
+  const body=rows.filter(r=>r[1]).map(([l,s,f])=>`<tr><td class="lbl">${l}</td>`+WEEKS.map((w,i)=>`<td>${f(s[i])}</td>`).join("")+"</tr>").join("");
+  return `<h3>${esc(p.name)}</h3><div class="meta">${esc(p.pos)}, ${esc(p.team)}. Leer = keine Daten (Bye, inaktiv, verletzt).</div>`+
+    (body?`<table>${head}${body}</table>`:"<p>Keine Wochendaten.</p>");
+}
 let tipFor=null;
 function showTip(el){
   const p=DATA[+el.dataset.i]; const tip=$("tip");
-  tip.innerHTML=tipHtml(p); tip.style.display="block"; tipFor=el;
+  tip.innerHTML=el.classList.contains("trendcell")?trendHtml(p):tipHtml(p); tip.style.display="block"; tipFor=el;
   const r=el.getBoundingClientRect(), tw=tip.offsetWidth, th=tip.offsetHeight;
   let x=Math.min(r.left, window.innerWidth-tw-10), y=r.bottom+6;
   if(y+th>window.innerHeight-10) y=Math.max(10,r.top-th-6);
@@ -216,12 +246,12 @@ function showTip(el){
 }
 function hideTip(){$("tip").style.display="none";tipFor=null}
 
-document.addEventListener("mouseover",e=>{const n=e.target.closest(".name"); if(n) showTip(n)});
-document.addEventListener("mouseout",e=>{const n=e.target.closest(".name"); if(n&&!$("tip").contains(e.relatedTarget)) hideTip()});
+document.addEventListener("mouseover",e=>{const n=e.target.closest(".name,.trendcell"); if(n&&n!==tipFor) showTip(n)});
+document.addEventListener("mouseout",e=>{const n=e.target.closest(".name,.trendcell"); if(n&&!n.contains(e.relatedTarget)&&!$("tip").contains(e.relatedTarget)) hideTip()});
 $("tip").addEventListener("mouseleave",hideTip);
 document.addEventListener("focusin",e=>{const n=e.target.closest(".name"); if(n) showTip(n)});
 document.addEventListener("click",e=>{
-  const n=e.target.closest(".name");
+  const n=e.target.closest(".name,.trendcell");
   if(n){ if(tipFor===n) hideTip(); else showTip(n); return; }
   if(!e.target.closest("#tip")) hideTip();
   const th=e.target.closest("th[data-k]"); if(th) sortBy(th.dataset.k);
@@ -243,7 +273,7 @@ $("pos").addEventListener("click",e=>{const b=e.target.closest(".chip"); if(!b)r
 $("q").addEventListener("input",render);
 
 fetch("https://raw.githubusercontent.com/Commissioner-D/mld-free-agents/data/data/free_agents.json?v="+Date.now()).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(d=>{
-  DATA=d.players;
+  DATA=d.players; WEEKS=d.trend_weeks||[];
   const t=new Date(d.generated_utc.replace(" ","T")+"Z");
   $("stand").textContent=`Stand ${t.toLocaleString("de-AT",{weekday:"short",day:"numeric",month:"numeric",hour:"2-digit",minute:"2-digit"})} · ${d.count} Free Agents · NFL-Wochen ${d.trend_weeks.join(", ")}`;
   render();
