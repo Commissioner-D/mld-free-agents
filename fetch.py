@@ -92,6 +92,27 @@ def fetch_free_agents():
     return [parse_player(p) for p in players]
 
 
+def fetch_league_pool(max_offset=1800):
+    """Alle Spieler (auch vergebene), nach Saisonpunkten sortiert: Referenz fuer den Score."""
+    players, offset = [], 0
+    while offset <= max_offset:
+        d = json.loads(get(f"{FLEA}/FetchPlayerListing?sport=NFL&league_id={LEAGUE_ID}"
+                           f"&sort=SORT_SEASON_TOTAL&result_offset={offset}"))
+        batch = d.get("players", [])
+        players += batch
+        nxt = d.get("resultOffsetNext")
+        if not batch or not nxt or nxt <= offset:
+            break
+        offset = nxt
+        time.sleep(0.4)
+    out = []
+    for p in players:
+        q = parse_player(p)
+        q["owner"] = (p.get("owner") or {}).get("name")
+        out.append(q)
+    return out
+
+
 def fetch_my_roster():
     d = json.loads(get(f"{FLEA}/FetchRoster?sport=NFL&league_id={LEAGUE_ID}&team_id={MY_TEAM_ID}"))
     out = []
@@ -299,7 +320,9 @@ def build_depth(players_csv, injuries):
 SCORE_GROUP = {"QB": "QB", "RB": "RB", "WR": "WR", "TE": "TE", "EDR": "DL", "IL": "DL",
                "EDR/IL": "DL", "LB": "LB", "S": "S"}          # CB, DB, K: keine Wertung, bleiben aber drin
 HOT_N = {"QB": 5, "RB": 8, "WR": 10, "TE": 5, "DL": 6, "LB": 8, "S": 6}
-WEIGHTS = {"form1": .18, "form3": .18, "avg": .08, "role": .20, "role_trend": .14, "rz": .10, "own": .04, "proj": .08}
+WEIGHTS = {"form1": .15, "form3": .20, "avg": .12, "role": .22, "role_trend": .08, "rz": .10, "own": .05, "proj": .08}
+# Tier-Schwellen auf Liga-Skala (Score = Perzentil gegen alle Spieler der Position, inkl. vergebene)
+HOT_MIN, SIGNAL_MIN, RADAR_MIN = 45, 30, 40
 NEWS_POS = re.compile(r"\b(will start|expected to start|in line to start|starting role|named (the )?starter|"
                       r"promot|first-team|first team|expanded role|increased role|bigger role|"
                       r"lead back|atop the depth chart|top of the depth chart|take over|takes over|"
@@ -372,13 +395,14 @@ def metrics(p):
     p["flags"] = flags
 
 
-def score_all(fas, mine):
-    for p in fas + mine:
+def score_all(fas, mine, league):
+    for p in fas + mine + league:
         metrics(p)
     for g in HOT_N:
         pool = [p for p in fas if p["group"] == g]
-        ref = {k: [p["m"][k] for p in pool if p["m"][k] is not None] for k in WEIGHTS}
-        for p in [p for p in fas + mine if p["group"] == g]:
+        refpool = [p for p in league if p["group"] == g] or pool
+        ref = {k: [p["m"][k] for p in refpool if p["m"][k] is not None] for k in WEIGHTS}
+        for p in [p for p in fas + mine + refpool if p["group"] == g]:
             sc = 100 * sum(w * pct_of(p["m"][k], ref[k]) for k, w in WEIGHTS.items())
             if g == "RB":                            # wenig Touches (FB, Garbage-Time) -> nach hinten
                 o = [v for v in ((p.get("trend") or {}).get("opps") or []) if v is not None]
@@ -389,11 +413,11 @@ def score_all(fas, mine):
             p["group_rank"] = i + 1
             trig = [f for f in p["flags"] if f != "INJURED"]
             rising = (p["m"]["role_trend"] or 0) >= 0.10 and (p["m"]["snap_last"] or 0) >= 0.40
-            if i < HOT_N[g] and p["score"] >= 70:
+            if i < HOT_N[g] and p["score"] >= HOT_MIN:
                 p["tier"] = "hot"
-            elif trig and p["score"] >= 45:
+            elif trig and p["score"] >= SIGNAL_MIN:
                 p["tier"] = "signal"
-            elif p["score"] >= 65 or trig or rising:  # schwache Signale: nicht verlieren, aber nur Radar
+            elif p["score"] >= RADAR_MIN or trig or rising:  # schwache Signale: nicht verlieren, aber nur Radar
                 p["tier"] = "radar"
             else:
                 p["tier"] = "rest"
@@ -417,6 +441,11 @@ def main():
         print("Kader nicht verfuegbar:", e)
         mine = []
     players_csv = read_csv("players/players.csv")
+    try:
+        league = fetch_league_pool()
+    except Exception as e:
+        print("Liga-Pool nicht verfuegbar, Referenz = FA-Pool:", e)
+        league = []
     agg, by_name, pos_of, season, weeks = build_nflverse(players_csv)
     bio, bio_by_name = build_bio(players_csv)
     try:
@@ -426,6 +455,12 @@ def main():
         print("Depth Chart nicht verfuegbar:", e)
         injuries, depth_teams, depth_player, depth_date = {}, {}, {}, None
     unmatched, review = [], []
+    for p in league:                                   # Referenz: nur Trend + Defense-Profil noetig
+        n = norm(equiv.get(p["name"], p["name"])); t = TEAM_MAP.get(p["team"], p["team"])
+        key = (n, t) if (n, t) in agg else ((n, by_name[n][0]) if len(by_name.get(n, [])) == 1 and
+                                            same_group(p["pos"] or "", pos_of.get((n, by_name[n][0]), "")) else None)
+        p["trend"] = trends(agg[key], weeks) if key else None
+        p["defense"] = def_profile(season.get(key), p["pos"]) if key and SCORE_GROUP.get(p["pos"]) in ("DL", "LB", "S") else None
     for p in fas + mine:
         n = norm(equiv.get(p["name"], p["name"]))
         t = TEAM_MAP.get(p["team"], p["team"])
@@ -454,7 +489,7 @@ def main():
         p["draft"] = f'R{b["draft_round"]}/{b["draft_pick"]}' if b and b.get("draft_round") else ("UDFA" if b else None)
         p["exp"] = int(b["exp"]) if b and b.get("exp") not in (None, "") else None
         p["rookie"] = bool(b and b.get("rookie"))
-    score_all(fas, mine)
+    score_all(fas, mine, league)
     # Depth-Chart-Ausgabe: je Team/Gruppe mit MLD-Status (FA / Kader / vergeben)
     status = {}
     for p in fas + mine:
@@ -465,7 +500,7 @@ def main():
                          for e in es] for g, es in gs.items()} for t, gs in depth_teams.items()}
     os.makedirs("data", exist_ok=True)
     result = {"generated_utc": NOW.strftime("%Y-%m-%d %H:%M"), "season": SEASON, "trend_weeks": weeks,
-              "count": len(fas), "roster_count": len(mine),
+              "count": len(fas), "roster_count": len(mine), "reference_pool": len(league),
               "unmatched_with_points": unmatched, "team_change_matches": review,
               "depth_date": depth_date, "depth_charts": depth_out,
               "players": fas + mine}
