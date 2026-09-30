@@ -8,10 +8,18 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - run: |
-          set +e
-          mkdir out; B="https://www.fleaflicker.com/api"; UA="mld-fa/1.0"
-          curl -s -A $UA "$B/FetchRoster?sport=NFL&league_id=294292&team_id=1476731" -o out/roster.json
-          curl -s -A $UA "$B/FetchPlayerListing?sport=NFL&league_id=294292&filter.owner=1476731" -o out/owner.json
-          curl -s -A $UA "$B/FetchPlayerListing?sport=NFL&league_id=294292&filter.query=Jayden%20Daniels" -o out/query.json
+          mkdir out
+          python3 - << 'EOF'
+          import urllib.request, urllib.error
+          B = "https://www.fleaflicker.com/api/"
+          for name, q in [("roster", "FetchRoster?sport=NFL&league_id=294292&team_id=1476731"),
+                          ("owner", "FetchPlayerListing?sport=NFL&league_id=294292&filter.owner=1476731"),
+                          ("query", "FetchPlayerListing?sport=NFL&league_id=294292&filter.query=Jayden%20Daniels")]:
+              try:
+                  b = urllib.request.urlopen(urllib.request.Request(B + q, headers={"User-Agent": "mld-fa/1.0"}), timeout=30).read()
+              except urllib.error.HTTPError as e:
+                  b = e.read()
+              open(f"out/{name}.json", "wb").write(b)
+          EOF
           git config user.name a; git config user.email a@a
           git checkout --orphan disc; git rm -rf --cached . -q; git add out; git commit -qm d; git push -f origin HEAD:disc
