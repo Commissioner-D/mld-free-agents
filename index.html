@@ -15,15 +15,15 @@
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 *,*::before,*::after{box-sizing:inherit}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--text);
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+body{margin:0;background:var(--bg);color:var(--text);height:100%;display:flex;flex-direction:column;overflow:hidden;
   font:15px/1.45 "Barlow Semi Condensed",system-ui,-apple-system,"Segoe UI",sans-serif}
-header{padding:20px 20px 8px;max-width:1400px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px}
+header{flex:none;width:100%;padding:20px 20px 8px;max-width:1400px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px}
 h1{margin:0;font-size:28px;font-weight:700;letter-spacing:.2px}
 h1 span{color:var(--brass)}
 .stand{color:var(--muted);font-size:14px}
-.controls{max-width:1400px;margin:0 auto;padding:10px 20px 14px;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;
-  position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;border-bottom:1px solid var(--line)}
+.controls{flex:none;width:100%;max-width:1400px;margin:0 auto;padding:10px 20px 14px;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;
+  background:var(--bg);border-bottom:1px solid var(--line)}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chip{background:transparent;color:var(--text);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font:inherit;cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--brass);border-color:var(--brass);color:#1a1a1a;font-weight:600}
@@ -32,11 +32,11 @@ input[type=search]{min-width:170px}
 label.tog{display:flex;gap:6px;align-items:center;color:var(--muted);cursor:pointer}
 :focus-visible{outline:2px solid var(--brass);outline-offset:2px}
 .count{color:var(--muted);margin-left:auto}
-.wrap{max-width:1400px;margin:0 auto;padding:0 20px 40px}
-.scroll{overflow-x:auto}
+.wrap{flex:1;min-height:0;width:100%;max-width:1400px;margin:0 auto;padding:0 20px;display:flex;flex-direction:column}
+.scroll{flex:1;min-height:0;overflow:auto;padding-bottom:30px}
 table{border-collapse:collapse;width:100%;min-width:1050px}
 th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
-th{position:sticky;top:0;background:var(--surface);color:var(--muted);font-weight:600;cursor:pointer;user-select:none}
+th{position:sticky;top:0;z-index:2;background:var(--surface);color:var(--muted);font-weight:600;cursor:pointer;user-select:none}
 th.l,td.l{text-align:left}
 th[aria-sort="descending"]::after{content:" ▾";color:var(--brass)}
 th[aria-sort="ascending"]::after{content:" ▴";color:var(--brass)}
@@ -72,6 +72,7 @@ tbody tr.is-mine:hover{background:rgba(199,163,75,.14)}
 #tip .sum{color:var(--text);font-size:13px;margin:2px 0 6px}
 .empty{padding:30px;color:var(--muted);text-align:center}
 @media (max-width:700px){header,.controls,.wrap{padding-left:12px;padding-right:12px}.count{margin-left:0}}
+@media (max-height:560px){body{display:block;height:auto;overflow:auto}.wrap{display:block}.scroll{overflow-x:auto;overflow-y:visible}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -101,7 +102,6 @@ tbody tr.is-mine:hover{background:rgba(199,163,75,.14)}
       <thead><tr id="head"></tr></thead>
       <tbody id="body"></tbody>
     </table>
-  </div>
   <p class="legend">
     Punkt links: <span class="tier t-hot"></span>heiß (Top der Position) <span class="tier t-signal"></span>Signal (Trigger ausgelöst)
     <span class="tier t-radar"></span>Radar <span class="tier t-mine"></span>dein Kader (gleicher Score-Maßstab wie die Free Agents).
@@ -109,6 +109,7 @@ tbody tr.is-mine:hover{background:rgba(199,163,75,.14)}
     Ownership und Projektion. Verläufe zeigen die letzten Wochen, der Wert rechts ist die letzte Woche. Nutzung: Tackles (IDP), Carries + Targets (RB), Target Share (WR/TE). RZ: Targets + Carries innerhalb der 20-Yard-Linie, letzte 3 Wochen.
     Mit der Maus auf den Namen (am Handy antippen) für News und Details.
   </p>
+  </div>
 </div>
 <div id="tip" role="tooltip"></div>
 
@@ -256,7 +257,7 @@ function trendHtml(p){
   return `<h3>${esc(p.name)}</h3><div class="meta">${esc(p.pos)}, ${esc(p.team)}. Leer = keine Daten (Bye, inaktiv, verletzt).</div>`+sum+
     (body?`<table>${head}${body}</table>`:"<p>Keine Wochendaten.</p>");
 }
-let tipFor=null;
+let tipFor=null, hideTimer=null;
 function showTip(el){
   const p=DATA[+el.dataset.i]; const tip=$("tip");
   tip.innerHTML=el.classList.contains("trendcell")?trendHtml(p):tipHtml(p); tip.style.display="block"; tipFor=el;
@@ -265,11 +266,14 @@ function showTip(el){
   if(y+th>window.innerHeight-10) y=Math.max(10,r.top-th-6);
   tip.style.left=Math.max(10,x)+"px"; tip.style.top=y+"px";
 }
-function hideTip(){$("tip").style.display="none";tipFor=null}
+function hideTip(){clearTimeout(hideTimer);$("tip").style.display="none";tipFor=null}
 
-document.addEventListener("mouseover",e=>{const n=e.target.closest(".name,.trendcell"); if(n&&n!==tipFor) showTip(n)});
-document.addEventListener("mouseout",e=>{const n=e.target.closest(".name,.trendcell"); if(n&&!n.contains(e.relatedTarget)&&!$("tip").contains(e.relatedTarget)) hideTip()});
-$("tip").addEventListener("mouseleave",hideTip);
+const cancelHide=()=>{clearTimeout(hideTimer);hideTimer=null};
+const scheduleHide=()=>{cancelHide();hideTimer=setTimeout(hideTip,600)};
+document.addEventListener("mouseover",e=>{const n=e.target.closest(".name,.trendcell"); if(n){cancelHide(); if(n!==tipFor) showTip(n);}});
+document.addEventListener("mouseout",e=>{const n=e.target.closest(".name,.trendcell"); if(n&&!n.contains(e.relatedTarget)&&!$("tip").contains(e.relatedTarget)) scheduleHide()});
+$("tip").addEventListener("mouseenter",cancelHide);
+$("tip").addEventListener("mouseleave",scheduleHide);
 document.addEventListener("focusin",e=>{const n=e.target.closest(".name"); if(n) showTip(n)});
 document.addEventListener("click",e=>{
   const n=e.target.closest(".name,.trendcell");
@@ -282,6 +286,7 @@ document.addEventListener("keydown",e=>{
   if(e.key==="Enter"){const th=e.target.closest("th[data-k]"); if(th) sortBy(th.dataset.k);}
 });
 window.addEventListener("scroll",hideTip,{passive:true});
+document.querySelector(".scroll").addEventListener("scroll",hideTip,{passive:true});
 function sortBy(k){
   const c=COLS.find(c=>c.k===k); if(!c||c.nosort) return;
   if(state.sort===k) state.dir*=-1; else {state.sort=k; state.dir=k==="name"?1:-1;}
