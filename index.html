@@ -89,6 +89,23 @@ tbody tr.is-mine:hover{background:rgba(199,163,75,.14)}
 #tip .scout.stale-note{opacity:.6}
 .flag.scout.interim{background:rgba(199,163,75,.16);color:var(--brass)}
 #tip .scout{border-left:2px solid var(--green);padding-left:8px;margin:0 0 8px}
+.refresh{margin-left:auto;background:transparent;color:var(--brass);border:1px solid var(--brass);border-radius:6px;padding:5px 12px;font:inherit;font-weight:600;cursor:pointer}
+.refresh:hover:not(:disabled){background:rgba(199,163,75,.12)}
+.refresh:disabled{opacity:.6;cursor:progress}
+.rstat{color:var(--muted);font-size:14px}
+.rstat a{color:var(--brass)}
+.stand.old{color:#f08a76}
+.tokdlg{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}
+.tokdlg[hidden]{display:none}
+.tokbox{background:var(--surface);border:1px solid var(--brass);border-radius:10px;padding:18px 20px;max-width:460px;width:100%}
+.tokbox h2{margin:0 0 8px;font-size:20px}
+.tokbox p,.tokbox ol{font-size:14px;color:var(--text);margin:0 0 10px}
+.tokbox ol{padding-left:20px}
+.tokbox a{color:var(--brass)}
+.tokbox input{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:7px 9px;font:inherit;margin:4px 0 12px}
+.tokbtns{display:flex;gap:8px;justify-content:flex-end}
+.tokbtns button{background:transparent;color:var(--text);border:1px solid var(--line);border-radius:6px;padding:5px 12px;font:inherit;cursor:pointer}
+.tokbtns button.primary{background:var(--brass);border-color:var(--brass);color:#1a1a1a;font-weight:600}
 .empty{padding:30px;color:var(--muted);text-align:center}
 @media (max-width:700px){header,.controls,.wrap{padding-left:12px;padding-right:12px}.count{margin-left:0}}
 @media (max-height:560px){body{display:block;height:auto;overflow:auto}.wrap{display:block}.scroll{overflow-x:auto;overflow-y:visible}}
@@ -99,7 +116,24 @@ tbody tr.is-mine:hover{background:rgba(199,163,75,.14)}
 <header>
   <h1>FA-Radar <span>MLD</span></h1>
   <div class="stand" id="stand">Lade Daten …</div>
+  <button class="refresh" id="refresh" type="button" title="Holt frische Daten von Fleaflicker, nflverse und Sleeper">⚓ Radar auffrischen</button>
+  <span class="rstat" id="rstat" aria-live="polite"></span>
 </header>
+<div class="tokdlg" id="tokdlg" hidden>
+  <div class="tokbox" role="dialog" aria-modal="true" aria-labelledby="tokh">
+    <h2 id="tokh">Einmalige Einrichtung</h2>
+    <p>Zum Auffrischen braucht die Seite einen GitHub-Token, der <b>nur Workflows in diesem Repo starten</b> darf.
+       Er wird ausschließlich in diesem Browser gespeichert, nicht im Repo.</p>
+    <ol>
+      <li><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Neuen Fine-grained Token anlegen</a></li>
+      <li>Repository access: <b>Only select repositories → mld-free-agents</b></li>
+      <li>Permissions: nur <b>Actions → Read and write</b></li>
+      <li>Ablaufdatum nach Wunsch, Token hier einfügen</li>
+    </ol>
+    <input type="password" id="tokin" placeholder="github_pat_…" autocomplete="off" aria-label="GitHub Token">
+    <div class="tokbtns"><button type="button" id="tokcancel">Abbrechen</button><button type="button" id="toksave" class="primary">Speichern und auffrischen</button></div>
+  </div>
+</div>
 
 <div class="controls">
   <div class="chips" id="pos" role="group" aria-label="Position"></div>
@@ -341,12 +375,71 @@ $("pos").addEventListener("click",e=>{const b=e.target.closest(".chip"); if(!b)r
 ["tier","noinj","young","rookie","mine"].forEach(id=>$(id).addEventListener("change",render));
 $("q").addEventListener("input",render);
 
-fetch("https://raw.githubusercontent.com/Commissioner-D/mld-free-agents/data/data/free_agents.json?v="+Date.now()).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(d=>{
+const REPO="Commissioner-D/mld-free-agents", GH="https://api.github.com/repos/"+REPO;
+const TOKKEY="mld_fa_gh_token";
+const getTok=()=>{try{return localStorage.getItem(TOKKEY)}catch(e){return null}};
+const setTok=t=>{try{t?localStorage.setItem(TOKKEY,t):localStorage.removeItem(TOKKEY)}catch(e){}};
+
+function applyData(d){
   DATA=d.players; WEEKS=d.trend_weeks||[]; DEPTH=d.depth_charts||{}; DEPTH_DATE=d.depth_date||"";
-  const t=new Date(d.generated_utc.replace(" ","T")+"Z");
-  $("stand").textContent=`Stand ${t.toLocaleString("de-AT",{weekday:"short",day:"numeric",month:"numeric",hour:"2-digit",minute:"2-digit"})} · ${d.count} Free Agents + ${d.roster_count||0} im Kader · NFL-Wochen ${d.trend_weeks.join(", ")}`;
+  const t=new Date(d.generated_utc.replace(" ","T")+"Z"), ageH=(Date.now()-t)/36e5;
+  $("stand").textContent=`Stand ${t.toLocaleString("de-AT",{weekday:"short",day:"numeric",month:"numeric",hour:"2-digit",minute:"2-digit"})}`+
+    (ageH>=1?` (vor ${Math.round(ageH)} h)`:" (gerade eben)")+` · ${d.count} Free Agents + ${d.roster_count||0} im Kader · NFL-Wochen ${d.trend_weeks.join(", ")}`;
+  $("stand").classList.toggle("old",ageH>12);
   render();
-}).catch(err=>{$("stand").textContent="Daten konnten nicht geladen werden ("+err.message+"). Workflow „Fetch Free Agents“ im Repo starten.";});
+}
+// Mit Token direkt über die API (kein 5-Minuten-Cache wie bei raw.githubusercontent.com)
+async function loadData(fresh){
+  const tok=getTok();
+  const r=fresh&&tok
+    ? await fetch(GH+"/contents/data/free_agents.json?ref=data&t="+Date.now(),{headers:{Authorization:"Bearer "+tok,Accept:"application/vnd.github.raw"}})
+    : await fetch("https://raw.githubusercontent.com/"+REPO+"/data/data/free_agents.json?v="+Date.now());
+  if(!r.ok) throw new Error(r.status);
+  applyData(await r.json());
+}
+loadData(false).catch(err=>{$("stand").textContent="Daten konnten nicht geladen werden ("+err.message+"). „Radar auffrischen“ drücken.";});
+
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+function rstat(html){$("rstat").innerHTML=html}
+async function gh(path,opt={}){
+  const r=await fetch(GH+path,{...opt,headers:{Authorization:"Bearer "+getTok(),Accept:"application/vnd.github+json",...(opt.headers||{})}});
+  if(r.status===401||r.status===403){setTok(null);throw new Error("Token ungültig oder ohne Rechte – bitte neu eingeben")}
+  if(!r.ok&&r.status!==204) throw new Error("GitHub "+r.status);
+  return r.status===204?null:r.json();
+}
+async function refresh(){
+  if(!getTok()){ $("tokdlg").hidden=false; $("tokin").focus(); return; }
+  const btn=$("refresh"); btn.disabled=true;
+  const started=Date.now()-5000;
+  try{
+    rstat("Starte Abruf …");
+    await gh("/actions/workflows/fetch.yml/dispatches",{method:"POST",body:JSON.stringify({ref:"main"})});
+    let run=null;
+    for(let i=0;i<60;i++){                      // max. ~5 Min warten
+      await sleep(5000);
+      const d=await gh("/actions/workflows/fetch.yml/runs?per_page=3&event=workflow_dispatch");
+      run=(d.workflow_runs||[]).find(x=>new Date(x.created_at)>=started)||run;
+      const sec=Math.round((Date.now()-started)/1000);
+      if(!run){rstat(`Warte auf GitHub … ${sec} s`);continue}
+      if(run.status!=="completed"){rstat(`Holt Daten von Fleaflicker, nflverse und Sleeper … ${sec} s`);continue}
+      if(run.conclusion!=="success") throw new Error(`Lauf fehlgeschlagen (<a href="${run.html_url}" target="_blank" rel="noopener">Details</a>)`);
+      rstat("Lade neue Daten …");
+      await sleep(3000);
+      await loadData(true);
+      rstat("Aktualisiert ✓"); setTimeout(()=>rstat(""),6000);
+      return;
+    }
+    throw new Error("Zeitüberschreitung – später nochmal laden");
+  }catch(e){
+    rstat("⚠ "+e.message+(getTok()?"":' · <a href="#" id="tokagain">Token eingeben</a>'));
+    const a=document.getElementById("tokagain"); if(a) a.onclick=ev=>{ev.preventDefault();$("tokdlg").hidden=false};
+  }finally{ btn.disabled=false; }
+}
+$("refresh").addEventListener("click",refresh);
+$("tokcancel").addEventListener("click",()=>{$("tokdlg").hidden=true});
+$("toksave").addEventListener("click",()=>{const t=$("tokin").value.trim(); if(!t)return; setTok(t); $("tokin").value=""; $("tokdlg").hidden=true; refresh();});
+$("tokin").addEventListener("keydown",e=>{if(e.key==="Enter")$("toksave").click()});
+$("tokdlg").addEventListener("click",e=>{if(e.target.id==="tokdlg")$("tokdlg").hidden=true});
 </script>
 </body>
 </html>
