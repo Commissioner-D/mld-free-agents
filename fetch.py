@@ -321,7 +321,7 @@ SCORE_GROUP = {"QB": "QB", "RB": "RB", "WR": "WR", "TE": "TE", "EDR": "DL", "IL"
                "EDR/IL": "DL", "LB": "LB", "S": "S"}          # CB, DB, K: keine Wertung, bleiben aber drin
 HOT_N = {"QB": 5, "RB": 8, "WR": 10, "TE": 5, "DL": 6, "LB": 8, "S": 6}
 WEIGHTS = {"form1": .15, "form3": .20, "avg": .12, "role": .22, "role_trend": .08, "rz": .10, "own": .05, "proj": .08}
-# Tier-Schwellen auf Liga-Skala (Score = Perzentil gegen alle Spieler der Position, inkl. vergebene)
+# Tier-Schwellen auf Kader-Skala (Score = Perzentil gegen alle in der MLD vergebenen Spieler der Position)
 HOT_MIN, SIGNAL_MIN, RADAR_MIN = 45, 30, 40
 NEWS_POS = re.compile(r"\b(will start|expected to start|in line to start|starting role|named (the )?starter|"
                       r"promot|first-team|first team|expanded role|increased role|bigger role|"
@@ -400,7 +400,7 @@ def score_all(fas, mine, league):
         metrics(p)
     for g in HOT_N:
         pool = [p for p in fas if p["group"] == g]
-        refpool = [p for p in league if p["group"] == g] or pool
+        refpool = [p for p in league if p["group"] == g and p.get("owner")] or pool   # nur vergebene Spieler
         ref = {k: [p["m"][k] for p in refpool if p["m"][k] is not None] for k in WEIGHTS}
         for p in [p for p in fas + mine + refpool if p["group"] == g]:
             sc = 100 * sum(w * pct_of(p["m"][k], ref[k]) for k, w in WEIGHTS.items())
