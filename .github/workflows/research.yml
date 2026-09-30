@@ -1,0 +1,38 @@
+name: Research
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 17 * * 2"   # Dienstag 17:00 UTC (19:00 bei dir), vor den Waivers am Mittwoch
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: research
+  cancel-in-progress: false
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Research
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python research.py
+      - name: Commit + Daten neu bauen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add scouting.json
+          if git commit -m "Research $(date -u +%Y-%m-%d)"; then
+            git push
+            gh workflow run fetch.yml --ref main
+          fi
