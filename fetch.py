@@ -232,8 +232,9 @@ TREND_KEYS = ["off_pct", "def_pct", "st_pct", "targets", "target_share", "wopr",
 
 
 def snap_avg(tr):
+    """Aktueller Defense-Snap-Anteil = letzte Woche mit Daten (Rolle soll den Ist-Stand zeigen)."""
     v = [x for x in ((tr or {}).get("def_pct") or []) if x is not None]
-    return sum(v) / len(v) if v else None
+    return v[-1] if v else None
 
 
 def trends(weekly, weeks):
