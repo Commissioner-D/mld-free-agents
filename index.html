@@ -70,6 +70,18 @@ tbody tr.is-mine:hover{background:rgba(199,163,75,.14)}
 .kader{font-size:12px;color:var(--brass);margin-left:8px}
 .role{display:inline-block;font-size:12px;padding:0 6px;margin-left:8px;border:1px solid var(--line);border-radius:4px;color:var(--text)}
 #tip .sum{color:var(--text);font-size:13px;margin:2px 0 6px}
+.depth{display:inline-block;font-size:12px;padding:0 6px;margin-left:6px;border-radius:4px;background:rgba(106,166,216,.15);color:var(--blue);cursor:help}
+#tip .dg{margin:6px 0 2px;color:var(--muted);font-size:13px}
+#tip .dl{list-style:none;margin:0;padding:0}
+#tip .dl li{display:flex;gap:8px;align-items:baseline;padding:2px 0;font-size:13px;border-bottom:1px solid var(--line)}
+#tip .dl li.me{color:var(--brass);font-weight:600}
+#tip .dl .lab{width:44px;color:var(--muted)}
+#tip .dl .nm{flex:1}
+#tip .dl .inj{color:#f08a76;font-size:12px}
+#tip .st{font-size:11px;padding:0 5px;border-radius:3px}
+#tip .st-FA{background:rgba(79,168,138,.2);color:var(--green)}
+#tip .st-Kader{background:rgba(199,163,75,.2);color:var(--brass)}
+#tip .st-vergeben{color:var(--muted)}
 .empty{padding:30px;color:var(--muted);text-align:center}
 @media (max-width:700px){header,.controls,.wrap{padding-left:12px;padding-right:12px}.count{margin-left:0}}
 @media (max-height:560px){body{display:block;height:auto;overflow:auto}.wrap{display:block}.scroll{overflow-x:auto;overflow-y:visible}}
@@ -107,7 +119,7 @@ tbody tr.is-mine:hover{background:rgba(199,163,75,.14)}
     <span class="tier t-radar"></span>Radar <span class="tier t-mine"></span>dein Kader (gleicher Score-Maßstab wie die Free Agents).
     Rolle bei Safeties aus Tackle-Tiefe und Lauf-Anteil: Box, Hybrid, Deep (ab 10 Tackles). Score = Perzentil innerhalb der Position aus Form, Niveau, Rolle, Rollentrend,
     Ownership und Projektion. Verläufe zeigen die letzten Wochen, der Wert rechts ist die letzte Woche. Nutzung: Tackles (IDP), Carries + Targets (RB), Target Share (WR/TE). RZ: Targets + Carries innerhalb der 20-Yard-Linie, letzte 3 Wochen.
-    Mit der Maus auf den Namen (am Handy antippen) für News und Details.
+    Mit der Maus auf den Namen (am Handy antippen) für News und Details, auf das blaue Depth-Badge für die ganze Position des Teams.
   </p>
   </div>
 </div>
@@ -131,7 +143,7 @@ const COLS = [
   {k:"snap",l:"Snaps",c:"l"},
   {k:"usage",l:"Nutzung",c:"l"},
 ];
-let DATA=[], WEEKS=[], state={pos:"Alle",sort:"score",dir:-1};
+let DATA=[], WEEKS=[], DEPTH={}, DEPTH_DATE="", state={pos:"Alle",sort:"score",dir:-1};
 const $=id=>document.getElementById(id);
 const fmt=(v,d=1)=>v==null?"–":Number(v).toFixed(d);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -204,9 +216,10 @@ function render(){
     const i=DATA.indexOf(p), snapS=(p.trend||{})[isIdp(p)?"def_pct":"off_pct"], u=usageSeries(p);
     const flags=(p.flags||[]).map(f=>`<span class="flag ${f==="INJURED"?"inj":""}">${f==="INJURED"?esc(p.injury):FLAG[f]}</span>`).join("");
     const role=p.defense&&p.defense.role?`<span class="role">${p.defense.role}</span>`:"";
+    const dep=p.depth?`<span class="depth" tabindex="0" data-i="${i}">${p.depth.lab}</span>`:"";
     const own=p.mine?`<span class="kader">Kader · ${esc(p.slot)}</span>`:"";
     return `<tr class="${p.mine?"is-mine":""}">
-      <td class="l"><span class="tier t-${p.tier}" title="${p.mine?"Mein Kader":p.tier}"></span><span class="name" tabindex="0" data-i="${i}">${esc(p.name)}</span><span class="sub">${esc(p.pos)} · ${esc(p.team)}</span>${role}${own}</td>
+      <td class="l"><span class="tier t-${p.tier}" title="${p.mine?"Mein Kader":p.tier}"></span><span class="name" tabindex="0" data-i="${i}">${esc(p.name)}</span><span class="sub">${esc(p.pos)} · ${esc(p.team)}</span>${dep}${role}${own}</td>
       <td>${p.age==null?"–":Math.floor(p.age)}${p.rookie?' <span class="sv">R</span>':""}</td>
       <td class="score">${p.score==null?"–":fmt(p.score,0)}</td>
       <td class="l">${flags}</td>
@@ -257,10 +270,19 @@ function trendHtml(p){
   return `<h3>${esc(p.name)}</h3><div class="meta">${esc(p.pos)}, ${esc(p.team)}. Leer = keine Daten (Bye, inaktiv, verletzt).</div>`+sum+
     (body?`<table>${head}${body}</table>`:"<p>Keine Wochendaten.</p>");
 }
+const GNAME={QB:"Quarterbacks",RB:"Running Backs",WR:"Wide Receivers",TE:"Tight Ends",DL:"Defensive Line",LB:"Linebacker",S:"Safeties",CB:"Cornerbacks / Nickel"};
+const nk=s=>s.normalize("NFD").replace(/[^A-Za-z]/g,"").toLowerCase().replace(/(jr|sr|ii|iii|iv)$/,"");
+function depthHtml(p){
+  const d=p.depth, t=DEPTH[d.team]||{}, groups=["S","CB"].includes(d.grp)?["S","CB"]:[d.grp];
+  const lists=groups.filter(g=>t[g]).map(g=>`<div class="dg">${GNAME[g]}</div><ul class="dl">`+t[g].map(e=>
+    `<li class="${nk(e.n)===nk(p.name)?"me":""}"><span class="lab">${esc(e.l)}</span>`+
+    `<span class="nm">${esc(e.n)}${e.i?` <span class="inj">${esc(e.i)}</span>`:""}</span><span class="st st-${e.s}">${e.s}</span></li>`).join("")+"</ul>").join("");
+  return `<h3>${esc(d.team)} Depth Chart</h3><div class="meta">Stand ${esc(DEPTH_DATE)} (ESPN, via nflverse). Verletzungen aus dem aktuellen Injury Report.</div>`+(lists||"<p>Keine Daten.</p>");
+}
 let tipFor=null, hideTimer=null;
 function showTip(el){
   const p=DATA[+el.dataset.i]; const tip=$("tip");
-  tip.innerHTML=el.classList.contains("trendcell")?trendHtml(p):tipHtml(p); tip.style.display="block"; tipFor=el;
+  tip.innerHTML=el.classList.contains("depth")?depthHtml(p):(el.classList.contains("trendcell")?trendHtml(p):tipHtml(p)); tip.style.display="block"; tipFor=el;
   const r=el.getBoundingClientRect(), tw=tip.offsetWidth, th=tip.offsetHeight;
   let x=Math.min(r.left, window.innerWidth-tw-10), y=r.bottom+6;
   if(y+th>window.innerHeight-10) y=Math.max(10,r.top-th-6);
@@ -270,13 +292,13 @@ function hideTip(){clearTimeout(hideTimer);$("tip").style.display="none";tipFor=
 
 const cancelHide=()=>{clearTimeout(hideTimer);hideTimer=null};
 const scheduleHide=()=>{cancelHide();hideTimer=setTimeout(hideTip,600)};
-document.addEventListener("mouseover",e=>{const n=e.target.closest(".name,.trendcell"); if(n){cancelHide(); if(n!==tipFor) showTip(n);}});
-document.addEventListener("mouseout",e=>{const n=e.target.closest(".name,.trendcell"); if(n&&!n.contains(e.relatedTarget)&&!$("tip").contains(e.relatedTarget)) scheduleHide()});
+document.addEventListener("mouseover",e=>{const n=e.target.closest(".name,.trendcell,.depth"); if(n){cancelHide(); if(n!==tipFor) showTip(n);}});
+document.addEventListener("mouseout",e=>{const n=e.target.closest(".name,.trendcell,.depth"); if(n&&!n.contains(e.relatedTarget)&&!$("tip").contains(e.relatedTarget)) scheduleHide()});
 $("tip").addEventListener("mouseenter",cancelHide);
 $("tip").addEventListener("mouseleave",scheduleHide);
-document.addEventListener("focusin",e=>{const n=e.target.closest(".name"); if(n) showTip(n)});
+document.addEventListener("focusin",e=>{const n=e.target.closest(".name,.trendcell,.depth"); if(n) showTip(n)});
 document.addEventListener("click",e=>{
-  const n=e.target.closest(".name,.trendcell");
+  const n=e.target.closest(".name,.trendcell,.depth");
   if(n){ if(tipFor===n) hideTip(); else showTip(n); return; }
   if(!e.target.closest("#tip")) hideTip();
   const th=e.target.closest("th[data-k]"); if(th) sortBy(th.dataset.k);
@@ -299,7 +321,7 @@ $("pos").addEventListener("click",e=>{const b=e.target.closest(".chip"); if(!b)r
 $("q").addEventListener("input",render);
 
 fetch("https://raw.githubusercontent.com/Commissioner-D/mld-free-agents/data/data/free_agents.json?v="+Date.now()).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(d=>{
-  DATA=d.players; WEEKS=d.trend_weeks||[];
+  DATA=d.players; WEEKS=d.trend_weeks||[]; DEPTH=d.depth_charts||{}; DEPTH_DATE=d.depth_date||"";
   const t=new Date(d.generated_utc.replace(" ","T")+"Z");
   $("stand").textContent=`Stand ${t.toLocaleString("de-AT",{weekday:"short",day:"numeric",month:"numeric",hour:"2-digit",minute:"2-digit"})} · ${d.count} Free Agents + ${d.roster_count||0} im Kader · NFL-Wochen ${d.trend_weeks.join(", ")}`;
   render();
