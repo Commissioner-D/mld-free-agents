@@ -1,0 +1,18 @@
+name: Link Test
+on: workflow_dispatch
+jobs:
+  t:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          UA="mld-fa/1.0"
+          for u in \
+            "https://www.fleaflicker.com/nfl/leagues/294292/players/13761" \
+            "https://www.fleaflicker.com/nfl/leagues/294292/players/josh-allen-13761" \
+            "https://www.fleaflicker.com/nfl/players/josh-allen-13761" \
+            "https://www.fleaflicker.com/nfl/players/13761" \
+            "https://www.fleaflicker.com/nfl/leagues/294292/players?playerId=13761" ; do
+            code=$(curl -s -A "$UA" -o /tmp/p.html -w "%{http_code} %{url_effective}" -L "$u")
+            t=$(grep -o "<title>[^<]*" /tmp/p.html | head -1)
+            echo "RESULT $code | $u | $t"
+          done
