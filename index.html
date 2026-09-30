@@ -117,7 +117,7 @@ tbody tr.is-mine:hover{background:rgba(199,163,75,.14)}
   <p class="legend">
     Punkt links: <span class="tier t-hot"></span>heiß (Top der Position) <span class="tier t-signal"></span>Signal (Trigger ausgelöst)
     <span class="tier t-radar"></span>Radar <span class="tier t-mine"></span>dein Kader (gleicher Score-Maßstab wie die Free Agents).
-    Rolle bei Safeties aus Tackle-Tiefe und Lauf-Anteil: Box, Hybrid, Deep (ab 10 Tackles). Bei LBs aus Snap-Anteil und QB-Hits/TFL: Every Down (85 %+), Early Down (60–85 %), Rotation (unter 60 %), Pass Rush. Score = Perzentil innerhalb der Position aus Form, Niveau, Rolle, Rollentrend,
+    Rolle bei Safeties aus dem Anteil der Tackles innerhalb von 4 Yards: Box (40 %+), Hybrid, Deep (bis 25 %), ab 10 Tackles. Bei LBs aus Snap-Anteil und QB-Hits/TFL: Every Down (85 %+), Early Down (60–85 %), Rotation (unter 60 %), Pass Rush. Score = Perzentil innerhalb der Position aus Form, Niveau, Rolle, Rollentrend,
     Ownership und Projektion. Verläufe zeigen die letzten Wochen, der Wert rechts ist die letzte Woche. Nutzung: Tackles (IDP), Carries + Targets (RB), Target Share (WR/TE). RZ: Targets + Carries innerhalb der 20-Yard-Linie, letzte 3 Wochen.
     Mit der Maus auf den Namen (am Handy antippen) für News und Details, auf das blaue Depth-Badge für die ganze Position des Teams.
   </p>
@@ -264,7 +264,7 @@ function trendHtml(p){
   const dp=p.defense;
   const sum=dp?`<div class="sum">Saison: ${dp.tk} Tackles in ${dp.snaps} Snaps (${dp.tps.toFixed(3)} pro Snap)`+
     (dp.run_share!=null?`, ${Math.round(dp.run_share*100)} % bei Laufspielzügen`:"")+
-    (dp.depth!=null?`, Tackle-Tiefe Ø ${dp.depth} Yds`:"")+
+    (dp.near_los!=null?`, ${Math.round(dp.near_los*100)} % der Tackles innerhalb 4 Yds (Ø ${dp.depth_avg} Yds)`:"")+
     ((dp.qbh||dp.tfl)?`, ${dp.qbh} QB-Hits, ${dp.tfl} TFL`:"")+
     (dp.role?`. Rolle: ${dp.role}`:"")+`</div>`:"";
   return `<h3>${esc(p.name)}</h3><div class="meta">${esc(p.pos)}, ${esc(p.team)}. Leer = keine Daten (Bye, inaktiv, verletzt).</div>`+sum+
