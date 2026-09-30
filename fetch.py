@@ -13,6 +13,7 @@ UA = {"User-Agent": "mld-fa/1.0"}        # curl/Browser-UA werden von Fleaflicke
 FLEA = "https://www.fleaflicker.com/api"
 NFLV = "https://github.com/nflverse/nflverse-data/releases/download"
 TREND_WEEKS = 4
+SCOUT_STALE_DAYS = 10                    # Recherche aelter -> grau, kein Signal, Rolle nicht mehr uebernommen
 NOW = datetime.now(timezone.utc)
 SEASON = NOW.year if NOW.month >= 8 else NOW.year - 1
 TEAM_MAP = {"LAR": "LA", "JAC": "JAX", "WSH": "WAS"}   # Fleaflicker -> nflverse
@@ -448,7 +449,7 @@ def metrics(p):
     if (p.get("trending") and p["trending"]["rank"] <= 50) or (p.get("espn") and p["espn"]["rank"] <= 50):
         flags.append("TRENDING")
     if (p.get("scout") or {}).get("badge"):
-        flags.append("SCOUT")
+        flags.append("SCOUT")                               # veraltete Recherche: nur Anzeige, kein Trigger
     if p.get("injury") in BAD_INJ:
         flags.append("INJURED")
     p["flags"] = flags
@@ -470,7 +471,7 @@ def score_all(fas, mine, league):
         pool.sort(key=lambda p: -p["score"])
         for i, p in enumerate(pool):
             p["group_rank"] = i + 1
-            trig = [f for f in p["flags"] if f != "INJURED"]
+            trig = [f for f in p["flags"] if f != "INJURED" and not (f == "SCOUT" and p["scout"].get("stale"))]
             rising = (p["m"]["role_trend"] or 0) >= 0.10 and (p["m"]["snap_last"] or 0) >= 0.40
             if i < HOT_N[g] and p["score"] >= HOT_MIN:
                 p["tier"] = "hot"
@@ -565,8 +566,14 @@ def main():
         p["trending"] = {"rank": tv["rank"], "adds": tv["adds"]} if tv else None
         ev = espn.get(norm(p["name"]))
         p["espn"] = {"rank": ev["rank"], "chg": ev["chg"]} if ev and ev["pos"] == p["pos"] else None   # Namensgleichheit + Position
-        p["scout"] = scouting.get(p["name"])
-        if p["scout"] and p["scout"].get("role") and p.get("defense"):
+        p["scout"] = dict(scouting[p["name"]]) if p["name"] in scouting else None
+        if p["scout"]:
+            try:
+                p["scout"]["age_days"] = (NOW.date() - datetime.strptime(p["scout"].get("date", ""), "%Y-%m-%d").date()).days
+            except ValueError:
+                p["scout"]["age_days"] = 999
+            p["scout"]["stale"] = p["scout"]["age_days"] > SCOUT_STALE_DAYS
+        if p["scout"] and not p["scout"]["stale"] and p["scout"].get("role") and p.get("defense"):
             p["defense"]["role_proxy"] = p["defense"].get("role")
             p["defense"]["role"] = p["scout"]["role"]          # recherchierte Rolle schlaegt Proxy
         p["age"] = age(b["birth"]) if b else None
