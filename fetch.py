@@ -599,6 +599,30 @@ def main():
     print(f"{len(fas)} FAs + {len(mine)} Kader, Wochen {weeks}, "
           f"{sum(1 for p in fas + mine if p['trend'])} mit Trend, {len(unmatched)} ohne Match")
 
+    # Liga-Snapshot (eigene Datei, Fehler hier bremsen den FA-Teil nicht)
+    def bio_for(p):
+        n = norm(equiv.get(p["name"], p["name"])); t = TEAM_MAP.get(p["team"], p["team"])
+        b = bio.get((n, t))
+        if not b and len(bio_by_name.get(n, [])) == 1:
+            cand = bio[bio_by_name[n][0]]
+            b = cand if same_group(p["pos"] or "", cand.get("pos") or "") else None
+        if not b:
+            return None
+        return {"age": age(b["birth"]),
+                "draft": f'R{b["draft_round"]}/{b["draft_pick"]}' if b.get("draft_round") else "UDFA",
+                "exp": int(b["exp"]) if b.get("exp") not in (None, "") else None, "rookie": bool(b.get("rookie"))}
+    try:
+        import league as lg
+        scored = {p["fl_id"]: p for p in league + mine}
+        snap = lg.build(lambda path: json.loads(get(f"{FLEA}/{path}")), LEAGUE_ID, MY_TEAM_ID,
+                        parse_player, bio_for, scored)
+        json.dump({"generated_utc": NOW.strftime("%Y-%m-%d %H:%M"), "season": SEASON, **snap},
+                  open("data/league.json", "w"), ensure_ascii=False, separators=(",", ":"))
+        print(f"Liga: {len(snap['teams'])} Teams, {sum(len(t['roster']) for t in snap['teams'])} Spieler, "
+              f"{len(snap['trades'])} Trades, {len(snap['transactions'])} Transaktionen")
+    except Exception as e:
+        print("Liga-Snapshot nicht verfuegbar:", e)
+
 
 if __name__ == "__main__":
     main()

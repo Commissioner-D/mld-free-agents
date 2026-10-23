@@ -2,6 +2,9 @@ name: Fetch Free Agents
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [fetch.py, league.py, .github/workflows/fetch.yml]
   schedule:
     - cron: "0 */4 * * *"   # alle 4 Stunden (UTC). GitHub startet oft 5-30 min verspaetet.
 
@@ -24,13 +27,13 @@ jobs:
         run: python fetch.py
       - name: Publish to data branch (overwrite, no history growth)
         run: |
-          mkdir -p /tmp/out && cp data/free_agents.json /tmp/out/
+          mkdir -p /tmp/out && cp data/free_agents.json /tmp/out/ && (cp data/league.json /tmp/out/ || true)
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git checkout --orphan data-tmp
           git rm -rf --cached . -q
           find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
-          mkdir data && cp /tmp/out/free_agents.json data/
+          mkdir data && cp /tmp/out/*.json data/
           git add data
           git commit -q -m "FA data $(date -u +%Y-%m-%d_%H%M)"
           git push -f origin HEAD:data
