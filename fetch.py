@@ -621,6 +621,7 @@ def main():
         print(f"Liga: {len(snap['teams'])} Teams, {sum(len(t['roster']) for t in snap['teams'])} Spieler, "
               f"{len(snap['trades'])} Trades, {len(snap['transactions'])} Transaktionen")
     except Exception as e:
+        import traceback; traceback.print_exc()
         print("Liga-Snapshot nicht verfuegbar:", e)
 
 
