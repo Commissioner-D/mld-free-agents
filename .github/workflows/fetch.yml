@@ -25,11 +25,15 @@ jobs:
           python-version: "3.12"
       - name: Keep last good league.json
         run: curl -sf https://raw.githubusercontent.com/${{ github.repository }}/data/data/league.json -o /tmp/league_prev.json || true
+      - name: Probe trades page
+        run: |
+          curl -s -A "Mozilla/5.0" https://www.fleaflicker.com/nfl/leagues/294292/trades -o /tmp/tp.html; echo "HTML $(wc -c < /tmp/tp.html)"
+          grep -oiE "(pending|under review|in review|veto|accepted|proposed|tradestatus|TRADE_STATUS_[A-Z_]+|filter=[A-Z_]+)[^<]{0,40}" /tmp/tp.html | sort | uniq -c | head -40 > /tmp/tp_probe.txt; cat /tmp/tp_probe.txt
       - name: Fetch
         run: python fetch.py 2>&1 | tee fetch_log.txt; exit ${PIPESTATUS[0]}
       - name: Publish to data branch (overwrite, no history growth)
         run: |
-          mkdir -p /tmp/out && cp data/free_agents.json /tmp/out/ && (cp data/league.json /tmp/out/ || cp /tmp/league_prev.json /tmp/out/league.json || true) && cp fetch_log.txt /tmp/out/
+          mkdir -p /tmp/out && cp data/free_agents.json /tmp/out/ && (cp data/league.json /tmp/out/ || cp /tmp/league_prev.json /tmp/out/league.json || true) && cp fetch_log.txt /tmp/out/ && (cp /tmp/tp_probe.txt /tmp/out/ || true)
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git checkout --orphan data-tmp

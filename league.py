@@ -36,7 +36,7 @@ def build(api, league_id, my_team_id, parse_player, bio_for, scored):
     scored: {fl_id: Spieler aus dem Liga-Pool mit score/tier/flags/m}."""
     # Probe: welche Filter liefern offene Trades?
     probe = {}
-    for f in ["", "TRADES_PENDING", "TRADES_PROPOSED", "TRADES_IN_REVIEW", "TRADES_ALL", "TRADES_ACTIVE"]:
+    for f in ["TRADES_UNDER_REVIEW", "TRADES_PENDING_REVIEW", "TRADES_ACCEPTED", "TRADES_OFFERED", "TRADES_OPEN", "TRADES_IN_PROGRESS", "TRADES_REVIEW", "TRADES_VETO"]:
         try:
             d = api(f"FetchTrades?sport=NFL&league_id={league_id}" + (f"&filter={f}" if f else ""))
             sts = {}
