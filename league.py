@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 
 TRADE_PAGES = 3          # je 10 Trades
 TX_PAGES = 4             # je 30 Transaktionen
+PAUSE = 1.0            # Fleaflicker drosselt bei schnellen Serienabrufen
 TX_TYPES = {None: "ADD", "TRANSACTION_ADD": "ADD", "TRANSACTION_DROP": "DROP",
             "TRANSACTION_CLAIM": "CLAIM", "TRANSACTION_TRADE": "TRADE"}
 
@@ -33,6 +34,20 @@ def _pick(pk, team_id=None):
 def build(api, league_id, my_team_id, parse_player, bio_for, scored):
     """api(path) -> dict; parse_player wie in fetch.py; bio_for(p) -> dict|None;
     scored: {fl_id: Spieler aus dem Liga-Pool mit score/tier/flags/m}."""
+    # Probe: welche Filter liefern offene Trades?
+    probe = {}
+    for f in ["", "TRADES_PENDING", "TRADES_PROPOSED", "TRADES_IN_REVIEW", "TRADES_ALL", "TRADES_ACTIVE"]:
+        try:
+            d = api(f"FetchTrades?sport=NFL&league_id={league_id}" + (f"&filter={f}" if f else ""))
+            sts = {}
+            for tr in d.get("trades", []):
+                sts[tr.get("status")] = sts.get(tr.get("status"), 0) + 1
+            probe[f or "(none)"] = {"total": d.get("resultTotal"), "status": sts}
+        except Exception as e:
+            probe[f or "(none)"] = {"error": str(e)[:120]}
+        time.sleep(PAUSE)
+    print("Trade-Filter-Probe:", json.dumps(probe))
+
     st = api(f"FetchLeagueStandings?sport=NFL&league_id={league_id}")
     teams = []
     for div in st.get("divisions", []):
@@ -71,11 +86,11 @@ def build(api, league_id, my_team_id, parse_player, bio_for, scored):
                     "snap_last": m.get("snap_last"), "role_trend": m.get("role_trend"),
                 })
         t["roster"] = roster
-        time.sleep(0.3)
+        time.sleep(PAUSE)
         pk = api(f"FetchTeamPicks?sport=NFL&league_id={league_id}&team_id={t['id']}")
         t["picks"] = sorted((_pick(x, t["id"]) for x in pk.get("picks", []) if not x.get("lost")),
                             key=lambda x: (x["season"] or 0, x["round"] or 0))
-        time.sleep(0.3)
+        time.sleep(PAUSE)
 
     trades, offset = [], 0
     for _ in range(TRADE_PAGES):
@@ -92,7 +107,7 @@ def build(api, league_id, my_team_id, parse_player, bio_for, scored):
         if not nxt or nxt <= offset:
             break
         offset = nxt
-        time.sleep(0.3)
+        time.sleep(PAUSE)
 
     tx, offset = [], 0
     for _ in range(TX_PAGES):
@@ -108,21 +123,7 @@ def build(api, league_id, my_team_id, parse_player, bio_for, scored):
         if not nxt or nxt <= offset:
             break
         offset = nxt
-        time.sleep(0.3)
-
-    # Probe: welche Filter liefern offene Trades?
-    probe = {}
-    for f in ["", "TRADES_PENDING", "TRADES_PROPOSED", "TRADES_IN_REVIEW", "TRADES_ALL", "TRADES_ACTIVE"]:
-        try:
-            d = api(f"FetchTrades?sport=NFL&league_id={league_id}" + (f"&filter={f}" if f else ""))
-            sts = {}
-            for tr in d.get("trades", []):
-                sts[tr.get("status")] = sts.get(tr.get("status"), 0) + 1
-            probe[f or "(none)"] = {"total": d.get("resultTotal"), "status": sts}
-        except Exception as e:
-            probe[f or "(none)"] = {"error": str(e)[:120]}
-        time.sleep(0.3)
-    print("Trade-Filter-Probe:", json.dumps(probe))
+        time.sleep(PAUSE)
 
     teams.sort(key=lambda t: (t["rank"] or 99))
     return {"teams": teams, "trades": trades, "transactions": tx}

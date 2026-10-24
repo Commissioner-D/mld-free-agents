@@ -25,11 +25,15 @@ SUFFIX = re.compile(r"\b(jr|sr|ii|iii|iv|v)\b")
 
 
 # ---------- Helfer ----------
-def get(url, retries=3):
+def get(url, retries=4):
     for i in range(retries):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60) as r:
                 return r.read()
+        except urllib.error.HTTPError as e:
+            if i == retries - 1:
+                raise
+            time.sleep(20 * (i + 1) if e.code in (403, 429) else 3)   # Rate-Limit: laenger warten
         except urllib.error.URLError:
             if i == retries - 1:
                 raise
