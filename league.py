@@ -110,5 +110,19 @@ def build(api, league_id, my_team_id, parse_player, bio_for, scored):
         offset = nxt
         time.sleep(0.3)
 
+    # Probe: welche Filter liefern offene Trades?
+    probe = {}
+    for f in ["", "TRADES_PENDING", "TRADES_PROPOSED", "TRADES_IN_REVIEW", "TRADES_ALL", "TRADES_ACTIVE"]:
+        try:
+            d = api(f"FetchTrades?sport=NFL&league_id={league_id}" + (f"&filter={f}" if f else ""))
+            sts = {}
+            for tr in d.get("trades", []):
+                sts[tr.get("status")] = sts.get(tr.get("status"), 0) + 1
+            probe[f or "(none)"] = {"total": d.get("resultTotal"), "status": sts}
+        except Exception as e:
+            probe[f or "(none)"] = {"error": str(e)[:120]}
+        time.sleep(0.3)
+    print("Trade-Filter-Probe:", json.dumps(probe))
+
     teams.sort(key=lambda t: (t["rank"] or 99))
     return {"teams": teams, "trades": trades, "transactions": tx}
