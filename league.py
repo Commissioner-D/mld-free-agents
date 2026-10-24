@@ -34,20 +34,6 @@ def _pick(pk, team_id=None):
 def build(api, league_id, my_team_id, parse_player, bio_for, scored):
     """api(path) -> dict; parse_player wie in fetch.py; bio_for(p) -> dict|None;
     scored: {fl_id: Spieler aus dem Liga-Pool mit score/tier/flags/m}."""
-    # Probe: welche Filter liefern offene Trades?
-    probe = {}
-    for f in ["TRADES_UNDER_REVIEW", "TRADES_PENDING_REVIEW", "TRADES_ACCEPTED", "TRADES_OFFERED", "TRADES_OPEN", "TRADES_IN_PROGRESS", "TRADES_REVIEW", "TRADES_VETO"]:
-        try:
-            d = api(f"FetchTrades?sport=NFL&league_id={league_id}" + (f"&filter={f}" if f else ""))
-            sts = {}
-            for tr in d.get("trades", []):
-                sts[tr.get("status")] = sts.get(tr.get("status"), 0) + 1
-            probe[f or "(none)"] = {"total": d.get("resultTotal"), "status": sts}
-        except Exception as e:
-            probe[f or "(none)"] = {"error": str(e)[:120]}
-        time.sleep(PAUSE)
-    print("Trade-Filter-Probe:", json.dumps(probe))
-
     st = api(f"FetchLeagueStandings?sport=NFL&league_id={league_id}")
     teams = []
     for div in st.get("divisions", []):
@@ -92,22 +78,27 @@ def build(api, league_id, my_team_id, parse_player, bio_for, scored):
                             key=lambda x: (x["season"] or 0, x["round"] or 0))
         time.sleep(PAUSE)
 
-    trades, offset = [], 0
-    for _ in range(TRADE_PAGES):
-        d = api(f"FetchTrades?sport=NFL&league_id={league_id}&filter=TRADES_COMPLETED&result_offset={offset}")
-        for tr in d.get("trades", []):
-            trades.append({
-                "id": tr.get("id"), "date": _date(tr.get("approvedOn") or tr.get("proposedOn")),
+    def trade_rec(tr):
+        return {
+                "id": tr.get("id"), "status": tr.get("status"), "date": _date(tr.get("approvedOn") or tr.get("proposedOn")),
                 "description": tr.get("description"),
                 "teams": [{"team": (x.get("team") or {}).get("name"),
                            "players": [_pro(p["proPlayer"]) for p in x.get("playersObtained", []) if p.get("proPlayer")],
                            "picks": [_pick(p) for p in x.get("picksObtained", [])]}
-                          for x in tr.get("teams", [])]})
+                          for x in tr.get("teams", [])]}
+
+    trades, offset = [], 0
+    for _ in range(TRADE_PAGES):
+        d = api(f"FetchTrades?sport=NFL&league_id={league_id}&filter=TRADES_COMPLETED&result_offset={offset}")
+        trades += [trade_rec(tr) for tr in d.get("trades", [])]
         nxt = d.get("resultOffsetNext")
         if not nxt or nxt <= offset:
             break
         offset = nxt
         time.sleep(PAUSE)
+
+    d = api(f"FetchTrades?sport=NFL&league_id={league_id}&filter=TRADES_UNDER_REVIEW")
+    pending = [trade_rec(tr) for tr in d.get("trades", [])]
 
     tx, offset = [], 0
     for _ in range(TX_PAGES):
@@ -126,4 +117,4 @@ def build(api, league_id, my_team_id, parse_player, bio_for, scored):
         time.sleep(PAUSE)
 
     teams.sort(key=lambda t: (t["rank"] or 99))
-    return {"teams": teams, "trades": trades, "transactions": tx}
+    return {"teams": teams, "trades_pending": pending, "trades": trades, "transactions": tx}
