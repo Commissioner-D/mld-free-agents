@@ -618,8 +618,9 @@ def main():
     try:
         import league as lg
         scored = {p["fl_id"]: p for p in league + mine}
+        page = lambda url: urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"}), timeout=60).read().decode("utf-8")
         snap = lg.build(lambda path: json.loads(get(f"{FLEA}/{path}")), LEAGUE_ID, MY_TEAM_ID,
-                        parse_player, bio_for, scored)
+                        parse_player, bio_for, scored, page)
         json.dump({"generated_utc": NOW.strftime("%Y-%m-%d %H:%M"), "season": SEASON, **snap},
                   open("data/league.json", "w"), ensure_ascii=False, separators=(",", ":"))
         print(f"Liga: {len(snap['teams'])} Teams, {sum(len(t['roster']) for t in snap['teams'])} Spieler, "
