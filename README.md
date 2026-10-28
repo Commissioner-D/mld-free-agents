@@ -20,3 +20,8 @@ Raw-URLs:
 - **Research**: Di 17:00 UTC, braucht das Secret `ANTHROPIC_API_KEY`
 
 Picks: Fleaflicker kennt für künftige Drafts noch keine Reihenfolge, daher nur Saison, Runde und Herkunft.
+
+## Wird genutzt von
+
+- **mld-copilot** liest `data/league.json` (Kader-Infos, `pfo`, `draft_slot`) für Spielerinfos und Pick-Tendenzen.
+  Feldnamen dort nicht umbenennen, ohne den Copilot anzupassen.
