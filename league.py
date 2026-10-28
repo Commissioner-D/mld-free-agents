@@ -85,7 +85,7 @@ def build(api, league_id, my_team_id, parse_player, bio_for, scored, page=None):
                     "fl_id": p["fl_id"], "name": p["name"], "pos": p["pos"], "team": p["team"], "slot": slot,
                     "injury": p["injury"], "age": b.get("age"), "draft": b.get("draft"), "exp": b.get("exp"),
                     "rookie": b.get("rookie"), "pts_avg": p["pts_avg"], "pts_last3": p["pts_last3"],
-                    "pts_total": p["pts_total"], "pos_rank": p["pos_rank"],
+                    "pts_total": p["pts_total"], "pos_rank": p["pos_rank"], "pct_owned": p["pct_owned"],
                     "score": sc.get("score"), "group": sc.get("group"), "flags": sc.get("flags") or [],
                     "snap_last": m.get("snap_last"), "role_trend": m.get("role_trend"),
                 })
