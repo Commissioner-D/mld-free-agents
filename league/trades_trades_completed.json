@@ -38917,6 +38917,86 @@
       "displayGroup": "DEFENDER",
       "lastX": [
        {
+        "duration": 1
+       },
+       {
+        "duration": 3
+       },
+       {
+        "duration": 5
+       }
+      ],
+      "proPlayer": {
+       "headshotUrl": "https://d26bvpybnxg29h.cloudfront.net/nfl/11169.png",
+       "id": 11169,
+       "nameFirst": "Marcus",
+       "nameFull": "Marcus Peters",
+       "nameLast": "Peters",
+       "nameShort": "M. Peters",
+       "position": "CB",
+       "positionEligibility": [
+        "CB"
+       ],
+       "proTeam": {
+        "abbreviation": "FA",
+        "isFreeAgent": true,
+        "location": "Free",
+        "name": "Agent"
+       },
+       "proTeamAbbreviation": "FA"
+      },
+      "requestedGamesPeriod": {
+       "isNow": true,
+       "ordinal": 8,
+       "startEpochMilli": "1793095200000"
+      },
+      "transactionStatus": {
+       "isLineupStatusLocked": true,
+       "locked": {}
+      },
+      "viewingActualStats": [
+       {
+        "category": {
+         "abbreviation": "Ast",
+         "id": 82,
+         "namePlural": "Assisted Tackles",
+         "nameSingular": "Assisted Tackle"
+        }
+       },
+       {
+        "category": {
+         "abbreviation": "Solo",
+         "id": 83,
+         "namePlural": "Solo Tackles",
+         "nameSingular": "Solo Tackle"
+        }
+       },
+       {
+        "category": {
+         "abbreviation": "INT",
+         "id": 84,
+         "namePlural": "Interceptions",
+         "nameSingular": "Interception"
+        }
+       },
+       {
+        "category": {
+         "abbreviation": "Sack",
+         "id": 85,
+         "namePlural": "Sacks",
+         "nameSingular": "Sack"
+        }
+       }
+      ],
+      "viewingFormat": "TOTAL",
+      "viewingRange": {
+       "low": 8
+      }
+     },
+     {
+      "displayGroup": "DEFENDER",
+      "lastX": [
+       {
         "duration": 1,
         "underPerforming": true,
         "value": {
@@ -39300,86 +39380,6 @@
         }
        }
       ],
-      "viewingRange": {
-       "low": 8
-      }
-     },
-     {
-      "displayGroup": "DEFENDER",
-      "lastX": [
-       {
-        "duration": 1
-       },
-       {
-        "duration": 3
-       },
-       {
-        "duration": 5
-       }
-      ],
-      "proPlayer": {
-       "headshotUrl": "https://d26bvpybnxg29h.cloudfront.net/nfl/11169.png",
-       "id": 11169,
-       "nameFirst": "Marcus",
-       "nameFull": "Marcus Peters",
-       "nameLast": "Peters",
-       "nameShort": "M. Peters",
-       "position": "CB",
-       "positionEligibility": [
-        "CB"
-       ],
-       "proTeam": {
-        "abbreviation": "FA",
-        "isFreeAgent": true,
-        "location": "Free",
-        "name": "Agent"
-       },
-       "proTeamAbbreviation": "FA"
-      },
-      "requestedGamesPeriod": {
-       "isNow": true,
-       "ordinal": 8,
-       "startEpochMilli": "1793095200000"
-      },
-      "transactionStatus": {
-       "isLineupStatusLocked": true,
-       "locked": {}
-      },
-      "viewingActualStats": [
-       {
-        "category": {
-         "abbreviation": "Ast",
-         "id": 82,
-         "namePlural": "Assisted Tackles",
-         "nameSingular": "Assisted Tackle"
-        }
-       },
-       {
-        "category": {
-         "abbreviation": "Solo",
-         "id": 83,
-         "namePlural": "Solo Tackles",
-         "nameSingular": "Solo Tackle"
-        }
-       },
-       {
-        "category": {
-         "abbreviation": "INT",
-         "id": 84,
-         "namePlural": "Interceptions",
-         "nameSingular": "Interception"
-        }
-       },
-       {
-        "category": {
-         "abbreviation": "Sack",
-         "id": 85,
-         "namePlural": "Sacks",
-         "nameSingular": "Sack"
-        }
-       }
-      ],
-      "viewingFormat": "TOTAL",
       "viewingRange": {
        "low": 8
       }
