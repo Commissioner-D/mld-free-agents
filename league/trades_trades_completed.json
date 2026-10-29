@@ -37508,7 +37508,7 @@
  {
   "approvedOn": "1667403456000",
   "chatChannel": "/chats/NFL/leagues/294292/trades-7943156",
-  "description": "Claypool and 1 Pick for Austin, Renfrow and 1 Pick",
+  "description": "Claypool and 1 Pick for Renfrow, Austin and 1 Pick",
   "id": 7943156,
   "numVetoesRequired": 7,
   "proposedOn": "1667402728000",
@@ -37638,6 +37638,88 @@
        }
       ],
       "proPlayer": {
+       "headshotUrl": "https://d26bvpybnxg29h.cloudfront.net/nfl/14836.png",
+       "id": 14836,
+       "nameFirst": "Hunter",
+       "nameFull": "Hunter Renfrow",
+       "nameLast": "Renfrow",
+       "nameShort": "H. Renfrow",
+       "percentOwnedRatio": 0.01,
+       "position": "WR",
+       "positionEligibility": [
+        "WR"
+       ],
+       "proTeam": {
+        "abbreviation": "FA",
+        "isFreeAgent": true,
+        "location": "Free",
+        "name": "Agent"
+       },
+       "proTeamAbbreviation": "FA"
+      },
+      "requestedGamesPeriod": {
+       "isNow": true,
+       "ordinal": 8,
+       "startEpochMilli": "1793095200000"
+      },
+      "transactionStatus": {
+       "isLineupStatusLocked": true,
+       "locked": {}
+      },
+      "viewingActualStats": [
+       {
+        "category": {
+         "abbreviation": "Rec",
+         "id": 175,
+         "namePlural": "Target % Caught",
+         "nameSingular": "Target % Caught"
+        }
+       },
+       {
+        "category": {
+         "abbreviation": "Yd",
+         "id": 42,
+         "namePlural": "Receiving Yards",
+         "nameSingular": "Receiving Yard"
+        }
+       },
+       {
+        "category": {
+         "abbreviation": "Fum",
+         "id": 26,
+         "lowerIsBetter": true,
+         "namePlural": "Fumbles",
+         "nameSingular": "Fumble"
+        }
+       },
+       {
+        "category": {
+         "abbreviation": "TD",
+         "id": 29,
+         "namePlural": "Offensive + Special Teams TDs",
+         "nameSingular": "Offensive + Special Teams TD"
+        }
+       }
+      ],
+      "viewingFormat": "TOTAL",
+      "viewingRange": {
+       "low": 8
+      }
+     },
+     {
+      "displayGroup": "RECEIVER",
+      "lastX": [
+       {
+        "duration": 1
+       },
+       {
+        "duration": 3
+       },
+       {
+        "duration": 5
+       }
+      ],
+      "proPlayer": {
        "headshotUrl": "https://d26bvpybnxg29h.cloudfront.net/nfl/16921.png",
        "id": 16921,
        "injury": {
@@ -37708,88 +37790,6 @@
         ]
        }
       ],
-      "requestedGamesPeriod": {
-       "isNow": true,
-       "ordinal": 8,
-       "startEpochMilli": "1793095200000"
-      },
-      "transactionStatus": {
-       "isLineupStatusLocked": true,
-       "locked": {}
-      },
-      "viewingActualStats": [
-       {
-        "category": {
-         "abbreviation": "Rec",
-         "id": 175,
-         "namePlural": "Target % Caught",
-         "nameSingular": "Target % Caught"
-        }
-       },
-       {
-        "category": {
-         "abbreviation": "Yd",
-         "id": 42,
-         "namePlural": "Receiving Yards",
-         "nameSingular": "Receiving Yard"
-        }
-       },
-       {
-        "category": {
-         "abbreviation": "Fum",
-         "id": 26,
-         "lowerIsBetter": true,
-         "namePlural": "Fumbles",
-         "nameSingular": "Fumble"
-        }
-       },
-       {
-        "category": {
-         "abbreviation": "TD",
-         "id": 29,
-         "namePlural": "Offensive + Special Teams TDs",
-         "nameSingular": "Offensive + Special Teams TD"
-        }
-       }
-      ],
-      "viewingFormat": "TOTAL",
-      "viewingRange": {
-       "low": 8
-      }
-     },
-     {
-      "displayGroup": "RECEIVER",
-      "lastX": [
-       {
-        "duration": 1
-       },
-       {
-        "duration": 3
-       },
-       {
-        "duration": 5
-       }
-      ],
-      "proPlayer": {
-       "headshotUrl": "https://d26bvpybnxg29h.cloudfront.net/nfl/14836.png",
-       "id": 14836,
-       "nameFirst": "Hunter",
-       "nameFull": "Hunter Renfrow",
-       "nameLast": "Renfrow",
-       "nameShort": "H. Renfrow",
-       "percentOwnedRatio": 0.01,
-       "position": "WR",
-       "positionEligibility": [
-        "WR"
-       ],
-       "proTeam": {
-        "abbreviation": "FA",
-        "isFreeAgent": true,
-        "location": "Free",
-        "name": "Agent"
-       },
-       "proTeamAbbreviation": "FA"
-      },
       "requestedGamesPeriod": {
        "isNow": true,
        "ordinal": 8,
