@@ -1,0 +1,39 @@
+name: Fetch Boxscores
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [boxscores.py, .github/workflows/boxscores.yml]
+  schedule:
+    - cron: "30 10 * * 2"   # Dienstag 10:30 UTC, nach Monday Night
+
+permissions:
+  contents: write
+
+concurrency:
+  group: boxscores
+  cancel-in-progress: false
+
+jobs:
+  boxscores:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Fetch
+        run: python boxscores.py 2>&1 | tee boxscores_log.txt; exit ${PIPESTATUS[0]}
+      - name: Publish to boxscores branch (overwrite)
+        run: |
+          mkdir -p /tmp/out && cp data/boxscores.json data/boxscores_raw.json boxscores_log.txt /tmp/out/
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git checkout --orphan bx-tmp
+          git rm -rf --cached . -q
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          mkdir data && cp /tmp/out/* data/
+          git add data
+          git commit -q -m "Boxscores $(date -u +%Y-%m-%d_%H%M)"
+          git push -f origin HEAD:boxscores
