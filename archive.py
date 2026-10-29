@@ -259,7 +259,9 @@ def drafts(season):
         h = page(f"https://www.fleaflicker.com/nfl/leagues/{LEAGUE_ID}/drafts?draftIndex={idx}&season={season}")
         t = draft_text(h)
         m = DRAFT_HEAD.search(t)
-        body = t[t.find("Round 1"):] if "Round 1" in t else ""
+        # Ab 2023 Listenansicht ("Round 1 ... 1.1 #1"), 2020-2022 Board-Ansicht ("1.1 RB - ...")
+        first = re.search(r"\b1\.1\b", t)
+        body = t[first.start():] if first and len(t) - first.start() > 500 else ""
         if not m or int(m.group(2)) != season or int(m.group(1)) != idx + 1 or not body or body == prev_body:
             if idx == 0:
                 ERRORS.append(f"draft {season}/0: Seite passt nicht (Kopf: {m.group(0) if m else '-'})")
