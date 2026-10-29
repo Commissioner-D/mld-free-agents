@@ -84,12 +84,21 @@ def guard(label, fn, *a):
 
 
 def merge_by_id(existing, new, key="id"):
-    """Fuehrt Listen zusammen. Bestehende Eintraege bleiben, neue Fassungen gewinnen."""
-    out = {str(x.get(key)): x for x in existing or [] if x.get(key) is not None}
+    """Fuehrt Listen zusammen. Bestehende Eintraege bleiben, neue Fassungen gewinnen.
+    key: Feldname oder Funktion (fuer Eintraege ohne eigene ID)."""
+    k = key if callable(key) else (lambda x: x.get(key))
+    out = {str(k(x)): x for x in existing or [] if k(x) is not None}
     for x in new:
-        if x.get(key) is not None:
-            out[str(x.get(key))] = x
-    return sorted(out.values(), key=lambda x: str(x.get(key)))
+        if k(x) is not None:
+            out[str(k(x))] = x
+    return sorted(out.values(), key=lambda x: str(k(x)))
+
+
+def tx_key(it):
+    """Transaktionen haben keine ID -> Zeitstempel + Typ + Team + Spieler."""
+    x = it.get("transaction") or {}
+    return "|".join(str(v) for v in (it.get("timeEpochMilli"), x.get("type"), (x.get("team") or {}).get("id"),
+                                       ((x.get("player") or {}).get("proPlayer") or {}).get("id")))
 
 
 # ---------------- Liga-weite Dinge ----------------
@@ -106,7 +115,7 @@ def league_rules():
 def transactions():
     """Alle Transaktionen, rueckwaerts gepaged, mit dem Bestand zusammengefuehrt."""
     have = load("league", "transactions.json", default=[])
-    known = {str(x.get("id")) for x in have}
+    known = {tx_key(x) for x in have}
     items, offset = [], 0
     while True:
         d = api(f"FetchLeagueTransactions?sport=NFL&league_id={LEAGUE_ID}&result_offset={offset}")
@@ -115,18 +124,19 @@ def transactions():
             break
         items += page
         # Sobald eine ganze Seite schon bekannt ist, ist der Rest auch bekannt
-        if have and all(str(x.get("id")) in known for x in page):
+        if have and all(tx_key(x) in known for x in page):
             break
         nxt = d.get("resultOffsetNext")
         if not nxt or nxt <= offset:
             break
         offset = nxt
-    save(merge_by_id(have, items), "league", "transactions.json")
-    print(f"Transaktionen: {len(items)} geholt, gesamt {len(merge_by_id(have, items))}")
+    merged = merge_by_id(have, items, tx_key)
+    save(merged, "league", "transactions.json")
+    print(f"Transaktionen: {len(items)} geholt, gesamt {len(merged)}")
 
 
 def trades():
-    for flt in ("TRADES_COMPLETED", "TRADES_PROPOSED", "TRADES_ACCEPTED"):
+    for flt in ("TRADES_COMPLETED", "TRADES_UNDER_REVIEW"):
         have = load("league", f"trades_{flt.lower()}.json", default=[])
         items, offset = [], 0
         while True:
@@ -218,29 +228,54 @@ def picks(season):
             save(r, "seasons", season, "picks", f"{NOW:%Y-%m-%d}", f"{tid}.json")
 
 
+def page(url):
+    STATS["requests"] += 1
+    for i in range(4):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"}), timeout=60) as r:
+                time.sleep(0.25)
+                return r.read().decode("utf-8", "replace")
+        except (urllib.error.URLError, TimeoutError):
+            if i == 3:
+                raise
+            time.sleep(10)
+
+
 def drafts(season):
-    """Draftboards (Rookie-Draft, ggf. weitere). Einmal pro Saison, sobald gefuellt."""
+    """Draftboards: API-Antwort UND die HTML-Seite (doppelt haelt besser -- die API-Struktur
+    fuer Drafts ist nicht dokumentiert). Vergangene Saisons nur einmal."""
     for idx in range(0, 3):
-        if exists("seasons", season, f"draft_{idx}.json") and season < CUR_SEASON:
+        done = exists("seasons", season, "drafts", f"draft_{idx}.html")
+        if done and season < CUR_SEASON:
             continue
         try:
             d = api(f"FetchLeagueDraftBoard?sport=NFL&league_id={LEAGUE_ID}&season={season}&draft_index={idx}")
-        except urllib.error.HTTPError:
+            if d:
+                save(d, "seasons", season, "drafts", f"draft_{idx}.json")
+        except urllib.error.HTTPError as e:
+            ERRORS.append(f"draft api {season}/{idx}: {e}")
+        html = page(f"https://www.fleaflicker.com/nfl/leagues/{LEAGUE_ID}/drafts?draftIndex={idx}&season={season}")
+        # Fleaflicker liefert bei fehlender Saison/Draft still die aktuelle Saison oder eine leere Seite:
+        # nur speichern, wenn die Seite die gefragte Saison nennt und Picks enthaelt
+        if str(season) not in html or html.count("player-name") + html.count("/players/") < 10:
             break
-        if not d or not (d.get("rows") or d.get("orderedSelections")):
-            break
-        save(d, "seasons", season, f"draft_{idx}.json")
+        path = p("seasons", season, "drafts", f"draft_{idx}.html")
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        old = open(path, encoding="utf-8").read() if os.path.exists(path) else None
+        if old != html:
+            open(path, "w", encoding="utf-8").write(html)
+            STATS["written"] += 1
 
 
 def run_season(season):
     print(f"--- Saison {season} ---")
     guard(f"standings {season}", standings, season)
+    guard(f"drafts {season}", drafts, season)
     if season_done(season):
         print("abgeschlossen, uebersprungen")
         return
     fin = guard(f"weeks {season}", weeks, season)
     guard(f"rosters {season}", rosters, season)
-    guard(f"drafts {season}", drafts, season)
     guard(f"picks {season}", picks, season)
     if season < CUR_SEASON and fin and not any(str(season) in e for e in ERRORS):
         save({"archived_utc": NOW.strftime("%Y-%m-%d %H:%M")}, "seasons", season, "_complete.json")
@@ -259,7 +294,8 @@ def manifest():
             "boxscores": sum(len(os.listdir(p("seasons", s, "weeks", w, "boxscores")))
                              for w in wk if os.path.isdir(p("seasons", s, "weeks", w, "boxscores"))),
             "rosters": len(os.listdir(p("seasons", s, "rosters"))) if os.path.isdir(p("seasons", s, "rosters")) else 0,
-            "drafts": sum(exists("seasons", s, f"draft_{i}.json") for i in range(3)),
+            "drafts_html": sum(exists("seasons", s, "drafts", f"draft_{i}.html") for i in range(3)),
+            "drafts_api": sum(exists("seasons", s, "drafts", f"draft_{i}.json") for i in range(3)),
         }
     m["transactions"] = len(load("league", "transactions.json", default=[]))
     m["trades_completed"] = len(load("league", "trades_trades_completed.json", default=[]))
