@@ -4062,7 +4062,7 @@
          "url": "https://www.rotoballer.com/player-news/bears-acquire-jeffery-simmons-from-titans-in-blockbuster-deal/1978563"
         }
        ],
-       "nflByeWeek": 9,
+       "nflByeWeek": 10,
        "percentOwnedRatio": 0.91,
        "position": "IL",
        "positionEligibility": [
@@ -4070,11 +4070,11 @@
         "DT"
        ],
        "proTeam": {
-        "abbreviation": "TEN",
-        "location": "Tennessee",
-        "name": "Titans"
+        "abbreviation": "CHI",
+        "location": "Chicago",
+        "name": "Bears"
        },
-       "proTeamAbbreviation": "TEN"
+       "proTeamAbbreviation": "CHI"
       },
       "rankFantasy": {
        "ordinal": 81,
@@ -4101,27 +4101,31 @@
        {
         "game": {
          "away": {
-          "abbreviation": "TEN",
-          "location": "Tennessee",
-          "name": "Titans"
+          "abbreviation": "CHI",
+          "location": "Chicago",
+          "name": "Bears"
          },
          "home": {
-          "abbreviation": "CIN",
-          "location": "Cincinnati",
-          "name": "Bengals"
+          "abbreviation": "SEA",
+          "location": "Seattle",
+          "name": "Seahawks"
          },
-         "id": 7965,
+         "id": 7976,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793668500000"
         },
         "period": {
          "isNow": true,
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
+        },
+        "pointsProjected": {
+         "formatted": "6.05",
+         "value": 6.0500007
         },
         "ranks": {
          "categories": [
@@ -4151,11 +4155,10 @@
            "rank": {
             "isRankTied": true,
             "mean": {
-             "formatted": "0.8",
-             "value": 0.75
+             "formatted": "0.6",
+             "value": 0.64285713
             },
-            "rank": 23,
-            "rating": "RATING_GOOD"
+            "rank": 17
            }
           },
           {
@@ -4166,22 +4169,22 @@
             "nameSingular": "Defensive TD"
            },
            "rank": {
-            "isRankTied": true,
             "mean": {
-             "formatted": "0"
+             "formatted": "0.1",
+             "value": 0.14285715
             },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
+            "rank": 31,
+            "rating": "RATING_VERY_GOOD"
            }
           }
          ],
          "defaultPoints": {
-          "isRankTied": true,
           "mean": {
-           "formatted": "1.3",
-           "value": 1.3043479
+           "formatted": "1.8",
+           "value": 1.8
           },
-          "rank": 10
+          "rank": 27,
+          "rating": "RATING_VERY_GOOD"
          },
          "position": "IL"
         },
@@ -4216,6 +4219,56 @@
            "id": 85,
            "namePlural": "Sacks",
            "nameSingular": "Sack"
+          }
+         }
+        ],
+        "statsProjected": [
+         {
+          "category": {
+           "abbreviation": "Ast",
+           "id": 82,
+           "namePlural": "Assisted Tackles",
+           "nameSingular": "Assisted Tackle"
+          },
+          "value": {
+           "formatted": "2",
+           "value": 1.99
+          }
+         },
+         {
+          "category": {
+           "abbreviation": "Solo",
+           "id": 83,
+           "namePlural": "Solo Tackles",
+           "nameSingular": "Solo Tackle"
+          },
+          "value": {
+           "formatted": "2.2",
+           "value": 2.18
+          }
+         },
+         {
+          "category": {
+           "abbreviation": "INT",
+           "id": 84,
+           "namePlural": "Interceptions",
+           "nameSingular": "Interception"
+          },
+          "value": {
+           "formatted": "0",
+           "value": 0.01
+          }
+         },
+         {
+          "category": {
+           "abbreviation": "Sack",
+           "id": 85,
+           "namePlural": "Sacks",
+           "nameSingular": "Sack"
+          },
+          "value": {
+           "formatted": "0.4",
+           "value": 0.41
           }
          }
         ]
