@@ -12,7 +12,7 @@ Grundregeln
 
 Aufruf: python archive.py <zielordner>
 """
-import json, os, sys, time, traceback, urllib.request, urllib.error
+import html as htmlmod, json, os, re, sys, time, traceback, urllib.request, urllib.error
 from datetime import datetime, timezone
 
 LEAGUE_ID = 294292
@@ -214,9 +214,7 @@ def rosters(season):
                   lambda: api(f"FetchRoster?sport=NFL&league_id={LEAGUE_ID}&team_id={tid}&season={season}"))
         if r is None:
             continue
-        save(r, "seasons", season, "rosters", f"{tid}.json")
-        if season == CUR_SEASON:
-            save(r, "seasons", season, "roster_snapshots", f"{NOW:%Y-%m-%d}", f"{tid}.json")
+        save(r, "seasons", season, "rosters", f"{tid}.json")   # jede Fassung bleibt in der Git-Historie
 
 
 def picks(season):
@@ -225,7 +223,7 @@ def picks(season):
     for tid in team_ids(season):
         r = guard(f"picks {tid}", lambda: api(f"FetchTeamPicks?sport=NFL&league_id={LEAGUE_ID}&team_id={tid}"))
         if r is not None:
-            save(r, "seasons", season, "picks", f"{NOW:%Y-%m-%d}", f"{tid}.json")
+            save(r, "seasons", season, "picks", f"{tid}.json")   # Historie: Git
 
 
 def page(url):
@@ -241,29 +239,37 @@ def page(url):
             time.sleep(10)
 
 
+DRAFT_HEAD = re.compile(r"Draft #(\d+)\s+(?:Draft #\d+\s+)*(\d{4})")
+
+
+def draft_text(h):
+    """Sichtbarer Text der Draftseite (zum Pruefen: richtige Saison, richtiger Draft, nicht doppelt)."""
+    t = re.sub(r"<script.*?</script>|<style.*?</style>", "", h, flags=re.S)
+    return re.sub(r"\s+", " ", htmlmod.unescape(re.sub(r"<[^>]+>", " ", t)))
+
+
 def drafts(season):
-    """Draftboards: API-Antwort UND die HTML-Seite (doppelt haelt besser -- die API-Struktur
-    fuer Drafts ist nicht dokumentiert). Vergangene Saisons nur einmal."""
-    for idx in range(0, 3):
-        done = exists("seasons", season, "drafts", f"draft_{idx}.html")
-        if done and season < CUR_SEASON:
+    """Draftboards als HTML (die API-Variante liefert 400). Gespeichert wird nur, was nachweislich
+    der gefragte Draft der gefragten Saison ist -- Fleaflicker liefert sonst still etwas anderes."""
+    prev_body = None
+    for idx in range(0, 4):
+        if season < CUR_SEASON and exists("seasons", season, "drafts", f"draft_{idx}.html"):
+            prev_body = draft_text(open(p("seasons", season, "drafts", f"draft_{idx}.html"), encoding="utf-8").read())
             continue
-        try:
-            d = api(f"FetchLeagueDraftBoard?sport=NFL&league_id={LEAGUE_ID}&season={season}&draft_index={idx}")
-            if d:
-                save(d, "seasons", season, "drafts", f"draft_{idx}.json")
-        except urllib.error.HTTPError as e:
-            ERRORS.append(f"draft api {season}/{idx}: {e}")
-        html = page(f"https://www.fleaflicker.com/nfl/leagues/{LEAGUE_ID}/drafts?draftIndex={idx}&season={season}")
-        # Fleaflicker liefert bei fehlender Saison/Draft still die aktuelle Saison oder eine leere Seite:
-        # nur speichern, wenn die Seite die gefragte Saison nennt und Picks enthaelt
-        if str(season) not in html or html.count("player-name") + html.count("/players/") < 10:
+        h = page(f"https://www.fleaflicker.com/nfl/leagues/{LEAGUE_ID}/drafts?draftIndex={idx}&season={season}")
+        t = draft_text(h)
+        m = DRAFT_HEAD.search(t)
+        body = t[t.find("Round 1"):] if "Round 1" in t else ""
+        if not m or int(m.group(2)) != season or int(m.group(1)) != idx + 1 or not body or body == prev_body:
+            if idx == 0:
+                ERRORS.append(f"draft {season}/0: Seite passt nicht (Kopf: {m.group(0) if m else '-'})")
             break
+        prev_body = body
         path = p("seasons", season, "drafts", f"draft_{idx}.html")
         os.makedirs(os.path.dirname(path), exist_ok=True)
         old = open(path, encoding="utf-8").read() if os.path.exists(path) else None
-        if old != html:
-            open(path, "w", encoding="utf-8").write(html)
+        if old != h:
+            open(path, "w", encoding="utf-8").write(h)
             STATS["written"] += 1
 
 
@@ -294,8 +300,7 @@ def manifest():
             "boxscores": sum(len(os.listdir(p("seasons", s, "weeks", w, "boxscores")))
                              for w in wk if os.path.isdir(p("seasons", s, "weeks", w, "boxscores"))),
             "rosters": len(os.listdir(p("seasons", s, "rosters"))) if os.path.isdir(p("seasons", s, "rosters")) else 0,
-            "drafts_html": sum(exists("seasons", s, "drafts", f"draft_{i}.html") for i in range(3)),
-            "drafts_api": sum(exists("seasons", s, "drafts", f"draft_{i}.json") for i in range(3)),
+            "drafts": sum(exists("seasons", s, "drafts", f"draft_{i}.html") for i in range(4)),
         }
     m["transactions"] = len(load("league", "transactions.json", default=[]))
     m["trades_completed"] = len(load("league", "trades_trades_completed.json", default=[]))
