@@ -1,0 +1,2388 @@
+{
+ "allScoringRuleTypes": [
+  {
+   "template": "${points} points for every ${forEvery} ${categoryPlural}"
+  },
+  {
+   "hasLowerBound": true,
+   "template": "${points} points for every ${forEvery} ${categoryPlural} after reaching ${boundLower} total ${categoryPlural}"
+  },
+  {
+   "hasUpperBound": true,
+   "template": "${points} points for every ${forEvery} ${categoryPlural} for the first ${boundUpper} total ${categoryPlural}"
+  },
+  {
+   "hasLowerBound": true,
+   "hasUpperBound": true,
+   "template": "${points} points for every ${forEvery} ${categoryPlural} between ${boundLower} and ${boundUpper} total ${categoryPlural} (inclusive)"
+  },
+  {
+   "hasLowerBound": true,
+   "isBonus": true,
+   "template": "${points} extra points when total ${categoryPlural} is greater than or equal to ${boundLower}"
+  },
+  {
+   "hasUpperBound": true,
+   "isBonus": true,
+   "template": "${points} extra points when total ${categoryPlural} is less than or equal to ${boundUpper}"
+  },
+  {
+   "hasLowerBound": true,
+   "hasUpperBound": true,
+   "isBonus": true,
+   "template": "${points} extra points when total ${categoryPlural} is between ${boundLower} and ${boundUpper} (inclusive)"
+  },
+  {
+   "isMultiValue": true,
+   "template": "${points} points for every ${forEvery} yards covered by a ${categorySingular}"
+  },
+  {
+   "hasLowerBound": true,
+   "isMultiValue": true,
+   "template": "${points} points for every ${forEvery} yards covered by a ${categorySingular} after yard ${boundLower}"
+  },
+  {
+   "hasUpperBound": true,
+   "isMultiValue": true,
+   "template": "${points} points for every ${forEvery} yards covered by a ${categorySingular} up to yard ${boundUpper}"
+  },
+  {
+   "hasLowerBound": true,
+   "hasUpperBound": true,
+   "isMultiValue": true,
+   "template": "${points} points for every ${forEvery} yards covered by a ${categorySingular} between yards ${boundLower} and ${boundUpper} (inclusive)"
+  },
+  {
+   "hasLowerBound": true,
+   "isBonus": true,
+   "isMultiValue": true,
+   "template": "${points} extra points for every ${categorySingular} of ${boundLower} or more yards"
+  },
+  {
+   "hasUpperBound": true,
+   "isBonus": true,
+   "isMultiValue": true,
+   "template": "${points} extra points for every ${categorySingular} of ${boundUpper} or less yards"
+  },
+  {
+   "hasLowerBound": true,
+   "hasUpperBound": true,
+   "isBonus": true,
+   "isMultiValue": true,
+   "template": "${points} extra points for every ${categorySingular} between ${boundLower} and ${boundUpper} yards (inclusive)"
+  }
+ ],
+ "groups": [
+  {
+   "allCategories": [
+    {
+     "abbreviation": "Cmp",
+     "id": 2,
+     "namePlural": "Passing Completions",
+     "nameSingular": "Passing Completion"
+    },
+    {
+     "abbreviation": "Cmp20+",
+     "id": 166,
+     "namePlural": "Passing Completions of 20+ Yards",
+     "nameSingular": "Passing Completion of 20+ Yards"
+    },
+    {
+     "abbreviation": "Cmp40+",
+     "id": 167,
+     "namePlural": "Passing Completions of 40+ Yards",
+     "nameSingular": "Passing Completion of 40+ Yards"
+    },
+    {
+     "abbreviation": "Cmp60+",
+     "id": 168,
+     "namePlural": "Passing Completions of 60+ Yards",
+     "nameSingular": "Passing Completion of 60+ Yards"
+    },
+    {
+     "abbreviation": "Att",
+     "id": 1,
+     "namePlural": "Passing Attempts",
+     "nameSingular": "Passing Attempt"
+    },
+    {
+     "abbreviation": "I",
+     "id": 10,
+     "lowerIsBetter": true,
+     "namePlural": "Incomplete Passes",
+     "nameSingular": "Incomplete Pass"
+    },
+    {
+     "abbreviation": "Drp",
+     "id": 145,
+     "namePlural": "Dropped Passes",
+     "nameSingular": "Dropped Pass"
+    },
+    {
+     "abbreviation": "%",
+     "id": 12,
+     "namePlural": "Completion Percentage",
+     "nameSingular": "Completion Percentage"
+    },
+    {
+     "abbreviation": "Yd",
+     "id": 3,
+     "namePlural": "Passing Yards",
+     "nameSingular": "Passing Yard"
+    },
+    {
+     "abbreviation": "AVG",
+     "id": 18,
+     "namePlural": "Yard Per Attempt",
+     "nameSingular": "Yard Per Attempt"
+    },
+    {
+     "abbreviation": "TD",
+     "id": 5,
+     "namePlural": "Passing TDs",
+     "nameSingular": "Passing TD"
+    },
+    {
+     "abbreviation": "TY",
+     "id": 6,
+     "multiValue": true,
+     "namePlural": "Passing TDs",
+     "nameSingular": "Passing TD"
+    },
+    {
+     "abbreviation": "2PC",
+     "id": 4,
+     "namePlural": "2 Pt Conversions Passing",
+     "nameSingular": "2 Pt Conversion Passing"
+    },
+    {
+     "abbreviation": "INT",
+     "id": 7,
+     "lowerIsBetter": true,
+     "namePlural": "Interceptions",
+     "nameSingular": "Interception"
+    },
+    {
+     "abbreviation": "IFT",
+     "id": 8,
+     "lowerIsBetter": true,
+     "namePlural": "Interceptions For TD",
+     "nameSingular": "Interception For TD"
+    },
+    {
+     "abbreviation": "S",
+     "id": 9,
+     "lowerIsBetter": true,
+     "namePlural": "Times Sacked",
+     "nameSingular": "Time Sacked"
+    },
+    {
+     "abbreviation": "SkYds",
+     "id": 165,
+     "lowerIsBetter": true,
+     "namePlural": "Sacked Yards",
+     "nameSingular": "Sacked Yard"
+    },
+    {
+     "abbreviation": "Rat",
+     "id": 11,
+     "namePlural": "QB Rating",
+     "nameSingular": "QB Rating"
+    },
+    {
+     "abbreviation": "FD",
+     "id": 133,
+     "namePlural": "Passing First Downs",
+     "nameSingular": "Passing First Down"
+    }
+   ],
+   "label": "Passing",
+   "scoringRules": [
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "Yd",
+      "id": 3,
+      "namePlural": "Passing Yards",
+      "nameSingular": "Passing Yard"
+     },
+     "description": "1 point for every 25 Passing Yards (0.04 per)",
+     "forEvery": 25,
+     "points": {
+      "formatted": "1",
+      "value": 1.0
+     },
+     "pointsPer": {
+      "formatted": "0.04",
+      "value": 0.04
+     },
+     "template": "${points} point for every ${forEvery} ${categoryPlural} (${pointsPer} per)"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "TD",
+      "id": 5,
+      "namePlural": "Passing TDs",
+      "nameSingular": "Passing TD"
+     },
+     "description": "4 points for every Passing TD",
+     "forEvery": 1,
+     "points": {
+      "formatted": "4",
+      "value": 4.0
+     },
+     "template": "${points} points for every ${categorySingular}"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "2PC",
+      "id": 4,
+      "namePlural": "2 Pt Conversions Passing",
+      "nameSingular": "2 Pt Conversion Passing"
+     },
+     "description": "2 points for every 2 Pt Conversion Passing",
+     "forEvery": 1,
+     "points": {
+      "formatted": "2",
+      "value": 2.0
+     },
+     "template": "${points} points for every ${categorySingular}"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "INT",
+      "id": 7,
+      "lowerIsBetter": true,
+      "namePlural": "Interceptions",
+      "nameSingular": "Interception"
+     },
+     "description": "-2 points for every Interception",
+     "forEvery": 1,
+     "points": {
+      "formatted": "-2",
+      "value": -2.0
+     },
+     "template": "${points} points for every ${categorySingular}"
+    }
+   ]
+  },
+  {
+   "allCategories": [
+    {
+     "abbreviation": "Att",
+     "id": 21,
+     "namePlural": "Rushing Attempts",
+     "nameSingular": "Rushing Attempt"
+    },
+    {
+     "abbreviation": "Att20+",
+     "id": 172,
+     "namePlural": "Rushing Attempts of 20+ Yards",
+     "nameSingular": "Rushing Attempt of 20+ Yards"
+    },
+    {
+     "abbreviation": "Att40+",
+     "id": 173,
+     "namePlural": "Rushing Attempts of 40+ Yards",
+     "nameSingular": "Rushing Attempt of 40+ Yards"
+    },
+    {
+     "abbreviation": "Att60+",
+     "id": 174,
+     "namePlural": "Rushing Attempts of 60+ Yards",
+     "nameSingular": "Rushing Attempt of 60+ Yards"
+    },
+    {
+     "abbreviation": "Yd",
+     "id": 22,
+     "namePlural": "Rushing Yards",
+     "nameSingular": "Rushing Yard"
+    },
+    {
+     "abbreviation": "AVG",
+     "id": 30,
+     "namePlural": "Yard Per Attempt",
+     "nameSingular": "Yard Per Attempt"
+    },
+    {
+     "abbreviation": "2PC",
+     "id": 23,
+     "namePlural": "2 Pt Conversions Rushing",
+     "nameSingular": "2 Pt Conversion Rushing"
+    },
+    {
+     "abbreviation": "TD",
+     "id": 24,
+     "namePlural": "Rushing TDs",
+     "nameSingular": "Rushing TD"
+    },
+    {
+     "abbreviation": "TY",
+     "id": 25,
+     "multiValue": true,
+     "namePlural": "Rushing TDs",
+     "nameSingular": "Rushing TD"
+    },
+    {
+     "abbreviation": "FD",
+     "id": 132,
+     "namePlural": "Rushing First Downs",
+     "nameSingular": "Rushing First Down"
+    }
+   ],
+   "label": "Rushing",
+   "scoringRules": [
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "Yd",
+      "id": 22,
+      "namePlural": "Rushing Yards",
+      "nameSingular": "Rushing Yard"
+     },
+     "description": "1 point for every 10 Rushing Yards (0.1 per)",
+     "forEvery": 10,
+     "points": {
+      "formatted": "1",
+      "value": 1.0
+     },
+     "pointsPer": {
+      "formatted": "0.1",
+      "value": 0.1
+     },
+     "template": "${points} point for every ${forEvery} ${categoryPlural} (${pointsPer} per)"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "2PC",
+      "id": 23,
+      "namePlural": "2 Pt Conversions Rushing",
+      "nameSingular": "2 Pt Conversion Rushing"
+     },
+     "description": "2 points for every 2 Pt Conversion Rushing",
+     "forEvery": 1,
+     "points": {
+      "formatted": "2",
+      "value": 2.0
+     },
+     "template": "${points} points for every ${categorySingular}"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "TD",
+      "id": 24,
+      "namePlural": "Rushing TDs",
+      "nameSingular": "Rushing TD"
+     },
+     "description": "6 points for every Rushing TD",
+     "forEvery": 1,
+     "points": {
+      "formatted": "6",
+      "value": 6.0
+     },
+     "template": "${points} points for every ${categorySingular}"
+    }
+   ]
+  },
+  {
+   "allCategories": [
+    {
+     "abbreviation": "Rec",
+     "id": 41,
+     "namePlural": "Catches",
+     "nameSingular": "Catch"
+    },
+    {
+     "abbreviation": "Rec20+",
+     "id": 169,
+     "namePlural": "Catches of 20+ Yards",
+     "nameSingular": "Catch of 20+ Yards"
+    },
+    {
+     "abbreviation": "Rec40+",
+     "id": 170,
+     "namePlural": "Catches of 40+ Yards",
+     "nameSingular": "Catch of 40+ Yards"
+    },
+    {
+     "abbreviation": "Rec60+",
+     "id": 171,
+     "namePlural": "Catches of 60+ Yards",
+     "nameSingular": "Catch of 60+ Yards"
+    },
+    {
+     "abbreviation": "Tar",
+     "id": 123,
+     "namePlural": "Targets",
+     "nameSingular": "Target"
+    },
+    {
+     "abbreviation": "Rec",
+     "id": 175,
+     "namePlural": "Target % Caught",
+     "nameSingular": "Target % Caught"
+    },
+    {
+     "abbreviation": "Drp",
+     "id": 144,
+     "namePlural": "Drops",
+     "nameSingular": "Drop"
+    },
+    {
+     "abbreviation": "Yd",
+     "id": 42,
+     "namePlural": "Receiving Yards",
+     "nameSingular": "Receiving Yard"
+    },
+    {
+     "abbreviation": "YAC",
+     "id": 141,
+     "namePlural": "Yards After Catch",
+     "nameSingular": "Yard After Catch"
+    },
+    {
+     "abbreviation": "AVG",
+     "id": 46,
+     "namePlural": "Yard Per Reception",
+     "nameSingular": "Yard Per Reception"
+    },
+    {
+     "abbreviation": "2PC",
+     "id": 43,
+     "namePlural": "2 Pt Conversions Receiving",
+     "nameSingular": "2 Pt Conversion Receiving"
+    },
+    {
+     "abbreviation": "TD",
+     "id": 44,
+     "namePlural": "Receiving TDs",
+     "nameSingular": "Receiving TD"
+    },
+    {
+     "abbreviation": "TY",
+     "id": 45,
+     "multiValue": true,
+     "namePlural": "Receiving TDs",
+     "nameSingular": "Receiving TD"
+    },
+    {
+     "abbreviation": "FD",
+     "id": 131,
+     "namePlural": "Receiving First Downs",
+     "nameSingular": "Receiving First Down"
+    }
+   ],
+   "label": "Receiving",
+   "scoringRules": [
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "Rec",
+      "id": 41,
+      "namePlural": "Catches",
+      "nameSingular": "Catch"
+     },
+     "description": "1 point for every 10 Catches (0.1 per)",
+     "forEvery": 10,
+     "points": {
+      "formatted": "1",
+      "value": 1.0
+     },
+     "pointsPer": {
+      "formatted": "0.1",
+      "value": 0.1
+     },
+     "template": "${points} point for every ${forEvery} ${categoryPlural} (${pointsPer} per)"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "Yd",
+      "id": 42,
+      "namePlural": "Receiving Yards",
+      "nameSingular": "Receiving Yard"
+     },
+     "description": "1 point for every 10 Receiving Yards (0.1 per)",
+     "forEvery": 10,
+     "points": {
+      "formatted": "1",
+      "value": 1.0
+     },
+     "pointsPer": {
+      "formatted": "0.1",
+      "value": 0.1
+     },
+     "template": "${points} point for every ${forEvery} ${categoryPlural} (${pointsPer} per)"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "2PC",
+      "id": 43,
+      "namePlural": "2 Pt Conversions Receiving",
+      "nameSingular": "2 Pt Conversion Receiving"
+     },
+     "description": "2 points for every 2 Pt Conversion Receiving",
+     "forEvery": 1,
+     "points": {
+      "formatted": "2",
+      "value": 2.0
+     },
+     "template": "${points} points for every ${categorySingular}"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "TD",
+      "id": 44,
+      "namePlural": "Receiving TDs",
+      "nameSingular": "Receiving TD"
+     },
+     "description": "6 points for every Receiving TD",
+     "forEvery": 1,
+     "points": {
+      "formatted": "6",
+      "value": 6.0
+     },
+     "template": "${points} points for every ${categorySingular}"
+    }
+   ]
+  },
+  {
+   "allCategories": [
+    {
+     "abbreviation": "Fum",
+     "id": 26,
+     "lowerIsBetter": true,
+     "namePlural": "Fumbles",
+     "nameSingular": "Fumble"
+    },
+    {
+     "abbreviation": "Lost",
+     "id": 27,
+     "lowerIsBetter": true,
+     "namePlural": "Fumbles Lost",
+     "nameSingular": "Fumble Lost"
+    },
+    {
+     "abbreviation": "LFT",
+     "id": 153,
+     "lowerIsBetter": true,
+     "namePlural": "Fumbles Lost for TD",
+     "nameSingular": "Fumble Lost for TD"
+    },
+    {
+     "abbreviation": "Own",
+     "id": 120,
+     "namePlural": "Own Fumble Recoveries",
+     "nameSingular": "Own Fumble Recovery"
+    },
+    {
+     "abbreviation": "TD",
+     "id": 118,
+     "namePlural": "Offensive Fumble Recovery TDs",
+     "nameSingular": "Offensive Fumble Recovery TD"
+    },
+    {
+     "abbreviation": "ROTY",
+     "id": 119,
+     "multiValue": true,
+     "namePlural": "Offensive Fumble Recovery TDs",
+     "nameSingular": "Offensive Fumble Recovery TD"
+    },
+    {
+     "abbreviation": "Yd",
+     "id": 28,
+     "namePlural": "Scrimmage Yards",
+     "nameSingular": "Scrimmage Yard"
+    },
+    {
+     "abbreviation": "Tch",
+     "id": 148,
+     "namePlural": "Touches",
+     "nameSingular": "Touch"
+    },
+    {
+     "abbreviation": "YACT",
+     "id": 142,
+     "namePlural": "Yards After Contact",
+     "nameSingular": "Yard After Contact"
+    },
+    {
+     "abbreviation": "T",
+     "id": 143,
+     "namePlural": "Broken Tackles",
+     "nameSingular": "Broken Tackle"
+    },
+    {
+     "abbreviation": "Pen",
+     "id": 146,
+     "namePlural": "Penalties",
+     "nameSingular": "Penalty"
+    },
+    {
+     "abbreviation": "Yds",
+     "id": 147,
+     "namePlural": "Yards Penalized",
+     "nameSingular": "Penalty Yard"
+    },
+    {
+     "abbreviation": "TD",
+     "id": 29,
+     "namePlural": "Offensive + Special Teams TDs",
+     "nameSingular": "Offensive + Special Teams TD"
+    },
+    {
+     "abbreviation": "TD",
+     "id": 122,
+     "namePlural": "Touchdowns",
+     "nameSingular": "Touchdown"
+    },
+    {
+     "abbreviation": "FD",
+     "id": 134,
+     "namePlural": "First Downs",
+     "nameSingular": "First Down"
+    },
+    {
+     "abbreviation": "Yd",
+     "id": 111,
+     "namePlural": "All-Purpose Yards",
+     "nameSingular": "All-Purpose Yard"
+    },
+    {
+     "abbreviation": "T",
+     "id": 135,
+     "lowerIsBetter": true,
+     "namePlural": "Turnovers",
+     "nameSingular": "Turnover"
+    },
+    {
+     "abbreviation": "W",
+     "id": 151,
+     "namePlural": "Wins",
+     "nameSingular": "Win"
+    },
+    {
+     "abbreviation": "L",
+     "id": 152,
+     "namePlural": "Losses",
+     "nameSingular": "Loss"
+    }
+   ],
+   "label": "Misc",
+   "scoringRules": [
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "Fum",
+      "id": 26,
+      "lowerIsBetter": true,
+      "namePlural": "Fumbles",
+      "nameSingular": "Fumble"
+     },
+     "description": "-1 point for every Fumble",
+     "forEvery": 1,
+     "points": {
+      "formatted": "-1",
+      "value": -1.0
+     },
+     "template": "${points} point for every ${categorySingular}"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "Lost",
+      "id": 27,
+      "lowerIsBetter": true,
+      "namePlural": "Fumbles Lost",
+      "nameSingular": "Fumble Lost"
+     },
+     "description": "-1 point for every Fumble Lost",
+     "forEvery": 1,
+     "points": {
+      "formatted": "-1",
+      "value": -1.0
+     },
+     "template": "${points} point for every ${categorySingular}"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "TD",
+      "id": 118,
+      "namePlural": "Offensive Fumble Recovery TDs",
+      "nameSingular": "Offensive Fumble Recovery TD"
+     },
+     "description": "6 points for every Offensive Fumble Recovery TD",
+     "forEvery": 1,
+     "points": {
+      "formatted": "6",
+      "value": 6.0
+     },
+     "template": "${points} points for every ${categorySingular}"
+    }
+   ]
+  },
+  {
+   "allCategories": [
+    {
+     "abbreviation": "FG",
+     "id": 101,
+     "namePlural": "Field Goals Made",
+     "nameSingular": "Field Goal Made"
+    },
+    {
+     "abbreviation": "FY",
+     "id": 102,
+     "multiValue": true,
+     "namePlural": "Field Goals Made",
+     "nameSingular": "Field Goal Made"
+    },
+    {
+     "abbreviation": "FM",
+     "id": 103,
+     "lowerIsBetter": true,
+     "namePlural": "Field Goal Missed",
+     "nameSingular": "Field Goal Missed"
+    },
+    {
+     "abbreviation": "FMY",
+     "id": 106,
+     "multiValue": true,
+     "namePlural": "Field Goals Missed",
+     "nameSingular": "Field Goal Missed"
+    },
+    {
+     "abbreviation": "Att",
+     "id": 107,
+     "namePlural": "Field Goal Attempts",
+     "nameSingular": "Field Goal Attempt"
+    },
+    {
+     "abbreviation": "%",
+     "id": 109,
+     "namePlural": "FG Percentage",
+     "nameSingular": "FG Percentage",
+     "summaryLabelIfDiffersFromAbbreviation": "FG"
+    },
+    {
+     "abbreviation": "XP",
+     "id": 104,
+     "namePlural": "XPs",
+     "nameSingular": "XP"
+    },
+    {
+     "abbreviation": "XM",
+     "id": 105,
+     "lowerIsBetter": true,
+     "namePlural": "XPs Missed",
+     "nameSingular": "XP Missed"
+    },
+    {
+     "abbreviation": "Att",
+     "id": 108,
+     "namePlural": "Extra Point Attempts",
+     "nameSingular": "Extra Point Attempt"
+    },
+    {
+     "abbreviation": "%",
+     "id": 110,
+     "namePlural": "XP Percentage",
+     "nameSingular": "XP Percentage",
+     "summaryLabelIfDiffersFromAbbreviation": "XP"
+    }
+   ],
+   "label": "Kicking",
+   "scoringRules": [
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "FG",
+      "id": 101,
+      "namePlural": "Field Goals Made",
+      "nameSingular": "Field Goal Made"
+     },
+     "description": "3 points for every Field Goal Made",
+     "forEvery": 1,
+     "points": {
+      "formatted": "3",
+      "value": 3.0
+     },
+     "template": "${points} points for every ${categorySingular}"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "boundLower": 40,
+     "boundUpper": 49,
+     "category": {
+      "abbreviation": "FY",
+      "id": 102,
+      "multiValue": true,
+      "namePlural": "Field Goals Made",
+      "nameSingular": "Field Goal Made"
+     },
+     "description": "1 extra point for every Field Goal Made between 40 and 49 yards (inclusive)",
+     "isBonus": true,
+     "points": {
+      "formatted": "1",
+      "value": 1.0
+     },
+     "rangeType": "RANGE_DOUBLE_BOUND",
+     "template": "${points} extra point for every ${categorySingular} between ${boundLower} and ${boundUpper} yards (inclusive)"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "boundLower": 50,
+     "boundUpper": 59,
+     "category": {
+      "abbreviation": "FY",
+      "id": 102,
+      "multiValue": true,
+      "namePlural": "Field Goals Made",
+      "nameSingular": "Field Goal Made"
+     },
+     "description": "2 extra points for every Field Goal Made between 50 and 59 yards (inclusive)",
+     "isBonus": true,
+     "points": {
+      "formatted": "2",
+      "value": 2.0
+     },
+     "rangeType": "RANGE_DOUBLE_BOUND",
+     "template": "${points} extra points for every ${categorySingular} between ${boundLower} and ${boundUpper} yards (inclusive)"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "boundLower": 60,
+     "boundUpper": 69,
+     "category": {
+      "abbreviation": "FY",
+      "id": 102,
+      "multiValue": true,
+      "namePlural": "Field Goals Made",
+      "nameSingular": "Field Goal Made"
+     },
+     "description": "3 extra points for every Field Goal Made between 60 and 69 yards (inclusive)",
+     "isBonus": true,
+     "points": {
+      "formatted": "3",
+      "value": 3.0
+     },
+     "rangeType": "RANGE_DOUBLE_BOUND",
+     "template": "${points} extra points for every ${categorySingular} between ${boundLower} and ${boundUpper} yards (inclusive)"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "boundLower": 70,
+     "category": {
+      "abbreviation": "FY",
+      "id": 102,
+      "multiValue": true,
+      "namePlural": "Field Goals Made",
+      "nameSingular": "Field Goal Made"
+     },
+     "description": "4 extra points for every Field Goal Made of 70 or more yards",
+     "isBonus": true,
+     "points": {
+      "formatted": "4",
+      "value": 4.0
+     },
+     "rangeType": "RANGE_LOWER_BOUND",
+     "template": "${points} extra points for every ${categorySingular} of ${boundLower} or more yards"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "XP",
+      "id": 104,
+      "namePlural": "XPs",
+      "nameSingular": "XP"
+     },
+     "description": "1 point for every XP",
+     "forEvery": 1,
+     "points": {
+      "formatted": "1",
+      "value": 1.0
+     },
+     "template": "${points} point for every ${categorySingular}"
+    }
+   ]
+  },
+  {
+   "allCategories": [
+    {
+     "abbreviation": "KR",
+     "id": 61,
+     "namePlural": "Kick Return Attempts",
+     "nameSingular": "Kick Return Attempt"
+    },
+    {
+     "abbreviation": "Yd",
+     "id": 62,
+     "namePlural": "Kick Return Yards",
+     "nameSingular": "Kick Return Yard"
+    },
+    {
+     "abbreviation": "TD",
+     "id": 63,
+     "namePlural": "Kick Return TDs",
+     "nameSingular": "Kick Return TD"
+    },
+    {
+     "abbreviation": "KTY",
+     "id": 64,
+     "multiValue": true,
+     "namePlural": "Kick Return TDs",
+     "nameSingular": "Kick Return TD"
+    },
+    {
+     "abbreviation": "PR",
+     "id": 65,
+     "namePlural": "Punt Return Attempts",
+     "nameSingular": "Punt Return Attempt"
+    },
+    {
+     "abbreviation": "Yd",
+     "id": 66,
+     "namePlural": "Punt Return Yards",
+     "nameSingular": "Punt Return Yard"
+    },
+    {
+     "abbreviation": "TD",
+     "id": 67,
+     "namePlural": "Punt Return TDs",
+     "nameSingular": "Punt Return TD"
+    },
+    {
+     "abbreviation": "PTY",
+     "id": 68,
+     "multiValue": true,
+     "namePlural": "Punt Return TDs",
+     "nameSingular": "Punt Return TD"
+    }
+   ],
+   "label": "Returning",
+   "scoringRules": [
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "Yd",
+      "id": 62,
+      "namePlural": "Kick Return Yards",
+      "nameSingular": "Kick Return Yard"
+     },
+     "description": "1 point for every 25 Kick Return Yards (0.04 per)",
+     "forEvery": 25,
+     "points": {
+      "formatted": "1",
+      "value": 1.0
+     },
+     "pointsPer": {
+      "formatted": "0.04",
+      "value": 0.04
+     },
+     "template": "${points} point for every ${forEvery} ${categoryPlural} (${pointsPer} per)"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "TD",
+      "id": 63,
+      "namePlural": "Kick Return TDs",
+      "nameSingular": "Kick Return TD"
+     },
+     "description": "6 points for every Kick Return TD",
+     "forEvery": 1,
+     "points": {
+      "formatted": "6",
+      "value": 6.0
+     },
+     "template": "${points} points for every ${categorySingular}"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "Yd",
+      "id": 66,
+      "namePlural": "Punt Return Yards",
+      "nameSingular": "Punt Return Yard"
+     },
+     "description": "1 point for every 25 Punt Return Yards (0.04 per)",
+     "forEvery": 25,
+     "points": {
+      "formatted": "1",
+      "value": 1.0
+     },
+     "pointsPer": {
+      "formatted": "0.04",
+      "value": 0.04
+     },
+     "template": "${points} point for every ${forEvery} ${categoryPlural} (${pointsPer} per)"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "TD",
+      "id": 67,
+      "namePlural": "Punt Return TDs",
+      "nameSingular": "Punt Return TD"
+     },
+     "description": "6 points for every Punt Return TD",
+     "forEvery": 1,
+     "points": {
+      "formatted": "6",
+      "value": 6.0
+     },
+     "template": "${points} points for every ${categorySingular}"
+    }
+   ]
+  },
+  {
+   "allCategories": [
+    {
+     "abbreviation": "Total",
+     "id": 81,
+     "namePlural": "Total Tackles",
+     "nameSingular": "Total Tackle"
+    },
+    {
+     "abbreviation": "Ast",
+     "id": 82,
+     "namePlural": "Assisted Tackles",
+     "nameSingular": "Assisted Tackle"
+    },
+    {
+     "abbreviation": "Solo",
+     "id": 83,
+     "namePlural": "Solo Tackles",
+     "nameSingular": "Solo Tackle"
+    },
+    {
+     "abbreviation": "TFL",
+     "id": 124,
+     "namePlural": "Tackles for Loss",
+     "nameSingular": "Tackle for Loss"
+    },
+    {
+     "abbreviation": "INT",
+     "id": 84,
+     "namePlural": "Interceptions",
+     "nameSingular": "Interception"
+    },
+    {
+     "abbreviation": "Sack",
+     "id": 85,
+     "namePlural": "Sacks",
+     "nameSingular": "Sack"
+    },
+    {
+     "abbreviation": "SkYd",
+     "id": 164,
+     "namePlural": "Sack Yards",
+     "nameSingular": "Sack Yard"
+    },
+    {
+     "abbreviation": "FF",
+     "id": 86,
+     "namePlural": "Fumbles Forced",
+     "nameSingular": "Fumble Forced"
+    },
+    {
+     "abbreviation": "FR",
+     "id": 87,
+     "namePlural": "Fumbles Recovered",
+     "nameSingular": "Fumble Recovered"
+    },
+    {
+     "abbreviation": "FR",
+     "id": 121,
+     "namePlural": "Opposing Fumble Recoveries",
+     "nameSingular": "Opposing Fumble Recovery"
+    },
+    {
+     "abbreviation": "Saf",
+     "id": 88,
+     "namePlural": "Safeties",
+     "nameSingular": "Safety"
+    },
+    {
+     "abbreviation": "TD",
+     "id": 89,
+     "namePlural": "Defensive TDs",
+     "nameSingular": "Defensive TD"
+    },
+    {
+     "abbreviation": "TY",
+     "id": 90,
+     "multiValue": true,
+     "namePlural": "Defensive TDs",
+     "nameSingular": "Defensive TD"
+    },
+    {
+     "abbreviation": "TD",
+     "id": 97,
+     "namePlural": "Blocked FG Return TDs",
+     "nameSingular": "Blocked FG Return TD"
+    },
+    {
+     "abbreviation": "TD",
+     "id": 98,
+     "namePlural": "Missed FG Return TDs",
+     "nameSingular": "Missed FG Return TD"
+    },
+    {
+     "abbreviation": "TD",
+     "id": 99,
+     "namePlural": "Fumble Return TDs",
+     "nameSingular": "Fumble Return TD"
+    },
+    {
+     "abbreviation": "TD",
+     "id": 100,
+     "namePlural": "INT Return TDs",
+     "nameSingular": "INT Return TD"
+    },
+    {
+     "abbreviation": "TD",
+     "id": 69,
+     "namePlural": "Blocked Punt Return TDs",
+     "nameSingular": "Blocked Punt Return TD"
+    },
+    {
+     "abbreviation": "FBTY",
+     "id": 13,
+     "multiValue": true,
+     "namePlural": "Blocked FG Return TDs",
+     "nameSingular": "Blocked FG Return TD"
+    },
+    {
+     "abbreviation": "FMTY",
+     "id": 14,
+     "multiValue": true,
+     "namePlural": "Missed FG Return TDs",
+     "nameSingular": "Missed FG Return TD"
+    },
+    {
+     "abbreviation": "FTY",
+     "id": 15,
+     "multiValue": true,
+     "namePlural": "Fumble Return TDs",
+     "nameSingular": "Fumble Return TD"
+    },
+    {
+     "abbreviation": "ITY",
+     "id": 16,
+     "multiValue": true,
+     "namePlural": "INT Return TDs",
+     "nameSingular": "INT Return TD"
+    },
+    {
+     "abbreviation": "PBTY",
+     "id": 17,
+     "multiValue": true,
+     "namePlural": "Blocked Punt Return TDs",
+     "nameSingular": "Blocked Punt Return TD"
+    },
+    {
+     "abbreviation": "XB",
+     "id": 91,
+     "namePlural": "XPs Blocked",
+     "nameSingular": "XP Blocked"
+    },
+    {
+     "abbreviation": "FB",
+     "id": 92,
+     "namePlural": "FGs Blocked",
+     "nameSingular": "FG Blocked"
+    },
+    {
+     "abbreviation": "PB",
+     "id": 93,
+     "namePlural": "Punts Blocked",
+     "nameSingular": "Punt Blocked"
+    },
+    {
+     "abbreviation": "KB",
+     "id": 117,
+     "namePlural": "Blocked Kicks",
+     "nameSingular": "Blocked Kick"
+    },
+    {
+     "abbreviation": "KBT",
+     "id": 149,
+     "namePlural": "Blocked Kick TDs",
+     "nameSingular": "Blocked Kick Td"
+    },
+    {
+     "abbreviation": "KBTY",
+     "id": 150,
+     "multiValue": true,
+     "namePlural": "Blocked Kick TD Yards",
+     "nameSingular": "Blocked Kick Td Yard"
+    },
+    {
+     "abbreviation": "PD",
+     "id": 96,
+     "namePlural": "Passes Defended",
+     "nameSingular": "Pass Defended"
+    },
+    {
+     "abbreviation": "T",
+     "id": 139,
+     "namePlural": "Times Targeted",
+     "nameSingular": "Time Targeted"
+    },
+    {
+     "abbreviation": "CA",
+     "id": 140,
+     "namePlural": "Completions Against",
+     "nameSingular": "Completion Against"
+    },
+    {
+     "abbreviation": "Pts",
+     "id": 94,
+     "lowerIsBetter": true,
+     "namePlural": "Points Allowed",
+     "nameSingular": "Point Allowed"
+    },
+    {
+     "abbreviation": "O-Pts",
+     "id": 112,
+     "lowerIsBetter": true,
+     "namePlural": "Offensive Points Allowed (FG, Pass TD, Rush TD)",
+     "nameSingular": "Offensive Point Allowed (FG, Pass TD, Rush TD)"
+    },
+    {
+     "abbreviation": "STPA",
+     "id": 115,
+     "lowerIsBetter": true,
+     "namePlural": "Special Teams Points Allowed (Return TD, XP, 2-Pt Conv)",
+     "nameSingular": "Special Teams Point Allowed (Return TD, XP, 2-Pt Conv)"
+    },
+    {
+     "abbreviation": "O/SP-Pts",
+     "id": 116,
+     "lowerIsBetter": true,
+     "namePlural": "Offensive + Special Teams Points Allowed",
+     "nameSingular": "Offensive + Special Teams Point Allowed"
+    },
+    {
+     "abbreviation": "Yd",
+     "id": 95,
+     "lowerIsBetter": true,
+     "namePlural": "Net Yards Allowed",
+     "nameSingular": "Net Yard Allowed"
+    },
+    {
+     "abbreviation": "PYA",
+     "id": 113,
+     "lowerIsBetter": true,
+     "namePlural": "Net Passing Yards Allowed",
+     "nameSingular": "Net Passing Yard Allowed"
+    },
+    {
+     "abbreviation": "RYA",
+     "id": 114,
+     "lowerIsBetter": true,
+     "namePlural": "Net Rushing Yards Allowed",
+     "nameSingular": "Net Rushing Yard Allowed"
+    },
+    {
+     "abbreviation": "QH",
+     "id": 136,
+     "namePlural": "QB Hits",
+     "nameSingular": "QB Hit"
+    },
+    {
+     "abbreviation": "QH",
+     "id": 137,
+     "namePlural": "QB Hurries",
+     "nameSingular": "QB Hurry"
+    },
+    {
+     "abbreviation": "B",
+     "id": 138,
+     "namePlural": "Blitzes",
+     "nameSingular": "Blitz"
+    },
+    {
+     "abbreviation": "CR",
+     "id": 125,
+     "namePlural": "Conversion Returns",
+     "nameSingular": "Conversion Return"
+    },
+    {
+     "abbreviation": "4Stp",
+     "id": 126,
+     "namePlural": "Fourth-Down Stops",
+     "nameSingular": "Fourth-Down Stop"
+    },
+    {
+     "abbreviation": "3Out",
+     "id": 127,
+     "namePlural": "Three and Outs",
+     "nameSingular": "Three and Out"
+    },
+    {
+     "abbreviation": "IRY",
+     "id": 128,
+     "namePlural": "Interception Return Yards",
+     "nameSingular": "Interception Return Yard"
+    },
+    {
+     "abbreviation": "OFRY",
+     "id": 129,
+     "namePlural": "Fumble Return Yards",
+     "nameSingular": "Fumble Return Yard"
+    }
+   ],
+   "label": "Defense",
+   "scoringRules": [
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "Ast",
+      "id": 82,
+      "namePlural": "Assisted Tackles",
+      "nameSingular": "Assisted Tackle"
+     },
+     "description": "3 points for every 4 Assisted Tackles (0.75 per)",
+     "forEvery": 4,
+     "points": {
+      "formatted": "3",
+      "value": 3.0
+     },
+     "pointsPer": {
+      "formatted": "0.75",
+      "value": 0.75
+     },
+     "template": "${points} points for every ${forEvery} ${categoryPlural} (${pointsPer} per)"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "Solo",
+      "id": 83,
+      "namePlural": "Solo Tackles",
+      "nameSingular": "Solo Tackle"
+     },
+     "description": "3 points for every 2 Solo Tackles (1.5 per)",
+     "forEvery": 2,
+     "points": {
+      "formatted": "3",
+      "value": 3.0
+     },
+     "pointsPer": {
+      "formatted": "1.5",
+      "value": 1.5
+     },
+     "template": "${points} points for every ${forEvery} ${categoryPlural} (${pointsPer} per)"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "TFL",
+      "id": 124,
+      "namePlural": "Tackles for Loss",
+      "nameSingular": "Tackle for Loss"
+     },
+     "description": "1 point for every Tackle for Loss",
+     "forEvery": 1,
+     "points": {
+      "formatted": "1",
+      "value": 1.0
+     },
+     "template": "${points} point for every ${categorySingular}"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "INT",
+      "id": 84,
+      "namePlural": "Interceptions",
+      "nameSingular": "Interception"
+     },
+     "description": "4 points for every Interception",
+     "forEvery": 1,
+     "points": {
+      "formatted": "4",
+      "value": 4.0
+     },
+     "template": "${points} points for every ${categorySingular}"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "Sack",
+      "id": 85,
+      "namePlural": "Sacks",
+      "nameSingular": "Sack"
+     },
+     "description": "2 points for every Sack",
+     "forEvery": 1,
+     "points": {
+      "formatted": "2",
+      "value": 2.0
+     },
+     "template": "${points} points for every ${categorySingular}"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "SkYd",
+      "id": 164,
+      "namePlural": "Sack Yards",
+      "nameSingular": "Sack Yard"
+     },
+     "description": "1 point for every 4 Sack Yards (0.25 per)",
+     "forEvery": 4,
+     "points": {
+      "formatted": "1",
+      "value": 1.0
+     },
+     "pointsPer": {
+      "formatted": "0.25",
+      "value": 0.25
+     },
+     "template": "${points} point for every ${forEvery} ${categoryPlural} (${pointsPer} per)"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "FF",
+      "id": 86,
+      "namePlural": "Fumbles Forced",
+      "nameSingular": "Fumble Forced"
+     },
+     "description": "3 points for every Fumble Forced",
+     "forEvery": 1,
+     "points": {
+      "formatted": "3",
+      "value": 3.0
+     },
+     "template": "${points} points for every ${categorySingular}"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "FR",
+      "id": 87,
+      "namePlural": "Fumbles Recovered",
+      "nameSingular": "Fumble Recovered"
+     },
+     "description": "1 point for every Fumble Recovered",
+     "forEvery": 1,
+     "points": {
+      "formatted": "1",
+      "value": 1.0
+     },
+     "template": "${points} point for every ${categorySingular}"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "Saf",
+      "id": 88,
+      "namePlural": "Safeties",
+      "nameSingular": "Safety"
+     },
+     "description": "4 points for every Safety",
+     "forEvery": 1,
+     "points": {
+      "formatted": "4",
+      "value": 4.0
+     },
+     "template": "${points} points for every ${categorySingular}"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "TD",
+      "id": 89,
+      "namePlural": "Defensive TDs",
+      "nameSingular": "Defensive TD"
+     },
+     "description": "6 points for every Defensive TD",
+     "forEvery": 1,
+     "points": {
+      "formatted": "6",
+      "value": 6.0
+     },
+     "template": "${points} points for every ${categorySingular}"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "PD",
+      "id": 96,
+      "namePlural": "Passes Defended",
+      "nameSingular": "Pass Defended"
+     },
+     "description": "3 points for every 2 Passes Defended (1.5 per)",
+     "forEvery": 2,
+     "points": {
+      "formatted": "3",
+      "value": 3.0
+     },
+     "pointsPer": {
+      "formatted": "1.5",
+      "value": 1.5
+     },
+     "template": "${points} points for every ${forEvery} ${categoryPlural} (${pointsPer} per)"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "CR",
+      "id": 125,
+      "namePlural": "Conversion Returns",
+      "nameSingular": "Conversion Return"
+     },
+     "description": "2 points for every Conversion Return",
+     "forEvery": 1,
+     "points": {
+      "formatted": "2",
+      "value": 2.0
+     },
+     "template": "${points} points for every ${categorySingular}"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "IRY",
+      "id": 128,
+      "namePlural": "Interception Return Yards",
+      "nameSingular": "Interception Return Yard"
+     },
+     "description": "1 point for every 10 Interception Return Yards (0.1 per)",
+     "forEvery": 10,
+     "points": {
+      "formatted": "1",
+      "value": 1.0
+     },
+     "pointsPer": {
+      "formatted": "0.1",
+      "value": 0.1
+     },
+     "template": "${points} point for every ${forEvery} ${categoryPlural} (${pointsPer} per)"
+    },
+    {
+     "applyTo": [
+      "QB",
+      "RB",
+      "WR",
+      "TE",
+      "K",
+      "CB",
+      "S",
+      "EDR",
+      "IL",
+      "LB"
+     ],
+     "applyToAll": true,
+     "category": {
+      "abbreviation": "OFRY",
+      "id": 129,
+      "namePlural": "Fumble Return Yards",
+      "nameSingular": "Fumble Return Yard"
+     },
+     "description": "1 point for every 25 Fumble Return Yards (0.04 per)",
+     "forEvery": 25,
+     "points": {
+      "formatted": "1",
+      "value": 1.0
+     },
+     "pointsPer": {
+      "formatted": "0.04",
+      "value": 0.04
+     },
+     "template": "${points} point for every ${forEvery} ${categoryPlural} (${pointsPer} per)"
+    }
+   ]
+  },
+  {
+   "allCategories": [
+    {
+     "abbreviation": "Att",
+     "id": 154,
+     "namePlural": "Punt Attempt",
+     "nameSingular": "Punt Attempt"
+    },
+    {
+     "abbreviation": "Yd",
+     "id": 155,
+     "namePlural": "Punt Yard",
+     "nameSingular": "Punt Yard"
+    },
+    {
+     "abbreviation": "IN20",
+     "id": 156,
+     "namePlural": "Punts Inside 20",
+     "nameSingular": "Punt Inside 20"
+    },
+    {
+     "abbreviation": "BP",
+     "id": 157,
+     "lowerIsBetter": true,
+     "namePlural": "Blocked Punt",
+     "nameSingular": "Blocked Punt"
+    },
+    {
+     "abbreviation": "TB",
+     "id": 158,
+     "namePlural": "Touchback Punt",
+     "nameSingular": "Touchback Punt"
+    },
+    {
+     "abbreviation": "NET",
+     "id": 159,
+     "namePlural": "Punt Net Yard",
+     "nameSingular": "Punt Net Yard"
+    },
+    {
+     "abbreviation": "AVG",
+     "id": 160,
+     "namePlural": "Yards Per Punt",
+     "nameSingular": "Yards Per Punt"
+    },
+    {
+     "abbreviation": "RETY",
+     "id": 161,
+     "lowerIsBetter": true,
+     "namePlural": "Yards on Returned Punts",
+     "nameSingular": "Yard on Returned Punt"
+    },
+    {
+     "abbreviation": "Net AVG",
+     "id": 162,
+     "namePlural": "Net Yards Per Punt",
+     "nameSingular": "Net Yards Per Punt"
+    },
+    {
+     "abbreviation": "Ret AVG",
+     "id": 163,
+     "namePlural": "Average Punt Return Yard Allowed",
+     "nameSingular": "Average Punt Return Yard Allowed"
+    }
+   ],
+   "label": "Punting"
+  }
+ ],
+ "maxActive": 28,
+ "maxRosterSize": 38,
+ "numBench": 13,
+ "numStarters": 15,
+ "rosterPositions": [
+  {
+   "colors": [
+    "DRAFT_BOARD_RED"
+   ],
+   "eligibility": [
+    "QB"
+   ],
+   "group": "START",
+   "label": "QB",
+   "max": 5,
+   "min": 1,
+   "start": 1
+  },
+  {
+   "colors": [
+    "DRAFT_BOARD_GREEN"
+   ],
+   "eligibility": [
+    "RB"
+   ],
+   "group": "START",
+   "label": "RB",
+   "max": 10,
+   "min": 2,
+   "start": 2
+  },
+  {
+   "colors": [
+    "DRAFT_BOARD_BLUE"
+   ],
+   "eligibility": [
+    "WR"
+   ],
+   "group": "START",
+   "label": "WR",
+   "max": 10,
+   "min": 2,
+   "start": 2
+  },
+  {
+   "colors": [
+    "DRAFT_BOARD_YELLOW"
+   ],
+   "eligibility": [
+    "TE"
+   ],
+   "group": "START",
+   "label": "TE",
+   "max": 5,
+   "min": 1,
+   "start": 1
+  },
+  {
+   "colors": [
+    "DRAFT_BOARD_GREEN",
+    "DRAFT_BOARD_BLUE",
+    "DRAFT_BOARD_YELLOW"
+   ],
+   "eligibility": [
+    "RB",
+    "WR",
+    "TE"
+   ],
+   "group": "START",
+   "label": "RB/WR/TE",
+   "start": 1
+  },
+  {
+   "colors": [
+    "DRAFT_BOARD_GRAY"
+   ],
+   "eligibility": [
+    "K"
+   ],
+   "group": "START",
+   "label": "K",
+   "max": 3,
+   "min": 1,
+   "start": 1
+  },
+  {
+   "colors": [
+    "DRAFT_BOARD_PURPLE"
+   ],
+   "eligibility": [
+    "CB"
+   ],
+   "group": "START",
+   "label": "CB",
+   "max": 8
+  },
+  {
+   "colors": [
+    "DRAFT_BOARD_PURPLE"
+   ],
+   "eligibility": [
+    "S"
+   ],
+   "group": "START",
+   "label": "S",
+   "max": 8
+  },
+  {
+   "colors": [
+    "DRAFT_BOARD_PURPLE"
+   ],
+   "eligibility": [
+    "CB",
+    "S"
+   ],
+   "group": "START",
+   "label": "DB",
+   "start": 2
+  },
+  {
+   "colors": [
+    "DRAFT_BOARD_PURPLE"
+   ],
+   "eligibility": [
+    "EDR"
+   ],
+   "group": "START",
+   "label": "EDR",
+   "max": 8
+  },
+  {
+   "colors": [
+    "DRAFT_BOARD_PURPLE"
+   ],
+   "eligibility": [
+    "IL"
+   ],
+   "group": "START",
+   "label": "IL",
+   "max": 8
+  },
+  {
+   "colors": [
+    "DRAFT_BOARD_PURPLE"
+   ],
+   "eligibility": [
+    "EDR",
+    "IL"
+   ],
+   "group": "START",
+   "label": "EDR/IL",
+   "start": 2
+  },
+  {
+   "colors": [
+    "DRAFT_BOARD_PURPLE"
+   ],
+   "eligibility": [
+    "LB"
+   ],
+   "group": "START",
+   "label": "LB",
+   "max": 8,
+   "min": 2,
+   "start": 2
+  },
+  {
+   "colors": [
+    "DRAFT_BOARD_PURPLE"
+   ],
+   "eligibility": [
+    "CB",
+    "S",
+    "EDR",
+    "IL",
+    "LB"
+   ],
+   "group": "START",
+   "label": "DB/EDR/IL/LB",
+   "start": 1
+  },
+  {
+   "colors": [
+    "DRAFT_BOARD_GREEN",
+    "DRAFT_BOARD_BLUE",
+    "DRAFT_BOARD_YELLOW",
+    "DRAFT_BOARD_RED",
+    "DRAFT_BOARD_GRAY",
+    "DRAFT_BOARD_PURPLE"
+   ],
+   "eligibility": [
+    "QB",
+    "RB",
+    "WR",
+    "TE",
+    "K",
+    "P",
+    "D/ST",
+    "CB",
+    "S",
+    "EDR",
+    "DE",
+    "IL",
+    "DT",
+    "LB",
+    "LB"
+   ],
+   "group": "INJURED",
+   "label": "IR",
+   "start": 5
+  },
+  {
+   "colors": [
+    "DRAFT_BOARD_GREEN",
+    "DRAFT_BOARD_BLUE",
+    "DRAFT_BOARD_YELLOW",
+    "DRAFT_BOARD_RED",
+    "DRAFT_BOARD_GRAY",
+    "DRAFT_BOARD_PURPLE"
+   ],
+   "eligibility": [
+    "QB",
+    "RB",
+    "WR",
+    "TE",
+    "K",
+    "P",
+    "D/ST",
+    "CB",
+    "S",
+    "EDR",
+    "DE",
+    "IL",
+    "DT",
+    "LB",
+    "LB"
+   ],
+   "group": "TAXI",
+   "label": "TAXI",
+   "start": 5
+  },
+  {
+   "label": "BN",
+   "max": 13
+  },
+  {
+   "colors": [
+    "DRAFT_BOARD_GRAY"
+   ],
+   "eligibility": [
+    "P"
+   ],
+   "group": "START",
+   "label": "P",
+   "max": 1
+  },
+  {
+   "colors": [
+    "DRAFT_BOARD_PURPLE"
+   ],
+   "eligibility": [
+    "D/ST"
+   ],
+   "group": "START",
+   "label": "D/ST",
+   "max": 1
+  }
+ ]
+}

@@ -1,0 +1,96 @@
+Traceback (most recent call last):
+  File "/home/runner/work/mld-free-agents/mld-free-agents/src/archive.py", line 78, in guard
+    return fn(*a)
+           ^^^^^^
+urllib.error.HTTPError: HTTP Error 400: 
+--- Saison 2019 ---
+--- Saison 2020 ---
+--- Saison 2021 ---
+--- Saison 2022 ---
+--- Saison 2023 ---
+--- Saison 2024 ---
+--- Saison 2025 ---
+--- Saison 2026 ---
+Transaktionen: 8377 geholt, gesamt 0
+FEHLER trades HTTP Error 400: 
+{
+ "updated_utc": "2026-10-29 18:41",
+ "league_id": 294292,
+ "seasons": {
+  "2019": {
+   "complete": true,
+   "weeks": 16,
+   "weeks_final": 16,
+   "boxscores": 120,
+   "rosters": 16,
+   "drafts": 0
+  },
+  "2020": {
+   "complete": true,
+   "weeks": 16,
+   "weeks_final": 16,
+   "boxscores": 120,
+   "rosters": 16,
+   "drafts": 0
+  },
+  "2021": {
+   "complete": true,
+   "weeks": 17,
+   "weeks_final": 17,
+   "boxscores": 127,
+   "rosters": 16,
+   "drafts": 0
+  },
+  "2022": {
+   "complete": true,
+   "weeks": 17,
+   "weeks_final": 17,
+   "boxscores": 127,
+   "rosters": 16,
+   "drafts": 0
+  },
+  "2023": {
+   "complete": true,
+   "weeks": 17,
+   "weeks_final": 17,
+   "boxscores": 127,
+   "rosters": 16,
+   "drafts": 0
+  },
+  "2024": {
+   "complete": true,
+   "weeks": 17,
+   "weeks_final": 17,
+   "boxscores": 127,
+   "rosters": 16,
+   "drafts": 0
+  },
+  "2025": {
+   "complete": true,
+   "weeks": 17,
+   "weeks_final": 17,
+   "boxscores": 127,
+   "rosters": 16,
+   "drafts": 0
+  },
+  "2026": {
+   "complete": false,
+   "weeks": 7,
+   "weeks_final": 7,
+   "boxscores": 56,
+   "rosters": 16,
+   "drafts": 0
+  }
+ },
+ "transactions": 0,
+ "trades_completed": 171,
+ "last_run": {
+  "written": 1358,
+  "unchanged": 0,
+  "skipped_final": 0,
+  "requests": 1523,
+  "errors": [
+   "trades: HTTPError: HTTP Error 400: "
+  ]
+ }
+}
