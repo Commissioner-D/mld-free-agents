@@ -1,0 +1,55 @@
+name: MLD Archive
+
+# Komplette Liga-Historie sichern. Branch "archive" waechst nur an:
+# normale Commits, nie force-push, nie loeschen -> jede Fassung bleibt in der Git-Historie.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [archive.py, .github/workflows/archive.yml]
+  schedule:
+    - cron: "17 3 * * *"   # taeglich 03:17 UTC
+
+permissions:
+  contents: write
+
+concurrency:
+  group: archive
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          path: src
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Archiv-Branch holen (oder neu anlegen)
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          if git ls-remote --exit-code --heads "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" archive; then
+            git clone --branch archive "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" arch
+          else
+            git init -b archive arch
+            git -C arch remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          fi
+      - name: Archivieren
+        run: python src/archive.py arch 2>&1 | tee arch/last_run_log.txt
+      - name: Commit + Push (ohne force)
+        run: |
+          cd arch
+          git add -A
+          if git diff --cached --quiet; then echo "Nichts Neues."; exit 0; fi
+          git commit -q -m "Archiv $(date -u +%Y-%m-%d_%H%M)"
+          for i in 1 2 3; do
+            git push origin archive && exit 0
+            git pull --rebase origin archive || true
+            sleep 5
+          done
+          exit 1
