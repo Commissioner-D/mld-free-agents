@@ -3,36 +3,6 @@
   {
    "label": "BN",
    "max": 13
-  },
-  {
-   "colors": [
-    "DRAFT_BOARD_GREEN",
-    "DRAFT_BOARD_BLUE",
-    "DRAFT_BOARD_YELLOW",
-    "DRAFT_BOARD_RED",
-    "DRAFT_BOARD_GRAY",
-    "DRAFT_BOARD_PURPLE"
-   ],
-   "eligibility": [
-    "QB",
-    "RB",
-    "WR",
-    "TE",
-    "K",
-    "P",
-    "D/ST",
-    "CB",
-    "S",
-    "EDR",
-    "DE",
-    "IL",
-    "DT",
-    "LB",
-    "LB"
-   ],
-   "group": "INJURED",
-   "label": "IR",
-   "start": 5
   }
  ],
  "eligibleLineupPeriods": [
@@ -269,7 +239,7 @@
   {
    "id": 1527136,
    "initials": "SS",
-   "logoUrl": "https://s3.amazonaws.com/fleaflicker/t1527136_0_150x150.jpg",
+   "logoUrl": "https://s3.amazonaws.com/fleaflicker/t1527136_0_150x150.jpg?v=1793610853000",
    "name": "Stehbuffet Seagulls"
   }
  ],
@@ -320,10 +290,10 @@
        "nameShort": "D. Jones",
        "news": [
         {
-         "contents": "After struggling to start his 2026 season, quarterback Daniel Jones has not been discussed as a potential bench candidate by the Indianapolis Colts, according to NFL Network's Tom Pelissero. Pelissero notes that Jones is still recovering from a torn Achilles suffered in Week 14 of last season, and that a depleted weapons group is another reason for his struggles. In seven games, Jones has completed 143 of 240 passes (59.6%) for 1,398 yards, four touchdowns, and seven interceptions, along with ...",
-         "timeEpochMilli": "1793453833000",
-         "title": "Colts Have Not Discussed Benching Daniel Jones",
-         "url": "https://www.rotoballer.com/player-news/colts-have-not-discussed-benching-daniel-jones/1980309"
+         "contents": "Indianapolis Colts head coach Shane Steichen said he is evaluating whether Daniel Jones will remain the team's starting quarterback, the Athletic's James Boyd reported via the X platform following Indianapolis ' 42-7 loss to the Jacksonville Jaguars. Jones completed 19 of 28 passes for 144 yards with one touchdown and two interceptions and was sacked three times before exiting Sunday's game in favor of beleaguered backup QB Anthony Richard Sr. The 29-year-old former first-round draft pick has a ...",
+         "timeEpochMilli": "1793569394000",
+         "title": "Daniel Jones' Role in Jeopardy After Bust Performance vs. Jaguars",
+         "url": "https://www.rotoballer.com/player-news/colts-hc-shane-steichen-evaluating-daniel-jones-role-as-starting-qb/1981339"
         }
        ],
        "nflByeWeek": 13,
@@ -368,70 +338,36 @@
           "location": "Indianapolis",
           "name": "Colts"
          },
+         "awayResult": "LOSE",
+         "awayScore": 7,
          "home": {
           "abbreviation": "JAC",
           "location": "Jacksonville",
           "name": "Jaguars"
          },
+         "homeResult": "WIN",
+         "homeScore": 42,
          "id": 7964,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793556000000",
+         "status": "FINAL_SCORE"
         },
         "period": {
          "isNow": true,
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "pointsProjected": {
-         "formatted": "12.52",
-         "value": 12.520001
+        "pointsActual": {
+         "formatted": "6.46",
+         "value": 6.46
         },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "Yd",
-            "id": 3,
-            "namePlural": "Passing Yards",
-            "nameSingular": "Passing Yard"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "280.3",
-             "value": 280.33334
-            },
-            "rank": 30,
-            "rating": "RATING_VERY_GOOD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 5,
-            "namePlural": "Passing TDs",
-            "nameSingular": "Passing TD"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "1.2",
-             "value": 1.1666666
-            },
-            "rank": 10
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "18.5",
-           "value": 18.516666
-          },
-          "rank": 11
-         },
-         "position": "QB"
+        "pointsProjected": {
+         "formatted": "12.42",
+         "value": 12.42
         },
         "stats": [
          {
@@ -441,6 +377,10 @@
            "namePlural": "Completion Percentage",
            "nameSingular": "Completion Percentage",
            "summaryLabelIfDiffersFromAbbreviation": " "
+          },
+          "value": {
+           "formatted": "19/28",
+           "value": 67.85714
           }
          },
          {
@@ -449,6 +389,10 @@
            "id": 3,
            "namePlural": "Passing Yards",
            "nameSingular": "Passing Yard"
+          },
+          "value": {
+           "formatted": "144",
+           "value": 144.0
           }
          },
          {
@@ -457,6 +401,10 @@
            "id": 5,
            "namePlural": "Passing TDs",
            "nameSingular": "Passing TD"
+          },
+          "value": {
+           "formatted": "1",
+           "value": 1.0
           }
          },
          {
@@ -466,6 +414,10 @@
            "lowerIsBetter": true,
            "namePlural": "Interceptions",
            "nameSingular": "Interception"
+          },
+          "value": {
+           "formatted": "2",
+           "value": 2.0
           }
          }
         ],
@@ -491,8 +443,8 @@
            "nameSingular": "Passing Yard"
           },
           "value": {
-           "formatted": "213.6",
-           "value": 213.63
+           "formatted": "212.8",
+           "value": 212.8
           }
          },
          {
@@ -545,6 +497,10 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "6.46",
+       "value": 6.46
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -553,6 +509,10 @@
          "namePlural": "Completion Percentage",
          "nameSingular": "Completion Percentage",
          "summaryLabelIfDiffersFromAbbreviation": " "
+        },
+        "value": {
+         "formatted": "19/28",
+         "value": 67.85714
         }
        },
        {
@@ -561,6 +521,10 @@
          "id": 3,
          "namePlural": "Passing Yards",
          "nameSingular": "Passing Yard"
+        },
+        "value": {
+         "formatted": "144",
+         "value": 144.0
         }
        },
        {
@@ -569,6 +533,10 @@
          "id": 5,
          "namePlural": "Passing TDs",
          "nameSingular": "Passing TD"
+        },
+        "value": {
+         "formatted": "1",
+         "value": 1.0
         }
        },
        {
@@ -578,13 +546,17 @@
          "lowerIsBetter": true,
          "namePlural": "Interceptions",
          "nameSingular": "Interception"
+        },
+        "value": {
+         "formatted": "2",
+         "value": 2.0
         }
        }
       ],
       "viewingFormat": "TOTAL",
       "viewingProjectedPoints": {
-       "formatted": "12.52",
-       "value": 12.520001
+       "formatted": "12.42",
+       "value": 12.42
       },
       "viewingProjectedStats": [
        {
@@ -607,8 +579,8 @@
          "nameSingular": "Passing Yard"
         },
         "value": {
-         "formatted": "213.6",
-         "value": 213.63
+         "formatted": "212.8",
+         "value": 212.8
         }
        },
        {
@@ -698,10 +670,10 @@
        "nameShort": "A. Jones",
        "news": [
         {
-         "analysis": "Jones returned to practice on Thursday and Friday. He will be an RB2/flex play for fantasy managers.",
-         "contents": "Aaron Jones Sr. is off the injury report for Sunday's game against the Lions.",
-         "timeEpochMilli": "1793384451000",
-         "title": "Aaron Jones Sr. (knee) off injury report Sunday"
+         "analysis": "Jones Sr. has struggled to make an impact out of the backfield of late, rushing for less than 30 yards in each of his last two contests. The running back faces another stiff test against the Buffalo Bills in Week 9.",
+         "contents": "Aaron Jones Sr. rushed five times for 22 yards while also catching both of his targets for 18 yards in the Vikings' 19-15 Week 8 loss to the Lions.",
+         "timeEpochMilli": "1793579346000",
+         "title": "Aaron Jones Sr. held in check in Week 8 loss"
         },
         {
          "contents": "Who Should I Start? Who Should I Sit? Some of the most common Week 8 fantasy football lineup decisions involve players like Omar Cooper Jr., Germie Bernard, Quinshon Judkins, Parker Washington, Omarion Hampton, Aaron Jones Sr., Courtland Sutton, and Dylan Sampson. However, don't worry; we are here to help you make these decisions and build winning lineups in Week 8. Set your optimal fantasy football lineups for Week 8 of the 2026 NFL season. Our free Who Should I Start? tool will help make your...",
@@ -751,70 +723,36 @@
           "location": "Minnesota",
           "name": "Vikings"
          },
+         "awayResult": "LOSE",
+         "awayScore": 15,
          "home": {
           "abbreviation": "DET",
           "location": "Detroit",
           "name": "Lions"
          },
+         "homeResult": "WIN",
+         "homeScore": 19,
          "id": 7967,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793556000000",
+         "status": "FINAL_SCORE"
         },
         "period": {
          "isNow": true,
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "pointsProjected": {
-         "formatted": "7.11",
-         "value": 7.11
+        "pointsActual": {
+         "formatted": "4.2",
+         "value": 4.2
         },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "Yd",
-            "id": 28,
-            "namePlural": "Scrimmage Yards",
-            "nameSingular": "Scrimmage Yard"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "104.8",
-             "value": 104.833336
-            },
-            "rank": 6,
-            "rating": "RATING_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 29,
-            "namePlural": "Offensive + Special Teams TDs",
-            "nameSingular": "Offensive + Special Teams TD"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "0.8",
-             "value": 0.8333333
-            },
-            "rank": 14
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "12.8",
-           "value": 12.766667
-          },
-          "rank": 15
-         },
-         "position": "RB"
+        "pointsProjected": {
+         "formatted": "7.08",
+         "value": 7.0800004
         },
         "stats": [
          {
@@ -823,6 +761,10 @@
            "id": 22,
            "namePlural": "Rushing Yards",
            "nameSingular": "Rushing Yard"
+          },
+          "value": {
+           "formatted": "22",
+           "value": 22.0
           }
          },
          {
@@ -831,6 +773,10 @@
            "id": 175,
            "namePlural": "Target % Caught",
            "nameSingular": "Target % Caught"
+          },
+          "value": {
+           "formatted": "2/2",
+           "value": 100.0
           }
          },
          {
@@ -839,6 +785,10 @@
            "id": 42,
            "namePlural": "Receiving Yards",
            "nameSingular": "Receiving Yard"
+          },
+          "value": {
+           "formatted": "18",
+           "value": 18.0
           }
          },
          {
@@ -847,6 +797,9 @@
            "id": 29,
            "namePlural": "Offensive + Special Teams TDs",
            "nameSingular": "Offensive + Special Teams TD"
+          },
+          "value": {
+           "formatted": "0"
           }
          }
         ],
@@ -859,8 +812,8 @@
            "nameSingular": "Rushing Yard"
           },
           "value": {
-           "formatted": "37.5",
-           "value": 37.47
+           "formatted": "37.2",
+           "value": 37.21
           }
          },
          {
@@ -924,6 +877,10 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "4.2",
+       "value": 4.2
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -931,6 +888,10 @@
          "id": 22,
          "namePlural": "Rushing Yards",
          "nameSingular": "Rushing Yard"
+        },
+        "value": {
+         "formatted": "22",
+         "value": 22.0
         }
        },
        {
@@ -939,6 +900,10 @@
          "id": 175,
          "namePlural": "Target % Caught",
          "nameSingular": "Target % Caught"
+        },
+        "value": {
+         "formatted": "2/2",
+         "value": 100.0
         }
        },
        {
@@ -947,6 +912,10 @@
          "id": 42,
          "namePlural": "Receiving Yards",
          "nameSingular": "Receiving Yard"
+        },
+        "value": {
+         "formatted": "18",
+         "value": 18.0
         }
        },
        {
@@ -955,13 +924,16 @@
          "id": 29,
          "namePlural": "Offensive + Special Teams TDs",
          "nameSingular": "Offensive + Special Teams TD"
+        },
+        "value": {
+         "formatted": "0"
         }
        }
       ],
       "viewingFormat": "TOTAL",
       "viewingProjectedPoints": {
-       "formatted": "7.11",
-       "value": 7.11
+       "formatted": "7.08",
+       "value": 7.0800004
       },
       "viewingProjectedStats": [
        {
@@ -972,8 +944,8 @@
          "nameSingular": "Rushing Yard"
         },
         "value": {
-         "formatted": "37.5",
-         "value": 37.47
+         "formatted": "37.2",
+         "value": 37.21
         }
        },
        {
@@ -1037,24 +1009,23 @@
       "lastX": [
        {
         "duration": 1,
-        "overPerforming": true,
         "value": {
-         "formatted": "12.2",
-         "value": 12.2
+         "formatted": "1.3",
+         "value": 1.3
         }
        },
        {
         "duration": 3,
         "value": {
-         "formatted": "8.27",
-         "value": 8.27
+         "formatted": "1.3",
+         "value": 1.3
         }
        },
        {
         "duration": 5,
         "value": {
-         "formatted": "8.39",
-         "value": 8.39
+         "formatted": "1.3",
+         "value": 1.3
         }
        }
       ],
@@ -1065,52 +1036,45 @@
        "name": "Vienna BBB"
       },
       "proPlayer": {
-       "hasLockedPremiumContent": true,
-       "headshotUrl": "https://d26bvpybnxg29h.cloudfront.net/nfl/19290.png",
-       "id": 19290,
+       "headshotUrl": "https://d26bvpybnxg29h.cloudfront.net/nfl/12999.png",
+       "id": 12999,
        "injury": {
-        "description": "Knee",
-        "severity": "OUT",
-        "typeAbbreviaition": "IR",
-        "typeFull": "Injured Reserve"
+        "description": "Foot",
+        "severity": "QUESTIONABLE",
+        "typeAbbreviaition": "Q",
+        "typeFull": "Questionable"
        },
-       "nameFirst": "RJ",
-       "nameFull": "RJ Harvey",
-       "nameLast": "Harvey",
-       "nameShort": "R. Harvey",
+       "nameFirst": "Jeremy",
+       "nameFull": "Jeremy McNichols",
+       "nameLast": "McNichols",
+       "nameShort": "J. McNichols",
        "news": [
         {
-         "analysis": "Harvey sustained a knee injury at practice earlier this week. He will now be forced to miss at least the next four games. JK Dobbins and Jonah Coleman could see more touches as a result.",
-         "contents": "RJ Harvey (knee) was placed on IR with a designation to return.",
-         "timeEpochMilli": "1793478441000",
-         "title": "RJ Harvey (knee) placed on short-term IR"
-        },
-        {
-         "contents": "Denver Broncos running back RJ Harvey (knee) has been placed on short-term injured reserve with a knee injury, according to NFL Network's Ian Rapoport. As a result, the second-year running back will not be eligible to return until December 6 to face the Miami Dolphins (Week 13). Harvey sustained the injury in practice this week but hopes to avoid an extended absence. While he has not been involved much on the ground (averaging just 4.0 attempts per game), he has been a top option in QB Bo Nix's ...",
-         "timeEpochMilli": "1793477800000",
-         "title": "RJ Harvey Placed on Short-Term IR with Knee Injury",
-         "url": "https://www.rotoballer.com/player-news/r-j-harvey-placed-on-short-term-ir-with-knee-injury/1980739"
+         "contents": "Washington Commanders running back Jeremy McNichols (foot) is considered questionable to return during Sunday's game against the Philadelphia Eagles. McNichols was forced to exit during the second half of this game due to a foot issue, and it's unclear if he'll be able to finish out this game. Before leaving, McNichols carried the ball five times for 21 yards and also hauled in one pass for seven additional yards through the air. If he's unable to return, Rachaad White and Austin Ekeler will ...",
+         "timeEpochMilli": "1793591054000",
+         "title": "Jeremy McNichols Questionable to Return with Foot Injury",
+         "url": "https://www.rotoballer.com/player-news/jeremy-mcnichols-is-uncertain-to-return-with-foot-injury/1981625"
         }
        ],
-       "nflByeWeek": 10,
-       "percentOwnedRatio": 0.85,
+       "nflByeWeek": 7,
+       "percentOwnedRatio": 0.06,
        "position": "RB",
        "positionEligibility": [
         "RB"
        ],
        "proTeam": {
-        "abbreviation": "DEN",
-        "location": "Denver",
-        "name": "Broncos"
+        "abbreviation": "WAS",
+        "location": "Washington",
+        "name": "Commanders"
        },
-       "proTeamAbbreviation": "DEN"
+       "proTeamAbbreviation": "WAS"
       },
       "rankFantasy": {
-       "ordinal": 172,
+       "ordinal": 850,
        "positions": [
         {
-         "formatted": "29",
-         "ordinal": 29,
+         "formatted": "125",
+         "ordinal": 125,
          "position": {
           "colors": [
            "DRAFT_BOARD_GREEN"
@@ -1121,7 +1085,7 @@
           "group": "START",
           "label": "RB"
          },
-         "rating": "RATING_BAD"
+         "rating": "RATING_VERY_BAD"
         }
        ],
        "season": 2026
@@ -1130,22 +1094,27 @@
        {
         "game": {
          "away": {
-          "abbreviation": "KC",
-          "location": "Kansas City",
-          "name": "Chiefs"
+          "abbreviation": "PHI",
+          "location": "Philadelphia",
+          "name": "Eagles"
          },
+         "awayResult": "LOSE",
+         "awayScore": 10,
          "home": {
-          "abbreviation": "DEN",
-          "location": "Denver",
-          "name": "Broncos"
+          "abbreviation": "WAS",
+          "location": "Washington",
+          "name": "Commanders"
          },
-         "id": 7974,
+         "homeResult": "WIN",
+         "homeScore": 27,
+         "id": 7975,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793568300000"
+         "startTimeEpochMilli": "1793582400000",
+         "status": "FINAL_SCORE"
         },
         "participant": "HOME",
         "period": {
@@ -1153,48 +1122,13 @@
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "Yd",
-            "id": 28,
-            "namePlural": "Scrimmage Yards",
-            "nameSingular": "Scrimmage Yard"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "107.5",
-             "value": 107.5
-            },
-            "rank": 7,
-            "rating": "RATING_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 29,
-            "namePlural": "Offensive + Special Teams TDs",
-            "nameSingular": "Offensive + Special Teams TD"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "0.7",
-             "value": 0.6666667
-            },
-            "rank": 9
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "12.5",
-           "value": 12.483334
-          },
-          "rank": 13
-         },
-         "position": "RB"
+        "pointsActual": {
+         "formatted": "2.9",
+         "value": 2.8999999
+        },
+        "pointsProjected": {
+         "formatted": "3.56",
+         "value": 3.56
         },
         "stats": [
          {
@@ -1203,6 +1137,10 @@
            "id": 22,
            "namePlural": "Rushing Yards",
            "nameSingular": "Rushing Yard"
+          },
+          "value": {
+           "formatted": "21",
+           "value": 21.0
           }
          },
          {
@@ -1211,6 +1149,10 @@
            "id": 175,
            "namePlural": "Target % Caught",
            "nameSingular": "Target % Caught"
+          },
+          "value": {
+           "formatted": "1/1",
+           "value": 100.0
           }
          },
          {
@@ -1219,6 +1161,10 @@
            "id": 42,
            "namePlural": "Receiving Yards",
            "nameSingular": "Receiving Yard"
+          },
+          "value": {
+           "formatted": "7",
+           "value": 7.0
           }
          },
          {
@@ -1227,6 +1173,58 @@
            "id": 29,
            "namePlural": "Offensive + Special Teams TDs",
            "nameSingular": "Offensive + Special Teams TD"
+          },
+          "value": {
+           "formatted": "0"
+          }
+         }
+        ],
+        "statsProjected": [
+         {
+          "category": {
+           "abbreviation": "Yd",
+           "id": 22,
+           "namePlural": "Rushing Yards",
+           "nameSingular": "Rushing Yard"
+          },
+          "value": {
+           "formatted": "20.9",
+           "value": 20.94
+          }
+         },
+         {
+          "category": {
+           "abbreviation": "Rec",
+           "id": 175,
+           "namePlural": "Target % Caught",
+           "nameSingular": "Target % Caught"
+          },
+          "value": {
+           "formatted": "0/0"
+          }
+         },
+         {
+          "category": {
+           "abbreviation": "Yd",
+           "id": 42,
+           "namePlural": "Receiving Yards",
+           "nameSingular": "Receiving Yard"
+          },
+          "value": {
+           "formatted": "3.9",
+           "value": 3.92
+          }
+         },
+         {
+          "category": {
+           "abbreviation": "TD",
+           "id": 29,
+           "namePlural": "Offensive + Special Teams TDs",
+           "nameSingular": "Offensive + Special Teams TD"
+          },
+          "value": {
+           "formatted": "0.2",
+           "value": 0.19
           }
          }
         ]
@@ -1238,21 +1236,20 @@
        "startEpochMilli": "1793095200000"
       },
       "seasonAverage": {
-       "formatted": "8.48",
-       "value": 8.483335
+       "formatted": "1.3",
+       "value": 1.3
       },
-      "seasonConsistency": "RATING_GOOD",
       "seasonTotal": {
-       "formatted": "50.9",
-       "value": 50.900005
-      },
-      "seasonsStandartDeviation": {
-       "formatted": "4.24",
-       "value": 4.2389355
+       "formatted": "1.3",
+       "value": 1.3
       },
       "transactionStatus": {
        "isLineupStatusLocked": true,
        "locked": {}
+      },
+      "viewingActualPoints": {
+       "formatted": "2.9",
+       "value": 2.8999999
       },
       "viewingActualStats": [
        {
@@ -1261,6 +1258,10 @@
          "id": 22,
          "namePlural": "Rushing Yards",
          "nameSingular": "Rushing Yard"
+        },
+        "value": {
+         "formatted": "21",
+         "value": 21.0
         }
        },
        {
@@ -1269,6 +1270,10 @@
          "id": 175,
          "namePlural": "Target % Caught",
          "nameSingular": "Target % Caught"
+        },
+        "value": {
+         "formatted": "1/1",
+         "value": 100.0
         }
        },
        {
@@ -1277,6 +1282,10 @@
          "id": 42,
          "namePlural": "Receiving Yards",
          "nameSingular": "Receiving Yard"
+        },
+        "value": {
+         "formatted": "7",
+         "value": 7.0
         }
        },
        {
@@ -1285,10 +1294,66 @@
          "id": 29,
          "namePlural": "Offensive + Special Teams TDs",
          "nameSingular": "Offensive + Special Teams TD"
+        },
+        "value": {
+         "formatted": "0"
         }
        }
       ],
       "viewingFormat": "TOTAL",
+      "viewingProjectedPoints": {
+       "formatted": "3.56",
+       "value": 3.56
+      },
+      "viewingProjectedStats": [
+       {
+        "category": {
+         "abbreviation": "Yd",
+         "id": 22,
+         "namePlural": "Rushing Yards",
+         "nameSingular": "Rushing Yard"
+        },
+        "value": {
+         "formatted": "20.9",
+         "value": 20.94
+        }
+       },
+       {
+        "category": {
+         "abbreviation": "Rec",
+         "id": 175,
+         "namePlural": "Target % Caught",
+         "nameSingular": "Target % Caught"
+        },
+        "value": {
+         "formatted": "0/0"
+        }
+       },
+       {
+        "category": {
+         "abbreviation": "Yd",
+         "id": 42,
+         "namePlural": "Receiving Yards",
+         "nameSingular": "Receiving Yard"
+        },
+        "value": {
+         "formatted": "3.9",
+         "value": 3.92
+        }
+       },
+       {
+        "category": {
+         "abbreviation": "TD",
+         "id": 29,
+         "namePlural": "Offensive + Special Teams TDs",
+         "nameSingular": "Offensive + Special Teams TD"
+        },
+        "value": {
+         "formatted": "0.2",
+         "value": 0.19
+        }
+       }
+      ],
       "viewingRange": {
        "low": 8
       }
@@ -1350,14 +1415,20 @@
        "nameShort": "T. Tucker",
        "news": [
         {
-         "contents": "Las Vegas Raiders wide receiver Tre Tucker is slowly garnering more fantasy value as the season progresses, which makes for an interesting scenario in Week 8 against the New York Jets. The 25-year-old wideout saw a season-high 12 targets in Week 7, and led the receiving corps with five catches for 103 yards and a touchdown. That brings Tucker to 29 receptions for 474 yards and four touchdowns through seven contests. Tucker's biggest competition for targets remains tight end Brock Bowers, and ...",
-         "timeEpochMilli": "1793395032000",
-         "title": "Tre Tucker a WR3 in Week 8 vs. Jets",
-         "url": "https://www.rotoballer.com/player-news/tre-tucker-a-wr3-in-week-8-vs-jets/1979768"
+         "analysis": "Tucker's one target marks a new season low for the 25-year-old. Jalen Nailor was the only wide receiver on the roster that logged a catch in the high-scoring affair with the Jets. Tucker and the Raiders will take on the 49ers in Week 9.",
+         "contents": "Tre Tucker did not record a reception on his lone target in a 38-33 win over the Jets.",
+         "timeEpochMilli": "1793574472000",
+         "title": "Tre Tucker held without a catch in Week 8 win"
+        },
+        {
+         "contents": "Las Vegas Raiders wide receiver Tre Tucker was a major bust for fantasy managers in Week 8, earning just one target and failing to record a reception in his team's 38-33 win over the New York Jets. Tucker's quiet game is a significant letdown given his strong play coming into the week, as he had recorded 10 catches for 200 receiving yards and three touchdowns on 19 targets across his last two games. However, Raiders quarterback Kirk Cousins attempted just 26 passes against New York, with 16 of...",
+         "timeEpochMilli": "1793587092000",
+         "title": "Tre Tucker a Major Bust in Week 8",
+         "url": "https://www.rotoballer.com/player-news/tre-tucker-a-major-bust-in-week-8/1981569"
         }
        ],
        "nflByeWeek": 13,
-       "percentOwnedRatio": 0.84,
+       "percentOwnedRatio": 0.85,
        "position": "WR",
        "positionEligibility": [
         "WR"
@@ -1398,71 +1469,35 @@
           "location": "Las Vegas",
           "name": "Raiders"
          },
+         "awayResult": "WIN",
+         "awayScore": 38,
          "home": {
           "abbreviation": "NYJ",
           "location": "New York",
           "name": "Jets"
          },
+         "homeResult": "LOSE",
+         "homeScore": 33,
          "id": 7970,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793556000000",
+         "status": "FINAL_SCORE"
         },
         "period": {
          "isNow": true,
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "pointsProjected": {
-         "formatted": "7.8",
-         "value": 7.7999997
+        "pointsActual": {
+         "formatted": "0"
         },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "Yd",
-            "id": 42,
-            "namePlural": "Receiving Yards",
-            "nameSingular": "Receiving Yard"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "134.4",
-             "value": 134.42857
-            },
-            "rank": 10
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 29,
-            "namePlural": "Offensive + Special Teams TDs",
-            "nameSingular": "Offensive + Special Teams TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "1.1",
-             "value": 1.1428572
-            },
-            "rank": 24,
-            "rating": "RATING_GOOD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "9",
-           "value": 8.957143
-          },
-          "rank": 18
-         },
-         "position": "WR"
+        "pointsProjected": {
+         "formatted": "7.84",
+         "value": 7.8399997
         },
         "stats": [
          {
@@ -1471,6 +1506,9 @@
            "id": 175,
            "namePlural": "Target % Caught",
            "nameSingular": "Target % Caught"
+          },
+          "value": {
+           "formatted": "0/1"
           }
          },
          {
@@ -1479,6 +1517,9 @@
            "id": 42,
            "namePlural": "Receiving Yards",
            "nameSingular": "Receiving Yard"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -1488,6 +1529,9 @@
            "lowerIsBetter": true,
            "namePlural": "Fumbles",
            "nameSingular": "Fumble"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -1496,6 +1540,9 @@
            "id": 29,
            "namePlural": "Offensive + Special Teams TDs",
            "nameSingular": "Offensive + Special Teams TD"
+          },
+          "value": {
+           "formatted": "0"
           }
          }
         ],
@@ -1520,8 +1567,8 @@
            "nameSingular": "Receiving Yard"
           },
           "value": {
-           "formatted": "51.5",
-           "value": 51.51
+           "formatted": "51.9",
+           "value": 51.89
           }
          },
          {
@@ -1574,6 +1621,9 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "0"
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -1581,6 +1631,9 @@
          "id": 175,
          "namePlural": "Target % Caught",
          "nameSingular": "Target % Caught"
+        },
+        "value": {
+         "formatted": "0/1"
         }
        },
        {
@@ -1589,6 +1642,9 @@
          "id": 42,
          "namePlural": "Receiving Yards",
          "nameSingular": "Receiving Yard"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -1598,6 +1654,9 @@
          "lowerIsBetter": true,
          "namePlural": "Fumbles",
          "nameSingular": "Fumble"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -1606,13 +1665,16 @@
          "id": 29,
          "namePlural": "Offensive + Special Teams TDs",
          "nameSingular": "Offensive + Special Teams TD"
+        },
+        "value": {
+         "formatted": "0"
         }
        }
       ],
       "viewingFormat": "TOTAL",
       "viewingProjectedPoints": {
-       "formatted": "7.8",
-       "value": 7.7999997
+       "formatted": "7.84",
+       "value": 7.8399997
       },
       "viewingProjectedStats": [
        {
@@ -1635,8 +1697,8 @@
          "nameSingular": "Receiving Yard"
         },
         "value": {
-         "formatted": "51.5",
-         "value": 51.51
+         "formatted": "51.9",
+         "value": 51.89
         }
        },
        {
@@ -1727,6 +1789,12 @@
        "nameShort": "J. Williams",
        "news": [
         {
+         "analysis": "Williams has had a nose for the end zone of late, registering one or more receiving touchdowns in each of his last three games. The wideout remains one of the more explosive offensive options for head coach Dan Campbell entering a juicy Week 9 matchup against the Miami Dolphins.",
+         "contents": "Jameson Williams hauled in four of his six targets for a team-high 70 yards and one touchdown in the Lions' 19-15 Week 8 win over the Vikings.",
+         "timeEpochMilli": "1793582309000",
+         "title": "Jameson Williams finds end zone in Week 8 win over Vikings"
+        },
+        {
          "contents": "The trade market is getting hot! The likes of Quenton Nelson and Jeffery Simmons are now on new teams, and things are likely to get even crazier. As for action on the field, Thursday Night Football saw the Packers beat the Panthers to prove just how far ahead the NFC North is compared to the NFC South.In this weekly series, I'll highlight five players who could disappoint due to several factors, such as their matchup, team situation, or whether their current run of form is unsustainable. ...",
          "timeEpochMilli": "1793475630000",
          "title": "Fantasy Football Landmines to Avoid for Week 8 - Jonathan Taylor, Luther Burden III, Jameson Williams, more",
@@ -1774,18 +1842,23 @@
           "location": "Minnesota",
           "name": "Vikings"
          },
+         "awayResult": "LOSE",
+         "awayScore": 15,
          "home": {
           "abbreviation": "DET",
           "location": "Detroit",
           "name": "Lions"
          },
+         "homeResult": "WIN",
+         "homeScore": 19,
          "id": 7967,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793556000000",
+         "status": "FINAL_SCORE"
         },
         "participant": "HOME",
         "period": {
@@ -1793,55 +1866,13 @@
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
+        "pointsActual": {
+         "formatted": "14.9",
+         "value": 14.9
+        },
         "pointsProjected": {
          "formatted": "7.54",
          "value": 7.5399995
-        },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "Yd",
-            "id": 42,
-            "namePlural": "Receiving Yards",
-            "nameSingular": "Receiving Yard"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "123.8",
-             "value": 123.833336
-            },
-            "rank": 5,
-            "rating": "RATING_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 29,
-            "namePlural": "Offensive + Special Teams TDs",
-            "nameSingular": "Offensive + Special Teams TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0.5",
-             "value": 0.5
-            },
-            "rank": 3,
-            "rating": "RATING_BAD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "7.2",
-           "value": 7.1833334
-          },
-          "rank": 5,
-          "rating": "RATING_BAD"
-         },
-         "position": "WR"
         },
         "stats": [
          {
@@ -1850,6 +1881,10 @@
            "id": 175,
            "namePlural": "Target % Caught",
            "nameSingular": "Target % Caught"
+          },
+          "value": {
+           "formatted": "4/6",
+           "value": 66.666664
           }
          },
          {
@@ -1858,6 +1893,10 @@
            "id": 42,
            "namePlural": "Receiving Yards",
            "nameSingular": "Receiving Yard"
+          },
+          "value": {
+           "formatted": "70",
+           "value": 70.0
           }
          },
          {
@@ -1867,6 +1906,9 @@
            "lowerIsBetter": true,
            "namePlural": "Fumbles",
            "nameSingular": "Fumble"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -1875,6 +1917,10 @@
            "id": 29,
            "namePlural": "Offensive + Special Teams TDs",
            "nameSingular": "Offensive + Special Teams TD"
+          },
+          "value": {
+           "formatted": "1",
+           "value": 1.0
           }
          }
         ],
@@ -1900,7 +1946,7 @@
           },
           "value": {
            "formatted": "52.4",
-           "value": 52.36
+           "value": 52.39
           }
          },
          {
@@ -1952,6 +1998,10 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "14.9",
+       "value": 14.9
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -1959,6 +2009,10 @@
          "id": 175,
          "namePlural": "Target % Caught",
          "nameSingular": "Target % Caught"
+        },
+        "value": {
+         "formatted": "4/6",
+         "value": 66.666664
         }
        },
        {
@@ -1967,6 +2021,10 @@
          "id": 42,
          "namePlural": "Receiving Yards",
          "nameSingular": "Receiving Yard"
+        },
+        "value": {
+         "formatted": "70",
+         "value": 70.0
         }
        },
        {
@@ -1976,6 +2034,9 @@
          "lowerIsBetter": true,
          "namePlural": "Fumbles",
          "nameSingular": "Fumble"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -1984,6 +2045,10 @@
          "id": 29,
          "namePlural": "Offensive + Special Teams TDs",
          "nameSingular": "Offensive + Special Teams TD"
+        },
+        "value": {
+         "formatted": "1",
+         "value": 1.0
         }
        }
       ],
@@ -2014,7 +2079,7 @@
         },
         "value": {
          "formatted": "52.4",
-         "value": 52.36
+         "value": 52.39
         }
        },
        {
@@ -2158,73 +2223,36 @@
           "location": "Los Angeles",
           "name": "Chargers"
          },
+         "awayResult": "LOSE",
+         "awayScore": 9,
          "home": {
           "abbreviation": "LAR",
           "location": "Los Angeles",
           "name": "Rams"
          },
+         "homeResult": "WIN",
+         "homeScore": 24,
          "id": 7972,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793567100000"
+         "startTimeEpochMilli": "1793567100000",
+         "status": "FINAL_SCORE"
         },
         "period": {
          "isNow": true,
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "pointsProjected": {
-         "formatted": "4.36",
-         "value": 4.3599997
+        "pointsActual": {
+         "formatted": "3.4",
+         "value": 3.3999999
         },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "Yd",
-            "id": 42,
-            "namePlural": "Receiving Yards",
-            "nameSingular": "Receiving Yard"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "106",
-             "value": 106.0
-            },
-            "rank": 2,
-            "rating": "RATING_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 29,
-            "namePlural": "Offensive + Special Teams TDs",
-            "nameSingular": "Offensive + Special Teams TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "1.1",
-             "value": 1.1428572
-            },
-            "rank": 24,
-            "rating": "RATING_GOOD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "7.6",
-           "value": 7.5785713
-          },
-          "rank": 7,
-          "rating": "RATING_BAD"
-         },
-         "position": "WR"
+        "pointsProjected": {
+         "formatted": "4.37",
+         "value": 4.3699994
         },
         "stats": [
          {
@@ -2233,6 +2261,10 @@
            "id": 175,
            "namePlural": "Target % Caught",
            "nameSingular": "Target % Caught"
+          },
+          "value": {
+           "formatted": "3/3",
+           "value": 100.0
           }
          },
          {
@@ -2241,6 +2273,10 @@
            "id": 42,
            "namePlural": "Receiving Yards",
            "nameSingular": "Receiving Yard"
+          },
+          "value": {
+           "formatted": "31",
+           "value": 31.0
           }
          },
          {
@@ -2250,6 +2286,9 @@
            "lowerIsBetter": true,
            "namePlural": "Fumbles",
            "nameSingular": "Fumble"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -2258,6 +2297,9 @@
            "id": 29,
            "namePlural": "Offensive + Special Teams TDs",
            "nameSingular": "Offensive + Special Teams TD"
+          },
+          "value": {
+           "formatted": "0"
           }
          }
         ],
@@ -2282,8 +2324,8 @@
            "nameSingular": "Receiving Yard"
           },
           "value": {
-           "formatted": "34.4",
-           "value": 34.41
+           "formatted": "34.5",
+           "value": 34.52
           }
          },
          {
@@ -2335,6 +2377,10 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "3.4",
+       "value": 3.3999999
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -2342,6 +2388,10 @@
          "id": 175,
          "namePlural": "Target % Caught",
          "nameSingular": "Target % Caught"
+        },
+        "value": {
+         "formatted": "3/3",
+         "value": 100.0
         }
        },
        {
@@ -2350,6 +2400,10 @@
          "id": 42,
          "namePlural": "Receiving Yards",
          "nameSingular": "Receiving Yard"
+        },
+        "value": {
+         "formatted": "31",
+         "value": 31.0
         }
        },
        {
@@ -2359,6 +2413,9 @@
          "lowerIsBetter": true,
          "namePlural": "Fumbles",
          "nameSingular": "Fumble"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -2367,13 +2424,16 @@
          "id": 29,
          "namePlural": "Offensive + Special Teams TDs",
          "nameSingular": "Offensive + Special Teams TD"
+        },
+        "value": {
+         "formatted": "0"
         }
        }
       ],
       "viewingFormat": "TOTAL",
       "viewingProjectedPoints": {
-       "formatted": "4.36",
-       "value": 4.3599997
+       "formatted": "4.37",
+       "value": 4.3699994
       },
       "viewingProjectedStats": [
        {
@@ -2396,8 +2456,8 @@
          "nameSingular": "Receiving Yard"
         },
         "value": {
-         "formatted": "34.4",
-         "value": 34.41
+         "formatted": "34.5",
+         "value": 34.52
         }
        },
        {
@@ -2490,16 +2550,10 @@
        "nameShort": "T. Kelce",
        "news": [
         {
-         "analysis": "Kelce was a full participant to start the week on Wednesday, but he was downgraded to limited on Wednesday due to his ankle issue. This may very well be nothing more than an injury management move on the part of the team, however, so fantasy managers shouldn't have any concern for his availability unless he carries an injury designation heading into the weekend.",
-         "contents": "Travis Kelce (ankle) was downgraded to a limited participant at practice on Thursday.",
-         "timeEpochMilli": "1793332023000",
-         "title": "Travis Kelce (ankle) downgraded to limited Thursday"
-        },
-        {
-         "contents": "Kansas City Chiefs tight end Travis Kelce will travel to Denver to take on the Broncos this Sunday. Kelce and the rest of the Chiefs offense was held in check by the Seattle Seahawks in last week's 3-20 loss. The veteran tight end caught four of his eight targets for 44 yards, his second-lowest yardage total of the season. Kelce sustained his lingering ankle injury back in the first quarter of Week 6 against the Los Angeles Chargers. Kelce was listed as a full participant in practice on ...",
-         "timeEpochMilli": "1793389696000",
-         "title": "Travis Kelce Off Injury Report, Ready To Rock In Denver",
-         "url": "https://www.rotoballer.com/player-news/travis-kelce-off-injury-report-ready-to-rock-in-denver/1979631"
+         "contents": "Who Should I Start? Who Should I Sit? Some of the most common Week 8 fantasy football lineup decisions involve players like Kyle Pitts Sr., Tyler Higbee, Mason Taylor, Travis Kelce, Hunter Henry, Sam LaPorta, Mark Andrews, T.J. Hockenson, and Brenton Strange. However, don't worry; we are here to help you make these decisions and build winning lineups in Week 8. Set your optimal fantasy football lineups for Week 8 of the 2026 NFL season. Our free Who Should I Start? tool will help make your ...",
+         "timeEpochMilli": "1793530871000",
+         "title": "Who Should I Start for Fantasy Football Week 8? Kyle Pitts Sr., Tyler Higbee, Mason Taylor, Travis Kelce, Hunter Henry, Sam LaPorta, Mark Andrews, T.J. Hockenson, Brenton Strange",
+         "url": "https://www.rotoballer.com/who-should-i-start-for-week-8-kyle-pitts-sr-tyler-higbee-mason-taylor-travis-kelce-hunter-henry-sam-laporta-mark-andrews-t-j-hockenson-brenton-strange/1980001"
         }
        ],
        "nflByeWeek": 5,
@@ -2544,72 +2598,36 @@
           "location": "Kansas City",
           "name": "Chiefs"
          },
+         "awayResult": "LOSE",
+         "awayScore": 24,
          "home": {
           "abbreviation": "DEN",
           "location": "Denver",
           "name": "Broncos"
          },
+         "homeResult": "WIN",
+         "homeScore": 28,
          "id": 7974,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793568300000"
+         "startTimeEpochMilli": "1793568300000",
+         "status": "FINAL_SCORE"
         },
         "period": {
          "isNow": true,
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "pointsProjected": {
-         "formatted": "7.09",
-         "value": 7.0899997
+        "pointsActual": {
+         "formatted": "7.2",
+         "value": 7.2
         },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "Yd",
-            "id": 42,
-            "namePlural": "Receiving Yards",
-            "nameSingular": "Receiving Yard"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "65.3",
-             "value": 65.28571
-            },
-            "rank": 25,
-            "rating": "RATING_VERY_GOOD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 29,
-            "namePlural": "Offensive + Special Teams TDs",
-            "nameSingular": "Offensive + Special Teams TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0.6",
-             "value": 0.5714286
-            },
-            "rank": 18
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "9.1",
-           "value": 9.057143
-          },
-          "rank": 28,
-          "rating": "RATING_VERY_GOOD"
-         },
-         "position": "TE"
+        "pointsProjected": {
+         "formatted": "7.27",
+         "value": 7.269999
         },
         "stats": [
          {
@@ -2618,6 +2636,10 @@
            "id": 175,
            "namePlural": "Target % Caught",
            "nameSingular": "Target % Caught"
+          },
+          "value": {
+           "formatted": "5/7",
+           "value": 71.42857
           }
          },
          {
@@ -2626,6 +2648,10 @@
            "id": 42,
            "namePlural": "Receiving Yards",
            "nameSingular": "Receiving Yard"
+          },
+          "value": {
+           "formatted": "67",
+           "value": 67.0
           }
          },
          {
@@ -2635,6 +2661,9 @@
            "lowerIsBetter": true,
            "namePlural": "Fumbles",
            "nameSingular": "Fumble"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -2643,6 +2672,9 @@
            "id": 29,
            "namePlural": "Offensive + Special Teams TDs",
            "nameSingular": "Offensive + Special Teams TD"
+          },
+          "value": {
+           "formatted": "0"
           }
          }
         ],
@@ -2667,8 +2699,8 @@
            "nameSingular": "Receiving Yard"
           },
           "value": {
-           "formatted": "51.3",
-           "value": 51.27
+           "formatted": "51.8",
+           "value": 51.78
           }
          },
          {
@@ -2693,7 +2725,7 @@
           },
           "value": {
            "formatted": "0.3",
-           "value": 0.26
+           "value": 0.28
           }
          }
         ]
@@ -2720,6 +2752,10 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "7.2",
+       "value": 7.2
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -2727,6 +2763,10 @@
          "id": 175,
          "namePlural": "Target % Caught",
          "nameSingular": "Target % Caught"
+        },
+        "value": {
+         "formatted": "5/7",
+         "value": 71.42857
         }
        },
        {
@@ -2735,6 +2775,10 @@
          "id": 42,
          "namePlural": "Receiving Yards",
          "nameSingular": "Receiving Yard"
+        },
+        "value": {
+         "formatted": "67",
+         "value": 67.0
         }
        },
        {
@@ -2744,6 +2788,9 @@
          "lowerIsBetter": true,
          "namePlural": "Fumbles",
          "nameSingular": "Fumble"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -2752,13 +2799,16 @@
          "id": 29,
          "namePlural": "Offensive + Special Teams TDs",
          "nameSingular": "Offensive + Special Teams TD"
+        },
+        "value": {
+         "formatted": "0"
         }
        }
       ],
       "viewingFormat": "TOTAL",
       "viewingProjectedPoints": {
-       "formatted": "7.09",
-       "value": 7.0899997
+       "formatted": "7.27",
+       "value": 7.269999
       },
       "viewingProjectedStats": [
        {
@@ -2781,8 +2831,8 @@
          "nameSingular": "Receiving Yard"
         },
         "value": {
-         "formatted": "51.3",
-         "value": 51.27
+         "formatted": "51.8",
+         "value": 51.78
         }
        },
        {
@@ -2807,7 +2857,7 @@
         },
         "value": {
          "formatted": "0.3",
-         "value": 0.26
+         "value": 0.28
         }
        }
       ],
@@ -2871,6 +2921,12 @@
        "nameShort": "N. Folk",
        "news": [
         {
+         "analysis": "Folk missed from 53 yards out on the opening possession of the game. It was a week to forget for the entire Falcons offense.",
+         "contents": "Nick Folk missed his lone field goal attempt on Sunday.",
+         "timeEpochMilli": "1793593062000",
+         "title": "Nick Folk misses lone attempt Sunday"
+        },
+        {
          "contents": "Atlanta Falcons kicker Nick Folk was a perfect 3-for-3 on field goal attempts last week, though he missed his first extra point of the season, going 2-for-3 in Week 7. Over the last five weeks, the veteran is 9-for-9 on field goal tries, although none have been 50-plus yarders, with the average coming in at a meager 34 yards during that span. With the Atlanta offense looking more competent and scoring more points with Michael Penix Jr. under center, there should continue to be opportunities ...",
          "timeEpochMilli": "1793461931000",
          "title": "Nick Folk Kicks His Way into Streaming Pool in Week 8",
@@ -2878,7 +2934,7 @@
         }
        ],
        "nflByeWeek": 11,
-       "percentOwnedRatio": 0.5,
+       "percentOwnedRatio": 0.51,
        "position": "K",
        "positionEligibility": [
         "K"
@@ -2919,73 +2975,34 @@
           "location": "Atlanta",
           "name": "Falcons"
          },
+         "awayResult": "LOSE",
          "home": {
           "abbreviation": "TB",
           "location": "Tampa Bay",
           "name": "Buccaneers"
          },
+         "homeResult": "WIN",
+         "homeScore": 16,
          "id": 7968,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793556000000",
+         "status": "FINAL_SCORE"
         },
         "period": {
          "isNow": true,
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "pointsProjected": {
-         "formatted": "11.16",
-         "value": 11.16
+        "pointsActual": {
+         "formatted": "0"
         },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "FG",
-            "id": 101,
-            "namePlural": "Field Goals Made",
-            "nameSingular": "Field Goal Made"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "2.3",
-             "value": 2.2857144
-            },
-            "rank": 27,
-            "rating": "RATING_VERY_GOOD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "XP",
-            "id": 104,
-            "namePlural": "XPs",
-            "nameSingular": "XP"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "1.9",
-             "value": 1.8571428
-            },
-            "rank": 11
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "12.4",
-           "value": 12.428572
-          },
-          "rank": 30,
-          "rating": "RATING_VERY_GOOD"
-         },
-         "position": "K"
+        "pointsProjected": {
+         "formatted": "11.14",
+         "value": 11.14
         },
         "stats": [
          {
@@ -2994,6 +3011,9 @@
            "id": 101,
            "namePlural": "Field Goals Made",
            "nameSingular": "Field Goal Made"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -3002,6 +3022,10 @@
            "id": 107,
            "namePlural": "Field Goal Attempts",
            "nameSingular": "Field Goal Attempt"
+          },
+          "value": {
+           "formatted": "1",
+           "value": 1.0
           }
          },
          {
@@ -3010,6 +3034,9 @@
            "id": 104,
            "namePlural": "XPs",
            "nameSingular": "XP"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -3018,6 +3045,9 @@
            "id": 108,
            "namePlural": "Extra Point Attempts",
            "nameSingular": "Extra Point Attempt"
+          },
+          "value": {
+           "formatted": "0"
           }
          }
         ],
@@ -3054,8 +3084,8 @@
            "nameSingular": "XP"
           },
           "value": {
-           "formatted": "2.2",
-           "value": 2.16
+           "formatted": "2.1",
+           "value": 2.14
           }
          },
          {
@@ -3066,8 +3096,8 @@
            "nameSingular": "Extra Point Attempt"
           },
           "value": {
-           "formatted": "2.2",
-           "value": 2.16
+           "formatted": "2.1",
+           "value": 2.14
           }
          }
         ]
@@ -3095,6 +3125,9 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "0"
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -3102,6 +3135,9 @@
          "id": 101,
          "namePlural": "Field Goals Made",
          "nameSingular": "Field Goal Made"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -3110,6 +3146,10 @@
          "id": 107,
          "namePlural": "Field Goal Attempts",
          "nameSingular": "Field Goal Attempt"
+        },
+        "value": {
+         "formatted": "1",
+         "value": 1.0
         }
        },
        {
@@ -3118,6 +3158,9 @@
          "id": 104,
          "namePlural": "XPs",
          "nameSingular": "XP"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -3126,13 +3169,16 @@
          "id": 108,
          "namePlural": "Extra Point Attempts",
          "nameSingular": "Extra Point Attempt"
+        },
+        "value": {
+         "formatted": "0"
         }
        }
       ],
       "viewingFormat": "TOTAL",
       "viewingProjectedPoints": {
-       "formatted": "11.16",
-       "value": 11.16
+       "formatted": "11.14",
+       "value": 11.14
       },
       "viewingProjectedStats": [
        {
@@ -3167,8 +3213,8 @@
          "nameSingular": "XP"
         },
         "value": {
-         "formatted": "2.2",
-         "value": 2.16
+         "formatted": "2.1",
+         "value": 2.14
         }
        },
        {
@@ -3179,8 +3225,8 @@
          "nameSingular": "Extra Point Attempt"
         },
         "value": {
-         "formatted": "2.2",
-         "value": 2.16
+         "formatted": "2.1",
+         "value": 2.14
         }
        }
       ],
@@ -3238,12 +3284,18 @@
       "proPlayer": {
        "headshotUrl": "https://d26bvpybnxg29h.cloudfront.net/nfl/13880.png",
        "id": 13880,
+       "injury": {
+        "description": "Hip",
+        "severity": "QUESTIONABLE",
+        "typeAbbreviaition": "Q",
+        "typeFull": "Questionable"
+       },
        "nameFirst": "D.J.",
        "nameFull": "D.J. Reed",
        "nameLast": "Reed",
        "nameShort": "D. Reed",
        "nflByeWeek": 6,
-       "percentOwnedRatio": 0.49,
+       "percentOwnedRatio": 0.5,
        "position": "CB",
        "positionEligibility": [
         "CB"
@@ -3284,18 +3336,23 @@
           "location": "Minnesota",
           "name": "Vikings"
          },
+         "awayResult": "LOSE",
+         "awayScore": 15,
          "home": {
           "abbreviation": "DET",
           "location": "Detroit",
           "name": "Lions"
          },
+         "homeResult": "WIN",
+         "homeScore": 19,
          "id": 7967,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793556000000",
+         "status": "FINAL_SCORE"
         },
         "participant": "HOME",
         "period": {
@@ -3303,70 +3360,13 @@
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "pointsProjected": {
-         "formatted": "6.08",
-         "value": 6.0800004
+        "pointsActual": {
+         "formatted": "9.25",
+         "value": 9.25
         },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "INT",
-            "id": 84,
-            "namePlural": "Interceptions",
-            "nameSingular": "Interception"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0.2",
-             "value": 0.16666667
-            },
-            "rank": 16
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "Sack",
-            "id": 85,
-            "namePlural": "Sacks",
-            "nameSingular": "Sack"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "0.4",
-             "value": 0.41666666
-            },
-            "rank": 30,
-            "rating": "RATING_VERY_GOOD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 89,
-            "namePlural": "Defensive TDs",
-            "nameSingular": "Defensive TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "2.3",
-           "value": 2.2608695
-          },
-          "rank": 7,
-          "rating": "RATING_BAD"
-         },
-         "position": "CB"
+        "pointsProjected": {
+         "formatted": "6.09",
+         "value": 6.0900006
         },
         "stats": [
          {
@@ -3375,6 +3375,10 @@
            "id": 82,
            "namePlural": "Assisted Tackles",
            "nameSingular": "Assisted Tackle"
+          },
+          "value": {
+           "formatted": "1",
+           "value": 1.0
           }
          },
          {
@@ -3383,6 +3387,9 @@
            "id": 83,
            "namePlural": "Solo Tackles",
            "nameSingular": "Solo Tackle"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -3391,6 +3398,10 @@
            "id": 84,
            "namePlural": "Interceptions",
            "nameSingular": "Interception"
+          },
+          "value": {
+           "formatted": "1",
+           "value": 1.0
           }
          },
          {
@@ -3399,6 +3410,9 @@
            "id": 85,
            "namePlural": "Sacks",
            "nameSingular": "Sack"
+          },
+          "value": {
+           "formatted": "0"
           }
          }
         ],
@@ -3424,7 +3438,7 @@
           },
           "value": {
            "formatted": "3.2",
-           "value": 3.18
+           "value": 3.19
           }
          },
          {
@@ -3475,6 +3489,10 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "9.25",
+       "value": 9.25
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -3482,6 +3500,10 @@
          "id": 82,
          "namePlural": "Assisted Tackles",
          "nameSingular": "Assisted Tackle"
+        },
+        "value": {
+         "formatted": "1",
+         "value": 1.0
         }
        },
        {
@@ -3490,6 +3512,9 @@
          "id": 83,
          "namePlural": "Solo Tackles",
          "nameSingular": "Solo Tackle"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -3498,6 +3523,10 @@
          "id": 84,
          "namePlural": "Interceptions",
          "nameSingular": "Interception"
+        },
+        "value": {
+         "formatted": "1",
+         "value": 1.0
         }
        },
        {
@@ -3506,13 +3535,16 @@
          "id": 85,
          "namePlural": "Sacks",
          "nameSingular": "Sack"
+        },
+        "value": {
+         "formatted": "0"
         }
        }
       ],
       "viewingFormat": "TOTAL",
       "viewingProjectedPoints": {
-       "formatted": "6.08",
-       "value": 6.0800004
+       "formatted": "6.09",
+       "value": 6.0900006
       },
       "viewingProjectedStats": [
        {
@@ -3536,7 +3568,7 @@
         },
         "value": {
          "formatted": "3.2",
-         "value": 3.18
+         "value": 3.19
         }
        },
        {
@@ -3662,18 +3694,23 @@
           "location": "Arizona",
           "name": "Cardinals"
          },
+         "awayResult": "WIN",
+         "awayScore": 33,
          "home": {
           "abbreviation": "DAL",
           "location": "Dallas",
           "name": "Cowboys"
          },
+         "homeResult": "LOSE",
+         "homeScore": 30,
          "id": 7969,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793556000000",
+         "status": "FINAL_SCORE"
         },
         "participant": "HOME",
         "period": {
@@ -3681,71 +3718,13 @@
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
+        "pointsActual": {
+         "formatted": "7.5",
+         "value": 7.5
+        },
         "pointsProjected": {
          "formatted": "5.35",
          "value": 5.3500004
-        },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "INT",
-            "id": 84,
-            "namePlural": "Interceptions",
-            "nameSingular": "Interception"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0.4",
-             "value": 0.42857143
-            },
-            "rank": 23,
-            "rating": "RATING_GOOD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "Sack",
-            "id": 85,
-            "namePlural": "Sacks",
-            "nameSingular": "Sack"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 89,
-            "namePlural": "Defensive TDs",
-            "nameSingular": "Defensive TD"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "0.1",
-             "value": 0.14285715
-            },
-            "rank": 32,
-            "rating": "RATING_VERY_GOOD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "3.4",
-           "value": 3.4230769
-          },
-          "rank": 28,
-          "rating": "RATING_VERY_GOOD"
-         },
-         "position": "CB"
         },
         "stats": [
          {
@@ -3754,6 +3733,9 @@
            "id": 82,
            "namePlural": "Assisted Tackles",
            "nameSingular": "Assisted Tackle"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -3762,6 +3744,10 @@
            "id": 83,
            "namePlural": "Solo Tackles",
            "nameSingular": "Solo Tackle"
+          },
+          "value": {
+           "formatted": "3",
+           "value": 3.0
           }
          },
          {
@@ -3770,6 +3756,9 @@
            "id": 84,
            "namePlural": "Interceptions",
            "nameSingular": "Interception"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -3778,6 +3767,9 @@
            "id": 85,
            "namePlural": "Sacks",
            "nameSingular": "Sack"
+          },
+          "value": {
+           "formatted": "0"
           }
          }
         ],
@@ -3854,6 +3846,10 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "7.5",
+       "value": 7.5
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -3861,6 +3857,9 @@
          "id": 82,
          "namePlural": "Assisted Tackles",
          "nameSingular": "Assisted Tackle"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -3869,6 +3868,10 @@
          "id": 83,
          "namePlural": "Solo Tackles",
          "nameSingular": "Solo Tackle"
+        },
+        "value": {
+         "formatted": "3",
+         "value": 3.0
         }
        },
        {
@@ -3877,6 +3880,9 @@
          "id": 84,
          "namePlural": "Interceptions",
          "nameSingular": "Interception"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -3885,6 +3891,9 @@
          "id": 85,
          "namePlural": "Sacks",
          "nameSingular": "Sack"
+        },
+        "value": {
+         "formatted": "0"
         }
        }
       ],
@@ -4000,7 +4009,7 @@
        "nameLast": "Lawrence",
        "nameShort": "D. Lawrence",
        "nflByeWeek": 6,
-       "percentOwnedRatio": 0.55,
+       "percentOwnedRatio": 0.56,
        "position": "IL",
        "positionEligibility": [
         "IL",
@@ -4042,18 +4051,23 @@
           "location": "Tennessee",
           "name": "Titans"
          },
+         "awayResult": "LOSE",
+         "awayScore": 36,
          "home": {
           "abbreviation": "CIN",
           "location": "Cincinnati",
           "name": "Bengals"
          },
+         "homeResult": "WIN",
+         "homeScore": 43,
          "id": 7965,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793556000000",
+         "status": "FINAL_SCORE"
         },
         "participant": "HOME",
         "period": {
@@ -4061,71 +4075,13 @@
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
+        "pointsActual": {
+         "formatted": "15.82",
+         "value": 15.82
+        },
         "pointsProjected": {
          "formatted": "3.56",
          "value": 3.5600002
-        },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "INT",
-            "id": 84,
-            "namePlural": "Interceptions",
-            "nameSingular": "Interception"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "Sack",
-            "id": 85,
-            "namePlural": "Sacks",
-            "nameSingular": "Sack"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0.3",
-             "value": 0.2857143
-            },
-            "rank": 7,
-            "rating": "RATING_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 89,
-            "namePlural": "Defensive TDs",
-            "nameSingular": "Defensive TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "0.9",
-           "value": 0.88461536
-          },
-          "rank": 1,
-          "rating": "RATING_VERY_BAD"
-         },
-         "position": "IL"
         },
         "stats": [
          {
@@ -4134,6 +4090,10 @@
            "id": 82,
            "namePlural": "Assisted Tackles",
            "nameSingular": "Assisted Tackle"
+          },
+          "value": {
+           "formatted": "3",
+           "value": 3.0
           }
          },
          {
@@ -4142,6 +4102,10 @@
            "id": 83,
            "namePlural": "Solo Tackles",
            "nameSingular": "Solo Tackle"
+          },
+          "value": {
+           "formatted": "4",
+           "value": 4.0
           }
          },
          {
@@ -4150,6 +4114,9 @@
            "id": 84,
            "namePlural": "Interceptions",
            "nameSingular": "Interception"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -4158,6 +4125,10 @@
            "id": 85,
            "namePlural": "Sacks",
            "nameSingular": "Sack"
+          },
+          "value": {
+           "formatted": "1",
+           "value": 1.0
           }
          }
         ],
@@ -4171,7 +4142,7 @@
           },
           "value": {
            "formatted": "1.5",
-           "value": 1.47
+           "value": 1.48
           }
          },
          {
@@ -4183,7 +4154,7 @@
           },
           "value": {
            "formatted": "1.1",
-           "value": 1.15
+           "value": 1.14
           }
          },
          {
@@ -4234,6 +4205,10 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "15.82",
+       "value": 15.82
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -4241,6 +4216,10 @@
          "id": 82,
          "namePlural": "Assisted Tackles",
          "nameSingular": "Assisted Tackle"
+        },
+        "value": {
+         "formatted": "3",
+         "value": 3.0
         }
        },
        {
@@ -4249,6 +4228,10 @@
          "id": 83,
          "namePlural": "Solo Tackles",
          "nameSingular": "Solo Tackle"
+        },
+        "value": {
+         "formatted": "4",
+         "value": 4.0
         }
        },
        {
@@ -4257,6 +4240,9 @@
          "id": 84,
          "namePlural": "Interceptions",
          "nameSingular": "Interception"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -4265,6 +4251,10 @@
          "id": 85,
          "namePlural": "Sacks",
          "nameSingular": "Sack"
+        },
+        "value": {
+         "formatted": "1",
+         "value": 1.0
         }
        }
       ],
@@ -4283,7 +4273,7 @@
         },
         "value": {
          "formatted": "1.5",
-         "value": 1.47
+         "value": 1.48
         }
        },
        {
@@ -4295,7 +4285,7 @@
         },
         "value": {
          "formatted": "1.1",
-         "value": 1.15
+         "value": 1.14
         }
        },
        {
@@ -4450,8 +4440,8 @@
          "startEpochMilli": "1793095200000"
         },
         "pointsProjected": {
-         "formatted": "3.32",
-         "value": 3.3199997
+         "formatted": "3.3",
+         "value": 3.2999997
         },
         "ranks": {
          "categories": [
@@ -4559,7 +4549,7 @@
           },
           "value": {
            "formatted": "2.2",
-           "value": 2.21
+           "value": 2.22
           }
          },
          {
@@ -4571,7 +4561,7 @@
           },
           "value": {
            "formatted": "0.7",
-           "value": 0.68
+           "value": 0.67
           }
          },
          {
@@ -4658,8 +4648,8 @@
       ],
       "viewingFormat": "TOTAL",
       "viewingProjectedPoints": {
-       "formatted": "3.32",
-       "value": 3.3199997
+       "formatted": "3.3",
+       "value": 3.2999997
       },
       "viewingProjectedStats": [
        {
@@ -4671,7 +4661,7 @@
         },
         "value": {
          "formatted": "2.2",
-         "value": 2.21
+         "value": 2.22
         }
        },
        {
@@ -4683,7 +4673,7 @@
         },
         "value": {
          "formatted": "0.7",
-         "value": 0.68
+         "value": 0.67
         }
        },
        {
@@ -4811,87 +4801,36 @@
           "location": "Minnesota",
           "name": "Vikings"
          },
+         "awayResult": "LOSE",
+         "awayScore": 15,
          "home": {
           "abbreviation": "DET",
           "location": "Detroit",
           "name": "Lions"
          },
+         "homeResult": "WIN",
+         "homeScore": 19,
          "id": 7967,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793556000000",
+         "status": "FINAL_SCORE"
         },
         "period": {
          "isNow": true,
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
+        "pointsActual": {
+         "formatted": "12.25",
+         "value": 12.25
+        },
         "pointsProjected": {
          "formatted": "8.01",
          "value": 8.01
-        },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "INT",
-            "id": 84,
-            "namePlural": "Interceptions",
-            "nameSingular": "Interception"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "Sack",
-            "id": 85,
-            "namePlural": "Sacks",
-            "nameSingular": "Sack"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0.3",
-             "value": 0.33333334
-            },
-            "rank": 15
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 89,
-            "namePlural": "Defensive TDs",
-            "nameSingular": "Defensive TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "3",
-           "value": 2.9545455
-          },
-          "rank": 15
-         },
-         "position": "LB"
         },
         "stats": [
          {
@@ -4900,6 +4839,10 @@
            "id": 82,
            "namePlural": "Assisted Tackles",
            "nameSingular": "Assisted Tackle"
+          },
+          "value": {
+           "formatted": "5",
+           "value": 5.0
           }
          },
          {
@@ -4908,6 +4851,10 @@
            "id": 83,
            "namePlural": "Solo Tackles",
            "nameSingular": "Solo Tackle"
+          },
+          "value": {
+           "formatted": "5",
+           "value": 5.0
           }
          },
          {
@@ -4916,6 +4863,9 @@
            "id": 84,
            "namePlural": "Interceptions",
            "nameSingular": "Interception"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -4924,6 +4874,9 @@
            "id": 85,
            "namePlural": "Sacks",
            "nameSingular": "Sack"
+          },
+          "value": {
+           "formatted": "0"
           }
          }
         ],
@@ -4937,7 +4890,7 @@
           },
           "value": {
            "formatted": "3.2",
-           "value": 3.16
+           "value": 3.18
           }
          },
          {
@@ -4949,7 +4902,7 @@
           },
           "value": {
            "formatted": "3.3",
-           "value": 3.33
+           "value": 3.32
           }
          },
          {
@@ -5001,6 +4954,10 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "12.25",
+       "value": 12.25
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -5008,6 +4965,10 @@
          "id": 82,
          "namePlural": "Assisted Tackles",
          "nameSingular": "Assisted Tackle"
+        },
+        "value": {
+         "formatted": "5",
+         "value": 5.0
         }
        },
        {
@@ -5016,6 +4977,10 @@
          "id": 83,
          "namePlural": "Solo Tackles",
          "nameSingular": "Solo Tackle"
+        },
+        "value": {
+         "formatted": "5",
+         "value": 5.0
         }
        },
        {
@@ -5024,6 +4989,9 @@
          "id": 84,
          "namePlural": "Interceptions",
          "nameSingular": "Interception"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -5032,6 +5000,9 @@
          "id": 85,
          "namePlural": "Sacks",
          "nameSingular": "Sack"
+        },
+        "value": {
+         "formatted": "0"
         }
        }
       ],
@@ -5050,7 +5021,7 @@
         },
         "value": {
          "formatted": "3.2",
-         "value": 3.16
+         "value": 3.18
         }
        },
        {
@@ -5062,7 +5033,7 @@
         },
         "value": {
          "formatted": "3.3",
-         "value": 3.33
+         "value": 3.32
         }
        },
        {
@@ -5191,18 +5162,23 @@
           "location": "Cleveland",
           "name": "Browns"
          },
+         "awayResult": "LOSE",
+         "awayScore": 6,
          "home": {
           "abbreviation": "PIT",
           "location": "Pittsburgh",
           "name": "Steelers"
          },
+         "homeResult": "WIN",
+         "homeScore": 27,
          "id": 7966,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793556000000",
+         "status": "FINAL_SCORE"
         },
         "participant": "HOME",
         "period": {
@@ -5210,69 +5186,13 @@
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "pointsProjected": {
-         "formatted": "6.47",
-         "value": 6.47
+        "pointsActual": {
+         "formatted": "22.38",
+         "value": 22.380001
         },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "INT",
-            "id": 84,
-            "namePlural": "Interceptions",
-            "nameSingular": "Interception"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0.1",
-             "value": 0.14285715
-            },
-            "rank": 17
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "Sack",
-            "id": 85,
-            "namePlural": "Sacks",
-            "nameSingular": "Sack"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "0.6",
-             "value": 0.5714286
-            },
-            "rank": 29,
-            "rating": "RATING_VERY_GOOD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 89,
-            "namePlural": "Defensive TDs",
-            "nameSingular": "Defensive TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "3",
-           "value": 2.9615386
-          },
-          "rank": 16
-         },
-         "position": "LB"
+        "pointsProjected": {
+         "formatted": "6.46",
+         "value": 6.4599996
         },
         "stats": [
          {
@@ -5281,6 +5201,10 @@
            "id": 82,
            "namePlural": "Assisted Tackles",
            "nameSingular": "Assisted Tackle"
+          },
+          "value": {
+           "formatted": "9",
+           "value": 9.0
           }
          },
          {
@@ -5289,6 +5213,10 @@
            "id": 83,
            "namePlural": "Solo Tackles",
            "nameSingular": "Solo Tackle"
+          },
+          "value": {
+           "formatted": "3",
+           "value": 3.0
           }
          },
          {
@@ -5297,6 +5225,9 @@
            "id": 84,
            "namePlural": "Interceptions",
            "nameSingular": "Interception"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -5305,6 +5236,10 @@
            "id": 85,
            "namePlural": "Sacks",
            "nameSingular": "Sack"
+          },
+          "value": {
+           "formatted": "1.5",
+           "value": 1.5
           }
          }
         ],
@@ -5317,8 +5252,8 @@
            "nameSingular": "Assisted Tackle"
           },
           "value": {
-           "formatted": "3.1",
-           "value": 3.15
+           "formatted": "3.2",
+           "value": 3.17
           }
          },
          {
@@ -5329,8 +5264,8 @@
            "nameSingular": "Solo Tackle"
           },
           "value": {
-           "formatted": "2.4",
-           "value": 2.35
+           "formatted": "2.3",
+           "value": 2.33
           }
          },
          {
@@ -5381,6 +5316,10 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "22.38",
+       "value": 22.380001
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -5388,6 +5327,10 @@
          "id": 82,
          "namePlural": "Assisted Tackles",
          "nameSingular": "Assisted Tackle"
+        },
+        "value": {
+         "formatted": "9",
+         "value": 9.0
         }
        },
        {
@@ -5396,6 +5339,10 @@
          "id": 83,
          "namePlural": "Solo Tackles",
          "nameSingular": "Solo Tackle"
+        },
+        "value": {
+         "formatted": "3",
+         "value": 3.0
         }
        },
        {
@@ -5404,6 +5351,9 @@
          "id": 84,
          "namePlural": "Interceptions",
          "nameSingular": "Interception"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -5412,13 +5362,17 @@
          "id": 85,
          "namePlural": "Sacks",
          "nameSingular": "Sack"
+        },
+        "value": {
+         "formatted": "1.5",
+         "value": 1.5
         }
        }
       ],
       "viewingFormat": "TOTAL",
       "viewingProjectedPoints": {
-       "formatted": "6.47",
-       "value": 6.47
+       "formatted": "6.46",
+       "value": 6.4599996
       },
       "viewingProjectedStats": [
        {
@@ -5429,8 +5383,8 @@
          "nameSingular": "Assisted Tackle"
         },
         "value": {
-         "formatted": "3.1",
-         "value": 3.15
+         "formatted": "3.2",
+         "value": 3.17
         }
        },
        {
@@ -5441,8 +5395,8 @@
          "nameSingular": "Solo Tackle"
         },
         "value": {
-         "formatted": "2.4",
-         "value": 2.35
+         "formatted": "2.3",
+         "value": 2.33
         }
        },
        {
@@ -5569,88 +5523,36 @@
           "location": "Indianapolis",
           "name": "Colts"
          },
+         "awayResult": "LOSE",
+         "awayScore": 7,
          "home": {
           "abbreviation": "JAC",
           "location": "Jacksonville",
           "name": "Jaguars"
          },
+         "homeResult": "WIN",
+         "homeScore": 42,
          "id": 7964,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793556000000",
+         "status": "FINAL_SCORE"
         },
         "period": {
          "isNow": true,
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "pointsProjected": {
-         "formatted": "7.35",
-         "value": 7.35
+        "pointsActual": {
+         "formatted": "5.25",
+         "value": 5.25
         },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "INT",
-            "id": 84,
-            "namePlural": "Interceptions",
-            "nameSingular": "Interception"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "Sack",
-            "id": 85,
-            "namePlural": "Sacks",
-            "nameSingular": "Sack"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 89,
-            "namePlural": "Defensive TDs",
-            "nameSingular": "Defensive TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "2.1",
-           "value": 2.090909
-          },
-          "rank": 2,
-          "rating": "RATING_BAD"
-         },
-         "position": "LB"
+        "pointsProjected": {
+         "formatted": "7.32",
+         "value": 7.3199997
         },
         "stats": [
          {
@@ -5659,6 +5561,10 @@
            "id": 82,
            "namePlural": "Assisted Tackles",
            "nameSingular": "Assisted Tackle"
+          },
+          "value": {
+           "formatted": "3",
+           "value": 3.0
           }
          },
          {
@@ -5667,6 +5573,10 @@
            "id": 83,
            "namePlural": "Solo Tackles",
            "nameSingular": "Solo Tackle"
+          },
+          "value": {
+           "formatted": "2",
+           "value": 2.0
           }
          },
          {
@@ -5675,6 +5585,9 @@
            "id": 84,
            "namePlural": "Interceptions",
            "nameSingular": "Interception"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -5683,6 +5596,9 @@
            "id": 85,
            "namePlural": "Sacks",
            "nameSingular": "Sack"
+          },
+          "value": {
+           "formatted": "0"
           }
          }
         ],
@@ -5707,8 +5623,8 @@
            "nameSingular": "Solo Tackle"
           },
           "value": {
-           "formatted": "3.1",
-           "value": 3.06
+           "formatted": "3",
+           "value": 3.04
           }
          },
          {
@@ -5760,6 +5676,10 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "5.25",
+       "value": 5.25
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -5767,6 +5687,10 @@
          "id": 82,
          "namePlural": "Assisted Tackles",
          "nameSingular": "Assisted Tackle"
+        },
+        "value": {
+         "formatted": "3",
+         "value": 3.0
         }
        },
        {
@@ -5775,6 +5699,10 @@
          "id": 83,
          "namePlural": "Solo Tackles",
          "nameSingular": "Solo Tackle"
+        },
+        "value": {
+         "formatted": "2",
+         "value": 2.0
         }
        },
        {
@@ -5783,6 +5711,9 @@
          "id": 84,
          "namePlural": "Interceptions",
          "nameSingular": "Interception"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -5791,13 +5722,16 @@
          "id": 85,
          "namePlural": "Sacks",
          "nameSingular": "Sack"
+        },
+        "value": {
+         "formatted": "0"
         }
        }
       ],
       "viewingFormat": "TOTAL",
       "viewingProjectedPoints": {
-       "formatted": "7.35",
-       "value": 7.35
+       "formatted": "7.32",
+       "value": 7.3199997
       },
       "viewingProjectedStats": [
        {
@@ -5820,8 +5754,8 @@
          "nameSingular": "Solo Tackle"
         },
         "value": {
-         "formatted": "3.1",
-         "value": 3.06
+         "formatted": "3",
+         "value": 3.04
         }
        },
        {
@@ -5914,7 +5848,7 @@
        "nameLast": "Kamara",
        "nameShort": "A. Kamara",
        "nflByeWeek": 8,
-       "percentOwnedRatio": 0.76,
+       "percentOwnedRatio": 0.75,
        "position": "RB",
        "positionEligibility": [
         "RB"
@@ -6099,7 +6033,7 @@
        "nameLast": "Miller",
        "nameShort": "K. Miller",
        "nflByeWeek": 8,
-       "percentOwnedRatio": 0.45,
+       "percentOwnedRatio": 0.44,
        "position": "RB",
        "positionEligibility": [
         "RB"
@@ -6281,6 +6215,14 @@
        "nameFull": "Jerry Jeudy",
        "nameLast": "Jeudy",
        "nameShort": "J. Jeudy",
+       "news": [
+        {
+         "analysis": "Jeudy remains off the fantasy radar.",
+         "contents": "Jerry Jeudy did not catch his lone target in the Browns 27-6 loss against the Steelers.",
+         "timeEpochMilli": "1793594497000",
+         "title": "Jerry Jeudy held without catch Sunday"
+        }
+       ],
        "nflByeWeek": 11,
        "percentOwnedRatio": 0.32,
        "position": "WR",
@@ -6323,71 +6265,35 @@
           "location": "Cleveland",
           "name": "Browns"
          },
+         "awayResult": "LOSE",
+         "awayScore": 6,
          "home": {
           "abbreviation": "PIT",
           "location": "Pittsburgh",
           "name": "Steelers"
          },
+         "homeResult": "WIN",
+         "homeScore": 27,
          "id": 7966,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793556000000",
+         "status": "FINAL_SCORE"
         },
         "period": {
          "isNow": true,
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "pointsProjected": {
-         "formatted": "2.97",
-         "value": 2.97
+        "pointsActual": {
+         "formatted": "0"
         },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "Yd",
-            "id": 42,
-            "namePlural": "Receiving Yards",
-            "nameSingular": "Receiving Yard"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "147.3",
-             "value": 147.28572
-            },
-            "rank": 16
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 29,
-            "namePlural": "Offensive + Special Teams TDs",
-            "nameSingular": "Offensive + Special Teams TD"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "0.6",
-             "value": 0.5714286
-            },
-            "rank": 7,
-            "rating": "RATING_BAD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "7.5",
-           "value": 7.5
-          },
-          "rank": 6,
-          "rating": "RATING_BAD"
-         },
-         "position": "WR"
+        "pointsProjected": {
+         "formatted": "2.98",
+         "value": 2.9800003
         },
         "stats": [
          {
@@ -6396,6 +6302,9 @@
            "id": 175,
            "namePlural": "Target % Caught",
            "nameSingular": "Target % Caught"
+          },
+          "value": {
+           "formatted": "0/1"
           }
          },
          {
@@ -6404,6 +6313,9 @@
            "id": 42,
            "namePlural": "Receiving Yards",
            "nameSingular": "Receiving Yard"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -6413,6 +6325,9 @@
            "lowerIsBetter": true,
            "namePlural": "Fumbles",
            "nameSingular": "Fumble"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -6421,6 +6336,9 @@
            "id": 29,
            "namePlural": "Offensive + Special Teams TDs",
            "nameSingular": "Offensive + Special Teams TD"
+          },
+          "value": {
+           "formatted": "0"
           }
          }
         ],
@@ -6445,8 +6363,8 @@
            "nameSingular": "Receiving Yard"
           },
           "value": {
-           "formatted": "23.7",
-           "value": 23.74
+           "formatted": "23.8",
+           "value": 23.76
           }
          },
          {
@@ -6499,6 +6417,9 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "0"
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -6506,6 +6427,9 @@
          "id": 175,
          "namePlural": "Target % Caught",
          "nameSingular": "Target % Caught"
+        },
+        "value": {
+         "formatted": "0/1"
         }
        },
        {
@@ -6514,6 +6438,9 @@
          "id": 42,
          "namePlural": "Receiving Yards",
          "nameSingular": "Receiving Yard"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -6523,6 +6450,9 @@
          "lowerIsBetter": true,
          "namePlural": "Fumbles",
          "nameSingular": "Fumble"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -6531,13 +6461,16 @@
          "id": 29,
          "namePlural": "Offensive + Special Teams TDs",
          "nameSingular": "Offensive + Special Teams TD"
+        },
+        "value": {
+         "formatted": "0"
         }
        }
       ],
       "viewingFormat": "TOTAL",
       "viewingProjectedPoints": {
-       "formatted": "2.97",
-       "value": 2.97
+       "formatted": "2.98",
+       "value": 2.9800003
       },
       "viewingProjectedStats": [
        {
@@ -6560,8 +6493,8 @@
          "nameSingular": "Receiving Yard"
         },
         "value": {
-         "formatted": "23.7",
-         "value": 23.74
+         "formatted": "23.8",
+         "value": 23.76
         }
        },
        {
@@ -6690,18 +6623,23 @@
           "location": "Kansas City",
           "name": "Chiefs"
          },
+         "awayResult": "LOSE",
+         "awayScore": 24,
          "home": {
           "abbreviation": "DEN",
           "location": "Denver",
           "name": "Broncos"
          },
+         "homeResult": "WIN",
+         "homeScore": 28,
          "id": 7974,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793568300000"
+         "startTimeEpochMilli": "1793568300000",
+         "status": "FINAL_SCORE"
         },
         "participant": "HOME",
         "period": {
@@ -6709,55 +6647,12 @@
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "pointsProjected": {
-         "formatted": "3.34",
-         "value": 3.3400002
+        "pointsActual": {
+         "formatted": "0"
         },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "Yd",
-            "id": 42,
-            "namePlural": "Receiving Yards",
-            "nameSingular": "Receiving Yard"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "72.3",
-             "value": 72.333336
-            },
-            "rank": 27,
-            "rating": "RATING_VERY_GOOD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 29,
-            "namePlural": "Offensive + Special Teams TDs",
-            "nameSingular": "Offensive + Special Teams TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0.7",
-             "value": 0.6666667
-            },
-            "rank": 22,
-            "rating": "RATING_GOOD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "7.6",
-           "value": 7.5666666
-          },
-          "rank": 21,
-          "rating": "RATING_GOOD"
-         },
-         "position": "TE"
+        "pointsProjected": {
+         "formatted": "3.42",
+         "value": 3.42
         },
         "stats": [
          {
@@ -6766,6 +6661,9 @@
            "id": 175,
            "namePlural": "Target % Caught",
            "nameSingular": "Target % Caught"
+          },
+          "value": {
+           "formatted": "0/3"
           }
          },
          {
@@ -6774,6 +6672,9 @@
            "id": 42,
            "namePlural": "Receiving Yards",
            "nameSingular": "Receiving Yard"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -6783,6 +6684,9 @@
            "lowerIsBetter": true,
            "namePlural": "Fumbles",
            "nameSingular": "Fumble"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -6791,6 +6695,9 @@
            "id": 29,
            "namePlural": "Offensive + Special Teams TDs",
            "nameSingular": "Offensive + Special Teams TD"
+          },
+          "value": {
+           "formatted": "0"
           }
          }
         ],
@@ -6815,8 +6722,8 @@
            "nameSingular": "Receiving Yard"
           },
           "value": {
-           "formatted": "23.8",
-           "value": 23.81
+           "formatted": "24",
+           "value": 24.0
           }
          },
          {
@@ -6841,7 +6748,7 @@
           },
           "value": {
            "formatted": "0.1",
-           "value": 0.12
+           "value": 0.13
           }
          }
         ]
@@ -6869,6 +6776,9 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "0"
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -6876,6 +6786,9 @@
          "id": 175,
          "namePlural": "Target % Caught",
          "nameSingular": "Target % Caught"
+        },
+        "value": {
+         "formatted": "0/3"
         }
        },
        {
@@ -6884,6 +6797,9 @@
          "id": 42,
          "namePlural": "Receiving Yards",
          "nameSingular": "Receiving Yard"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -6893,6 +6809,9 @@
          "lowerIsBetter": true,
          "namePlural": "Fumbles",
          "nameSingular": "Fumble"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -6901,13 +6820,16 @@
          "id": 29,
          "namePlural": "Offensive + Special Teams TDs",
          "nameSingular": "Offensive + Special Teams TD"
+        },
+        "value": {
+         "formatted": "0"
         }
        }
       ],
       "viewingFormat": "TOTAL",
       "viewingProjectedPoints": {
-       "formatted": "3.34",
-       "value": 3.3400002
+       "formatted": "3.42",
+       "value": 3.42
       },
       "viewingProjectedStats": [
        {
@@ -6930,8 +6852,8 @@
          "nameSingular": "Receiving Yard"
         },
         "value": {
-         "formatted": "23.8",
-         "value": 23.81
+         "formatted": "24",
+         "value": 24.0
         }
        },
        {
@@ -6956,7 +6878,7 @@
         },
         "value": {
          "formatted": "0.1",
-         "value": 0.12
+         "value": 0.13
         }
        }
       ],
@@ -7051,87 +6973,36 @@
           "location": "Tennessee",
           "name": "Titans"
          },
+         "awayResult": "LOSE",
+         "awayScore": 36,
          "home": {
           "abbreviation": "CIN",
           "location": "Cincinnati",
           "name": "Bengals"
          },
+         "homeResult": "WIN",
+         "homeScore": 43,
          "id": 7965,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793556000000",
+         "status": "FINAL_SCORE"
         },
         "period": {
          "isNow": true,
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "pointsProjected": {
-         "formatted": "3.39",
-         "value": 3.39
+        "pointsActual": {
+         "formatted": "10.75",
+         "value": 10.75
         },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "INT",
-            "id": 84,
-            "namePlural": "Interceptions",
-            "nameSingular": "Interception"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0.2",
-             "value": 0.16666667
-            },
-            "rank": 16
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "Sack",
-            "id": 85,
-            "namePlural": "Sacks",
-            "nameSingular": "Sack"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 89,
-            "namePlural": "Defensive TDs",
-            "nameSingular": "Defensive TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "3",
-           "value": 2.9545455
-          },
-          "rank": 20
-         },
-         "position": "CB"
+        "pointsProjected": {
+         "formatted": "3.32",
+         "value": 3.32
         },
         "stats": [
          {
@@ -7140,6 +7011,10 @@
            "id": 82,
            "namePlural": "Assisted Tackles",
            "nameSingular": "Assisted Tackle"
+          },
+          "value": {
+           "formatted": "1",
+           "value": 1.0
           }
          },
          {
@@ -7148,6 +7023,10 @@
            "id": 83,
            "namePlural": "Solo Tackles",
            "nameSingular": "Solo Tackle"
+          },
+          "value": {
+           "formatted": "4",
+           "value": 4.0
           }
          },
          {
@@ -7156,6 +7035,9 @@
            "id": 84,
            "namePlural": "Interceptions",
            "nameSingular": "Interception"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -7164,6 +7046,9 @@
            "id": 85,
            "namePlural": "Sacks",
            "nameSingular": "Sack"
+          },
+          "value": {
+           "formatted": "0"
           }
          }
         ],
@@ -7176,8 +7061,8 @@
            "nameSingular": "Assisted Tackle"
           },
           "value": {
-           "formatted": "0.8",
-           "value": 0.75
+           "formatted": "0.7",
+           "value": 0.74
           }
          },
          {
@@ -7189,7 +7074,7 @@
           },
           "value": {
            "formatted": "1.4",
-           "value": 1.43
+           "value": 1.42
           }
          },
          {
@@ -7201,7 +7086,7 @@
           },
           "value": {
            "formatted": "0.1",
-           "value": 0.07
+           "value": 0.06
           }
          },
          {
@@ -7213,7 +7098,7 @@
           },
           "value": {
            "formatted": "0.1",
-           "value": 0.07
+           "value": 0.06
           }
          }
         ]
@@ -7241,6 +7126,10 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "10.75",
+       "value": 10.75
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -7248,6 +7137,10 @@
          "id": 82,
          "namePlural": "Assisted Tackles",
          "nameSingular": "Assisted Tackle"
+        },
+        "value": {
+         "formatted": "1",
+         "value": 1.0
         }
        },
        {
@@ -7256,6 +7149,10 @@
          "id": 83,
          "namePlural": "Solo Tackles",
          "nameSingular": "Solo Tackle"
+        },
+        "value": {
+         "formatted": "4",
+         "value": 4.0
         }
        },
        {
@@ -7264,6 +7161,9 @@
          "id": 84,
          "namePlural": "Interceptions",
          "nameSingular": "Interception"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -7272,13 +7172,16 @@
          "id": 85,
          "namePlural": "Sacks",
          "nameSingular": "Sack"
+        },
+        "value": {
+         "formatted": "0"
         }
        }
       ],
       "viewingFormat": "TOTAL",
       "viewingProjectedPoints": {
-       "formatted": "3.39",
-       "value": 3.39
+       "formatted": "3.32",
+       "value": 3.32
       },
       "viewingProjectedStats": [
        {
@@ -7289,8 +7192,8 @@
          "nameSingular": "Assisted Tackle"
         },
         "value": {
-         "formatted": "0.8",
-         "value": 0.75
+         "formatted": "0.7",
+         "value": 0.74
         }
        },
        {
@@ -7302,7 +7205,7 @@
         },
         "value": {
          "formatted": "1.4",
-         "value": 1.43
+         "value": 1.42
         }
        },
        {
@@ -7314,7 +7217,7 @@
         },
         "value": {
          "formatted": "0.1",
-         "value": 0.07
+         "value": 0.06
         }
        },
        {
@@ -7326,7 +7229,7 @@
         },
         "value": {
          "formatted": "0.1",
-         "value": 0.07
+         "value": 0.06
         }
        }
       ],
@@ -7420,87 +7323,36 @@
           "location": "New England",
           "name": "Patriots"
          },
+         "awayResult": "WIN",
+         "awayScore": 24,
          "home": {
           "abbreviation": "MIA",
           "location": "Miami",
           "name": "Dolphins"
          },
+         "homeResult": "LOSE",
+         "homeScore": 19,
          "id": 7973,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793568300000"
+         "startTimeEpochMilli": "1793568300000",
+         "status": "FINAL_SCORE"
         },
         "period": {
          "isNow": true,
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "pointsProjected": {
-         "formatted": "5.18",
-         "value": 5.1800003
+        "pointsActual": {
+         "formatted": "4.5",
+         "value": 4.5
         },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "INT",
-            "id": 84,
-            "namePlural": "Interceptions",
-            "nameSingular": "Interception"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "Sack",
-            "id": 85,
-            "namePlural": "Sacks",
-            "nameSingular": "Sack"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "0.1",
-             "value": 0.083333336
-            },
-            "rank": 19
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 89,
-            "namePlural": "Defensive TDs",
-            "nameSingular": "Defensive TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "1.5",
-           "value": 1.5416666
-          },
-          "rank": 1,
-          "rating": "RATING_VERY_BAD"
-         },
-         "position": "CB"
+        "pointsProjected": {
+         "formatted": "5.15",
+         "value": 5.15
         },
         "stats": [
          {
@@ -7509,6 +7361,9 @@
            "id": 82,
            "namePlural": "Assisted Tackles",
            "nameSingular": "Assisted Tackle"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -7517,6 +7372,10 @@
            "id": 83,
            "namePlural": "Solo Tackles",
            "nameSingular": "Solo Tackle"
+          },
+          "value": {
+           "formatted": "3",
+           "value": 3.0
           }
          },
          {
@@ -7525,6 +7384,9 @@
            "id": 84,
            "namePlural": "Interceptions",
            "nameSingular": "Interception"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -7533,6 +7395,9 @@
            "id": 85,
            "namePlural": "Sacks",
            "nameSingular": "Sack"
+          },
+          "value": {
+           "formatted": "0"
           }
          }
         ],
@@ -7558,7 +7423,7 @@
           },
           "value": {
            "formatted": "2.6",
-           "value": 2.6
+           "value": 2.58
           }
          },
          {
@@ -7610,6 +7475,10 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "4.5",
+       "value": 4.5
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -7617,6 +7486,9 @@
          "id": 82,
          "namePlural": "Assisted Tackles",
          "nameSingular": "Assisted Tackle"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -7625,6 +7497,10 @@
          "id": 83,
          "namePlural": "Solo Tackles",
          "nameSingular": "Solo Tackle"
+        },
+        "value": {
+         "formatted": "3",
+         "value": 3.0
         }
        },
        {
@@ -7633,6 +7509,9 @@
          "id": 84,
          "namePlural": "Interceptions",
          "nameSingular": "Interception"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -7641,13 +7520,16 @@
          "id": 85,
          "namePlural": "Sacks",
          "nameSingular": "Sack"
+        },
+        "value": {
+         "formatted": "0"
         }
        }
       ],
       "viewingFormat": "TOTAL",
       "viewingProjectedPoints": {
-       "formatted": "5.18",
-       "value": 5.1800003
+       "formatted": "5.15",
+       "value": 5.15
       },
       "viewingProjectedStats": [
        {
@@ -7671,7 +7553,7 @@
         },
         "value": {
          "formatted": "2.6",
-         "value": 2.6
+         "value": 2.58
         }
        },
        {
@@ -7744,6 +7626,12 @@
       },
       "proPlayer": {
        "id": 18531,
+       "injury": {
+        "description": "Ankle",
+        "severity": "OUT",
+        "typeAbbreviaition": "OUT",
+        "typeFull": "Out"
+       },
        "nameFirst": "Cedric",
        "nameFull": "Cedric Johnson",
        "nameLast": "Johnson",
@@ -7791,18 +7679,23 @@
           "location": "Tennessee",
           "name": "Titans"
          },
+         "awayResult": "LOSE",
+         "awayScore": 36,
          "home": {
           "abbreviation": "CIN",
           "location": "Cincinnati",
           "name": "Bengals"
          },
+         "homeResult": "WIN",
+         "homeScore": 43,
          "id": 7965,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793556000000",
+         "status": "FINAL_SCORE"
         },
         "participant": "HOME",
         "period": {
@@ -7810,69 +7703,13 @@
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
+        "pointsActual": {
+         "formatted": "2.25",
+         "value": 2.25
+        },
         "pointsProjected": {
          "formatted": "1.51",
          "value": 1.51
-        },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "INT",
-            "id": 84,
-            "namePlural": "Interceptions",
-            "nameSingular": "Interception"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "Sack",
-            "id": 85,
-            "namePlural": "Sacks",
-            "nameSingular": "Sack"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "1.3",
-             "value": 1.2857143
-            },
-            "rank": 19
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 89,
-            "namePlural": "Defensive TDs",
-            "nameSingular": "Defensive TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "1.9",
-           "value": 1.925926
-          },
-          "rank": 13
-         },
-         "position": "EDR"
         },
         "stats": [
          {
@@ -7881,6 +7718,10 @@
            "id": 82,
            "namePlural": "Assisted Tackles",
            "nameSingular": "Assisted Tackle"
+          },
+          "value": {
+           "formatted": "1",
+           "value": 1.0
           }
          },
          {
@@ -7889,6 +7730,10 @@
            "id": 83,
            "namePlural": "Solo Tackles",
            "nameSingular": "Solo Tackle"
+          },
+          "value": {
+           "formatted": "1",
+           "value": 1.0
           }
          },
          {
@@ -7897,6 +7742,9 @@
            "id": 84,
            "namePlural": "Interceptions",
            "nameSingular": "Interception"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -7905,6 +7753,9 @@
            "id": 85,
            "namePlural": "Sacks",
            "nameSingular": "Sack"
+          },
+          "value": {
+           "formatted": "0"
           }
          }
         ],
@@ -7981,6 +7832,10 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "2.25",
+       "value": 2.25
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -7988,6 +7843,10 @@
          "id": 82,
          "namePlural": "Assisted Tackles",
          "nameSingular": "Assisted Tackle"
+        },
+        "value": {
+         "formatted": "1",
+         "value": 1.0
         }
        },
        {
@@ -7996,6 +7855,10 @@
          "id": 83,
          "namePlural": "Solo Tackles",
          "nameSingular": "Solo Tackle"
+        },
+        "value": {
+         "formatted": "1",
+         "value": 1.0
         }
        },
        {
@@ -8004,6 +7867,9 @@
          "id": 84,
          "namePlural": "Interceptions",
          "nameSingular": "Interception"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -8012,6 +7878,9 @@
          "id": 85,
          "namePlural": "Sacks",
          "nameSingular": "Sack"
+        },
+        "value": {
+         "formatted": "0"
         }
        }
       ],
@@ -8190,7 +8059,7 @@
         },
         "pointsProjected": {
          "formatted": "3.91",
-         "value": 3.91
+         "value": 3.9099996
         },
         "stats": [
          {
@@ -8249,8 +8118,8 @@
            "nameSingular": "Assisted Tackle"
           },
           "value": {
-           "formatted": "1.5",
-           "value": 1.54
+           "formatted": "1.6",
+           "value": 1.55
           }
          },
          {
@@ -8262,7 +8131,7 @@
           },
           "value": {
            "formatted": "1.6",
-           "value": 1.59
+           "value": 1.58
           }
          },
          {
@@ -8367,7 +8236,7 @@
       "viewingFormat": "TOTAL",
       "viewingProjectedPoints": {
        "formatted": "3.91",
-       "value": 3.91
+       "value": 3.9099996
       },
       "viewingProjectedStats": [
        {
@@ -8378,8 +8247,8 @@
          "nameSingular": "Assisted Tackle"
         },
         "value": {
-         "formatted": "1.5",
-         "value": 1.54
+         "formatted": "1.6",
+         "value": 1.55
         }
        },
        {
@@ -8391,7 +8260,7 @@
         },
         "value": {
          "formatted": "1.6",
-         "value": 1.59
+         "value": 1.58
         }
        },
        {
@@ -8508,88 +8377,36 @@
           "location": "Los Angeles",
           "name": "Chargers"
          },
+         "awayResult": "LOSE",
+         "awayScore": 9,
          "home": {
           "abbreviation": "LAR",
           "location": "Los Angeles",
           "name": "Rams"
          },
+         "homeResult": "WIN",
+         "homeScore": 24,
          "id": 7972,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793567100000"
+         "startTimeEpochMilli": "1793567100000",
+         "status": "FINAL_SCORE"
         },
         "period": {
          "isNow": true,
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "pointsProjected": {
-         "formatted": "2.85",
-         "value": 2.85
+        "pointsActual": {
+         "formatted": "1.5",
+         "value": 1.5
         },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "INT",
-            "id": 84,
-            "namePlural": "Interceptions",
-            "nameSingular": "Interception"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "Sack",
-            "id": 85,
-            "namePlural": "Sacks",
-            "nameSingular": "Sack"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0.6",
-             "value": 0.5714286
-            },
-            "rank": 4,
-            "rating": "RATING_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 89,
-            "namePlural": "Defensive TDs",
-            "nameSingular": "Defensive TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "1.6",
-           "value": 1.5925926
-          },
-          "rank": 8
-         },
-         "position": "EDR"
+        "pointsProjected": {
+         "formatted": "2.86",
+         "value": 2.8600001
         },
         "stats": [
          {
@@ -8598,6 +8415,10 @@
            "id": 82,
            "namePlural": "Assisted Tackles",
            "nameSingular": "Assisted Tackle"
+          },
+          "value": {
+           "formatted": "2",
+           "value": 2.0
           }
          },
          {
@@ -8606,6 +8427,9 @@
            "id": 83,
            "namePlural": "Solo Tackles",
            "nameSingular": "Solo Tackle"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -8614,6 +8438,9 @@
            "id": 84,
            "namePlural": "Interceptions",
            "nameSingular": "Interception"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -8622,6 +8449,9 @@
            "id": 85,
            "namePlural": "Sacks",
            "nameSingular": "Sack"
+          },
+          "value": {
+           "formatted": "0"
           }
          }
         ],
@@ -8635,7 +8465,7 @@
           },
           "value": {
            "formatted": "0.9",
-           "value": 0.87
+           "value": 0.88
           }
          },
          {
@@ -8697,6 +8527,10 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "1.5",
+       "value": 1.5
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -8704,6 +8538,10 @@
          "id": 82,
          "namePlural": "Assisted Tackles",
          "nameSingular": "Assisted Tackle"
+        },
+        "value": {
+         "formatted": "2",
+         "value": 2.0
         }
        },
        {
@@ -8712,6 +8550,9 @@
          "id": 83,
          "namePlural": "Solo Tackles",
          "nameSingular": "Solo Tackle"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -8720,6 +8561,9 @@
          "id": 84,
          "namePlural": "Interceptions",
          "nameSingular": "Interception"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -8728,13 +8572,16 @@
          "id": 85,
          "namePlural": "Sacks",
          "nameSingular": "Sack"
+        },
+        "value": {
+         "formatted": "0"
         }
        }
       ],
       "viewingFormat": "TOTAL",
       "viewingProjectedPoints": {
-       "formatted": "2.85",
-       "value": 2.85
+       "formatted": "2.86",
+       "value": 2.8600001
       },
       "viewingProjectedStats": [
        {
@@ -8746,7 +8593,7 @@
         },
         "value": {
          "formatted": "0.9",
-         "value": 0.87
+         "value": 0.88
         }
        },
        {
@@ -8968,8 +8815,8 @@
            "nameSingular": "Assisted Tackle"
           },
           "value": {
-           "formatted": "0.9",
-           "value": 0.95
+           "formatted": "1",
+           "value": 0.96
           }
          },
          {
@@ -8981,7 +8828,7 @@
           },
           "value": {
            "formatted": "0.8",
-           "value": 0.84
+           "value": 0.83
           }
          },
          {
@@ -9100,8 +8947,8 @@
          "nameSingular": "Assisted Tackle"
         },
         "value": {
-         "formatted": "0.9",
-         "value": 0.95
+         "formatted": "1",
+         "value": 0.96
         }
        },
        {
@@ -9113,7 +8960,7 @@
         },
         "value": {
          "formatted": "0.8",
-         "value": 0.84
+         "value": 0.83
         }
        },
        {
@@ -9232,18 +9079,23 @@
           "location": "Baltimore",
           "name": "Ravens"
          },
+         "awayResult": "LOSE",
+         "awayScore": 10,
          "home": {
           "abbreviation": "BUF",
           "location": "Buffalo",
           "name": "Bills"
          },
+         "homeResult": "WIN",
+         "homeScore": 36,
          "id": 7971,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793556000000",
+         "status": "FINAL_SCORE"
         },
         "participant": "HOME",
         "period": {
@@ -9251,71 +9103,13 @@
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
+        "pointsActual": {
+         "formatted": "5",
+         "value": 5.0
+        },
         "pointsProjected": {
          "formatted": "5.11",
          "value": 5.11
-        },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "INT",
-            "id": 84,
-            "namePlural": "Interceptions",
-            "nameSingular": "Interception"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0.1",
-             "value": 0.14285715
-            },
-            "rank": 12
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "Sack",
-            "id": 85,
-            "namePlural": "Sacks",
-            "nameSingular": "Sack"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0.4",
-             "value": 0.42857143
-            },
-            "rank": 23,
-            "rating": "RATING_GOOD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 89,
-            "namePlural": "Defensive TDs",
-            "nameSingular": "Defensive TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "3.4",
-           "value": 3.4166667
-          },
-          "rank": 27,
-          "rating": "RATING_VERY_GOOD"
-         },
-         "position": "LB"
         },
         "stats": [
          {
@@ -9324,6 +9118,10 @@
            "id": 82,
            "namePlural": "Assisted Tackles",
            "nameSingular": "Assisted Tackle"
+          },
+          "value": {
+           "formatted": "2",
+           "value": 2.0
           }
          },
          {
@@ -9332,6 +9130,10 @@
            "id": 83,
            "namePlural": "Solo Tackles",
            "nameSingular": "Solo Tackle"
+          },
+          "value": {
+           "formatted": "1",
+           "value": 1.0
           }
          },
          {
@@ -9340,6 +9142,9 @@
            "id": 84,
            "namePlural": "Interceptions",
            "nameSingular": "Interception"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -9348,6 +9153,9 @@
            "id": 85,
            "namePlural": "Sacks",
            "nameSingular": "Sack"
+          },
+          "value": {
+           "formatted": "0"
           }
          }
         ],
@@ -9361,7 +9169,7 @@
           },
           "value": {
            "formatted": "2.3",
-           "value": 2.28
+           "value": 2.29
           }
          },
          {
@@ -9373,7 +9181,7 @@
           },
           "value": {
            "formatted": "2",
-           "value": 2.04
+           "value": 2.03
           }
          },
          {
@@ -9425,6 +9233,10 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "5",
+       "value": 5.0
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -9432,6 +9244,10 @@
          "id": 82,
          "namePlural": "Assisted Tackles",
          "nameSingular": "Assisted Tackle"
+        },
+        "value": {
+         "formatted": "2",
+         "value": 2.0
         }
        },
        {
@@ -9440,6 +9256,10 @@
          "id": 83,
          "namePlural": "Solo Tackles",
          "nameSingular": "Solo Tackle"
+        },
+        "value": {
+         "formatted": "1",
+         "value": 1.0
         }
        },
        {
@@ -9448,6 +9268,9 @@
          "id": 84,
          "namePlural": "Interceptions",
          "nameSingular": "Interception"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -9456,6 +9279,9 @@
          "id": 85,
          "namePlural": "Sacks",
          "nameSingular": "Sack"
+        },
+        "value": {
+         "formatted": "0"
         }
        }
       ],
@@ -9474,7 +9300,7 @@
         },
         "value": {
          "formatted": "2.3",
-         "value": 2.28
+         "value": 2.29
         }
        },
        {
@@ -9486,7 +9312,7 @@
         },
         "value": {
          "formatted": "2",
-         "value": 2.04
+         "value": 2.03
         }
        },
        {
@@ -9563,7 +9389,7 @@
        "nameLast": "Elliss",
        "nameShort": "K. Elliss",
        "nflByeWeek": 8,
-       "percentOwnedRatio": 0.54,
+       "percentOwnedRatio": 0.53,
        "position": "LB",
        "positionEligibility": [
         "LB",
@@ -9724,6 +9550,267 @@
       "lastX": [
        {
         "duration": 1,
+        "overPerforming": true,
+        "value": {
+         "formatted": "12.2",
+         "value": 12.2
+        }
+       },
+       {
+        "duration": 3,
+        "value": {
+         "formatted": "8.27",
+         "value": 8.27
+        }
+       },
+       {
+        "duration": 5,
+        "value": {
+         "formatted": "8.39",
+         "value": 8.39
+        }
+       }
+      ],
+      "owner": {
+       "id": 1525398,
+       "initials": "VB",
+       "logoUrl": "https://s3.amazonaws.com/fleaflicker/t1525398_0_150x150.jpg",
+       "name": "Vienna BBB"
+      },
+      "proPlayer": {
+       "hasLockedPremiumContent": true,
+       "headshotUrl": "https://d26bvpybnxg29h.cloudfront.net/nfl/19290.png",
+       "id": 19290,
+       "injury": {
+        "description": "Knee",
+        "severity": "OUT",
+        "typeAbbreviaition": "IR",
+        "typeFull": "Injured Reserve"
+       },
+       "nameFirst": "RJ",
+       "nameFull": "RJ Harvey",
+       "nameLast": "Harvey",
+       "nameShort": "R. Harvey",
+       "news": [
+        {
+         "analysis": "Harvey sustained a knee injury at practice earlier this week. He will now be forced to miss at least the next four games. JK Dobbins and Jonah Coleman could see more touches as a result.",
+         "contents": "RJ Harvey (knee) was placed on IR with a designation to return.",
+         "timeEpochMilli": "1793478441000",
+         "title": "RJ Harvey (knee) placed on short-term IR"
+        },
+        {
+         "contents": "Denver Broncos running back RJ Harvey (knee) has been placed on short-term injured reserve with a knee injury, according to NFL Network's Ian Rapoport. As a result, the second-year running back will not be eligible to return until December 6 to face the Miami Dolphins (Week 13). Harvey sustained the injury in practice this week but hopes to avoid an extended absence. While he has not been involved much on the ground (averaging just 4.0 attempts per game), he has been a top option in QB Bo Nix's ...",
+         "timeEpochMilli": "1793477800000",
+         "title": "RJ Harvey Placed on Short-Term IR with Knee Injury",
+         "url": "https://www.rotoballer.com/player-news/r-j-harvey-placed-on-short-term-ir-with-knee-injury/1980739"
+        }
+       ],
+       "nflByeWeek": 10,
+       "percentOwnedRatio": 0.83,
+       "position": "RB",
+       "positionEligibility": [
+        "RB"
+       ],
+       "proTeam": {
+        "abbreviation": "DEN",
+        "location": "Denver",
+        "name": "Broncos"
+       },
+       "proTeamAbbreviation": "DEN"
+      },
+      "rankFantasy": {
+       "ordinal": 172,
+       "positions": [
+        {
+         "formatted": "29",
+         "ordinal": 29,
+         "position": {
+          "colors": [
+           "DRAFT_BOARD_GREEN"
+          ],
+          "eligibility": [
+           "RB"
+          ],
+          "group": "START",
+          "label": "RB"
+         },
+         "rating": "RATING_BAD"
+        }
+       ],
+       "season": 2026
+      },
+      "requestedGames": [
+       {
+        "game": {
+         "away": {
+          "abbreviation": "KC",
+          "location": "Kansas City",
+          "name": "Chiefs"
+         },
+         "awayResult": "LOSE",
+         "awayScore": 24,
+         "home": {
+          "abbreviation": "DEN",
+          "location": "Denver",
+          "name": "Broncos"
+         },
+         "homeResult": "WIN",
+         "homeScore": 28,
+         "id": 7974,
+         "period": {
+          "isNow": true,
+          "ordinal": 8,
+          "startEpochMilli": "1793095200000"
+         },
+         "startTimeEpochMilli": "1793568300000",
+         "status": "FINAL_SCORE"
+        },
+        "participant": "HOME",
+        "period": {
+         "isNow": true,
+         "ordinal": 8,
+         "startEpochMilli": "1793095200000"
+        },
+        "pointsActual": {
+         "formatted": "—"
+        },
+        "stats": [
+         {
+          "category": {
+           "abbreviation": "Yd",
+           "id": 22,
+           "namePlural": "Rushing Yards",
+           "nameSingular": "Rushing Yard"
+          }
+         },
+         {
+          "category": {
+           "abbreviation": "Rec",
+           "id": 175,
+           "namePlural": "Target % Caught",
+           "nameSingular": "Target % Caught"
+          }
+         },
+         {
+          "category": {
+           "abbreviation": "Yd",
+           "id": 42,
+           "namePlural": "Receiving Yards",
+           "nameSingular": "Receiving Yard"
+          }
+         },
+         {
+          "category": {
+           "abbreviation": "TD",
+           "id": 29,
+           "namePlural": "Offensive + Special Teams TDs",
+           "nameSingular": "Offensive + Special Teams TD"
+          }
+         }
+        ]
+       }
+      ],
+      "requestedGamesPeriod": {
+       "isNow": true,
+       "ordinal": 8,
+       "startEpochMilli": "1793095200000"
+      },
+      "seasonAverage": {
+       "formatted": "8.48",
+       "value": 8.483335
+      },
+      "seasonConsistency": "RATING_GOOD",
+      "seasonTotal": {
+       "formatted": "50.9",
+       "value": 50.900005
+      },
+      "seasonsStandartDeviation": {
+       "formatted": "4.24",
+       "value": 4.2389355
+      },
+      "transactionStatus": {
+       "isLineupStatusLocked": true,
+       "locked": {}
+      },
+      "viewingActualPoints": {
+       "formatted": "—"
+      },
+      "viewingActualStats": [
+       {
+        "category": {
+         "abbreviation": "Yd",
+         "id": 22,
+         "namePlural": "Rushing Yards",
+         "nameSingular": "Rushing Yard"
+        }
+       },
+       {
+        "category": {
+         "abbreviation": "Rec",
+         "id": 175,
+         "namePlural": "Target % Caught",
+         "nameSingular": "Target % Caught"
+        }
+       },
+       {
+        "category": {
+         "abbreviation": "Yd",
+         "id": 42,
+         "namePlural": "Receiving Yards",
+         "nameSingular": "Receiving Yard"
+        }
+       },
+       {
+        "category": {
+         "abbreviation": "TD",
+         "id": 29,
+         "namePlural": "Offensive + Special Teams TDs",
+         "nameSingular": "Offensive + Special Teams TD"
+        }
+       }
+      ],
+      "viewingFormat": "TOTAL",
+      "viewingRange": {
+       "low": 8
+      }
+     },
+     "position": {
+      "colors": [
+       "DRAFT_BOARD_GREEN",
+       "DRAFT_BOARD_BLUE",
+       "DRAFT_BOARD_YELLOW",
+       "DRAFT_BOARD_RED",
+       "DRAFT_BOARD_GRAY",
+       "DRAFT_BOARD_PURPLE"
+      ],
+      "eligibility": [
+       "QB",
+       "RB",
+       "WR",
+       "TE",
+       "K",
+       "P",
+       "D/ST",
+       "CB",
+       "S",
+       "EDR",
+       "DE",
+       "IL",
+       "DT",
+       "LB",
+       "LB"
+      ],
+      "group": "INJURED",
+      "label": "IR",
+      "start": 5
+     }
+    },
+    {
+     "leaguePlayer": {
+      "displayGroup": "RUSHER",
+      "lastX": [
+       {
+        "duration": 1,
         "underPerforming": true,
         "value": {
          "formatted": "0.3",
@@ -9773,10 +9860,10 @@
          "title": "Jadarian Price (chest) off injury report Monday"
         },
         {
-         "contents": "Seattle Seahawks running back Jadarian Price (chest) is a low-end flex play at best in Week 8 against the Chicago Bears. Price is coming off a stint on IR and will likely split time with Zach Charbonnet (knee) and Emanuel Wilson. Price was not incredibly effective before the injury, but with the entire running back room healthy, Seattle may be able to use Price to his strengths, allowing him to thrive. Still, it will be difficult to trust Price in Week 8, especially with Chicago allowing the ...",
-         "timeEpochMilli": "1793484677000",
-         "title": "Jadarian Price a Low-End Flex Play in Week 8 if Active",
-         "url": "https://www.rotoballer.com/player-news/jadarian-price-a-low-end-flex-play-in-week-8/1980789"
+         "contents": "Seattle Seahawks running back Jadarian Price (chest) is expected to play Monday night against the Chicago Bears, according to ESPN's Adam Schefter, but he remains on injured reserve. Price was limited in Thursday's practice before logging full sessions Friday and Saturday, and he carries no injury designation for Week 8. Head coach Mike Macdonald said Saturday that Seattle was still working through roster decisions and would make a move Monday if it elects to activate the rookie first-round ...",
+         "timeEpochMilli": "1793550310000",
+         "title": "Jadarian Price Still Awaiting Activation Despite Being Cleared to Play",
+         "url": "https://www.rotoballer.com/player-news/seahawks-have-not-committed-to-activating-jadarian-price-before-monday/1981180"
         }
        ],
        "nflByeWeek": 11,
@@ -9841,8 +9928,8 @@
          "startEpochMilli": "1793095200000"
         },
         "pointsProjected": {
-         "formatted": "5.42",
-         "value": 5.42
+         "formatted": "5.51",
+         "value": 5.5099998
         },
         "ranks": {
          "categories": [
@@ -9930,8 +10017,8 @@
            "nameSingular": "Rushing Yard"
           },
           "value": {
-           "formatted": "31.2",
-           "value": 31.2
+           "formatted": "31.6",
+           "value": 31.62
           }
          },
          {
@@ -9953,8 +10040,8 @@
            "nameSingular": "Receiving Yard"
           },
           "value": {
-           "formatted": "7.8",
-           "value": 7.8
+           "formatted": "7.7",
+           "value": 7.67
           }
          },
          {
@@ -9966,7 +10053,7 @@
           },
           "value": {
            "formatted": "0.3",
-           "value": 0.27
+           "value": 0.28
           }
          }
         ]
@@ -10029,8 +10116,8 @@
       ],
       "viewingFormat": "TOTAL",
       "viewingProjectedPoints": {
-       "formatted": "5.42",
-       "value": 5.42
+       "formatted": "5.51",
+       "value": 5.5099998
       },
       "viewingProjectedStats": [
        {
@@ -10041,8 +10128,8 @@
          "nameSingular": "Rushing Yard"
         },
         "value": {
-         "formatted": "31.2",
-         "value": 31.2
+         "formatted": "31.6",
+         "value": 31.62
         }
        },
        {
@@ -10064,8 +10151,8 @@
          "nameSingular": "Receiving Yard"
         },
         "value": {
-         "formatted": "7.8",
-         "value": 7.8
+         "formatted": "7.7",
+         "value": 7.67
         }
        },
        {
@@ -10077,7 +10164,7 @@
         },
         "value": {
          "formatted": "0.3",
-         "value": 0.27
+         "value": 0.28
         }
        }
       ],
@@ -10204,18 +10291,23 @@
           "location": "Los Angeles",
           "name": "Chargers"
          },
+         "awayResult": "LOSE",
+         "awayScore": 9,
          "home": {
           "abbreviation": "LAR",
           "location": "Los Angeles",
           "name": "Rams"
          },
+         "homeResult": "WIN",
+         "homeScore": 24,
          "id": 7972,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793567100000"
+         "startTimeEpochMilli": "1793567100000",
+         "status": "FINAL_SCORE"
         },
         "participant": "HOME",
         "period": {
@@ -10223,49 +10315,8 @@
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "Yd",
-            "id": 42,
-            "namePlural": "Receiving Yards",
-            "nameSingular": "Receiving Yard"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "132.8",
-             "value": 132.83333
-            },
-            "rank": 8
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 29,
-            "namePlural": "Offensive + Special Teams TDs",
-            "nameSingular": "Offensive + Special Teams TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "1",
-             "value": 1.0
-            },
-            "rank": 21,
-            "rating": "RATING_GOOD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "8",
-           "value": 8.025
-          },
-          "rank": 11
-         },
-         "position": "WR"
+        "pointsActual": {
+         "formatted": "—"
         },
         "stats": [
          {
@@ -10325,6 +10376,9 @@
       "transactionStatus": {
        "isLineupStatusLocked": true,
        "locked": {}
+      },
+      "viewingActualPoints": {
+       "formatted": "—"
       },
       "viewingActualStats": [
        {
@@ -10615,7 +10669,7 @@
        "nameLast": "Robinson",
        "nameShort": "T. Robinson",
        "nflByeWeek": 13,
-       "percentOwnedRatio": 0.22,
+       "percentOwnedRatio": 0.21,
        "position": "EDR",
        "positionEligibility": [
         "EDR",
@@ -10656,84 +10710,31 @@
           "location": "Baltimore",
           "name": "Ravens"
          },
+         "awayResult": "LOSE",
+         "awayScore": 10,
          "home": {
           "abbreviation": "BUF",
           "location": "Buffalo",
           "name": "Bills"
          },
+         "homeResult": "WIN",
+         "homeScore": 36,
          "id": 7971,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793556000000",
+         "status": "FINAL_SCORE"
         },
         "period": {
          "isNow": true,
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "INT",
-            "id": 84,
-            "namePlural": "Interceptions",
-            "nameSingular": "Interception"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "Sack",
-            "id": 85,
-            "namePlural": "Sacks",
-            "nameSingular": "Sack"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "1.5",
-             "value": 1.5
-            },
-            "rank": 26,
-            "rating": "RATING_VERY_GOOD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 89,
-            "namePlural": "Defensive TDs",
-            "nameSingular": "Defensive TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "2.1",
-           "value": 2.090909
-          },
-          "rank": 18
-         },
-         "position": "EDR"
+        "pointsActual": {
+         "formatted": "—"
         },
         "stats": [
          {
@@ -10791,6 +10792,9 @@
       "transactionStatus": {
        "isLineupStatusLocked": true,
        "locked": {}
+      },
+      "viewingActualPoints": {
+       "formatted": "—"
       },
       "viewingActualStats": [
        {
@@ -10899,6 +10903,12 @@
       "proPlayer": {
        "headshotUrl": "https://d26bvpybnxg29h.cloudfront.net/nfl/20064.png",
        "id": 20064,
+       "injury": {
+        "description": "Coach Decision",
+        "severity": "OUT",
+        "typeAbbreviaition": "OUT",
+        "typeFull": "Out"
+       },
        "isRookie": true,
        "nameFirst": "Ty",
        "nameFull": "Ty Simpson",
@@ -10946,18 +10956,23 @@
           "location": "Los Angeles",
           "name": "Chargers"
          },
+         "awayResult": "LOSE",
+         "awayScore": 9,
          "home": {
           "abbreviation": "LAR",
           "location": "Los Angeles",
           "name": "Rams"
          },
+         "homeResult": "WIN",
+         "homeScore": 24,
          "id": 7972,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793567100000"
+         "startTimeEpochMilli": "1793567100000",
+         "status": "FINAL_SCORE"
         },
         "participant": "HOME",
         "period": {
@@ -10965,54 +10980,8 @@
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "pointsProjected": {
-         "formatted": "0.92",
-         "value": 0.91999996
-        },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "Yd",
-            "id": 3,
-            "namePlural": "Passing Yards",
-            "nameSingular": "Passing Yard"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "216.2",
-             "value": 216.16667
-            },
-            "rank": 7,
-            "rating": "RATING_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 5,
-            "namePlural": "Passing TDs",
-            "nameSingular": "Passing TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "1.2",
-             "value": 1.1666666
-            },
-            "rank": 8
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "16.8",
-           "value": 16.808334
-          },
-          "rank": 6,
-          "rating": "RATING_BAD"
-         },
-         "position": "QB"
+        "pointsActual": {
+         "formatted": "—"
         },
         "stats": [
          {
@@ -11049,58 +11018,6 @@
            "nameSingular": "Interception"
           }
          }
-        ],
-        "statsProjected": [
-         {
-          "category": {
-           "abbreviation": "%",
-           "id": 12,
-           "namePlural": "Completion Percentage",
-           "nameSingular": "Completion Percentage",
-           "summaryLabelIfDiffersFromAbbreviation": " "
-          },
-          "value": {
-           "formatted": "1/1",
-           "value": 100.0
-          }
-         },
-         {
-          "category": {
-           "abbreviation": "Yd",
-           "id": 3,
-           "namePlural": "Passing Yards",
-           "nameSingular": "Passing Yard"
-          },
-          "value": {
-           "formatted": "13.3",
-           "value": 13.3
-          }
-         },
-         {
-          "category": {
-           "abbreviation": "TD",
-           "id": 5,
-           "namePlural": "Passing TDs",
-           "nameSingular": "Passing TD"
-          },
-          "value": {
-           "formatted": "0.1",
-           "value": 0.1
-          }
-         },
-         {
-          "category": {
-           "abbreviation": "INT",
-           "id": 7,
-           "lowerIsBetter": true,
-           "namePlural": "Interceptions",
-           "nameSingular": "Interception"
-          },
-          "value": {
-           "formatted": "0.1",
-           "value": 0.05
-          }
-         }
         ]
        }
       ],
@@ -11118,6 +11035,9 @@
       "transactionStatus": {
        "isLineupStatusLocked": true,
        "locked": {}
+      },
+      "viewingActualPoints": {
+       "formatted": "—"
       },
       "viewingActualStats": [
        {
@@ -11156,61 +11076,6 @@
        }
       ],
       "viewingFormat": "TOTAL",
-      "viewingProjectedPoints": {
-       "formatted": "0.92",
-       "value": 0.91999996
-      },
-      "viewingProjectedStats": [
-       {
-        "category": {
-         "abbreviation": "%",
-         "id": 12,
-         "namePlural": "Completion Percentage",
-         "nameSingular": "Completion Percentage"
-        },
-        "value": {
-         "formatted": "100.0",
-         "value": 100.0
-        }
-       },
-       {
-        "category": {
-         "abbreviation": "Yd",
-         "id": 3,
-         "namePlural": "Passing Yards",
-         "nameSingular": "Passing Yard"
-        },
-        "value": {
-         "formatted": "13.3",
-         "value": 13.3
-        }
-       },
-       {
-        "category": {
-         "abbreviation": "TD",
-         "id": 5,
-         "namePlural": "Passing TDs",
-         "nameSingular": "Passing TD"
-        },
-        "value": {
-         "formatted": "0.1",
-         "value": 0.1
-        }
-       },
-       {
-        "category": {
-         "abbreviation": "INT",
-         "id": 7,
-         "lowerIsBetter": true,
-         "namePlural": "Interceptions",
-         "nameSingular": "Interception"
-        },
-        "value": {
-         "formatted": "0.1",
-         "value": 0.05
-        }
-       }
-      ],
       "viewingRange": {
        "low": 8
       }
@@ -11418,7 +11283,7 @@
           },
           "value": {
            "formatted": "0.9",
-           "value": 0.88
+           "value": 0.89
           }
          },
          {
@@ -11430,7 +11295,7 @@
           },
           "value": {
            "formatted": "2",
-           "value": 2.01
+           "value": 2.0
           }
          },
          {
@@ -11548,7 +11413,7 @@
         },
         "value": {
          "formatted": "0.9",
-         "value": 0.88
+         "value": 0.89
         }
        },
        {
@@ -11560,7 +11425,7 @@
         },
         "value": {
          "formatted": "2",
-         "value": 2.01
+         "value": 2.0
         }
        },
        {
@@ -11705,18 +11570,23 @@
           "location": "Las Vegas",
           "name": "Raiders"
          },
+         "awayResult": "WIN",
+         "awayScore": 38,
          "home": {
           "abbreviation": "NYJ",
           "location": "New York",
           "name": "Jets"
          },
+         "homeResult": "LOSE",
+         "homeScore": 33,
          "id": 7970,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793556000000",
+         "status": "FINAL_SCORE"
         },
         "participant": "HOME",
         "period": {
@@ -11724,69 +11594,12 @@
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
-        "pointsProjected": {
-         "formatted": "2.86",
-         "value": 2.86
+        "pointsActual": {
+         "formatted": "—"
         },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "INT",
-            "id": 84,
-            "namePlural": "Interceptions",
-            "nameSingular": "Interception"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0.1",
-             "value": 0.14285715
-            },
-            "rank": 11
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "Sack",
-            "id": 85,
-            "namePlural": "Sacks",
-            "nameSingular": "Sack"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 89,
-            "namePlural": "Defensive TDs",
-            "nameSingular": "Defensive TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "2.4",
-           "value": 2.3846154
-          },
-          "rank": 10
-         },
-         "position": "CB"
+        "pointsProjected": {
+         "formatted": "2.87",
+         "value": 2.87
         },
         "stats": [
          {
@@ -11832,7 +11645,7 @@
           },
           "value": {
            "formatted": "0.7",
-           "value": 0.73
+           "value": 0.74
           }
          },
          {
@@ -11896,6 +11709,9 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "—"
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -11932,8 +11748,8 @@
       ],
       "viewingFormat": "TOTAL",
       "viewingProjectedPoints": {
-       "formatted": "2.86",
-       "value": 2.86
+       "formatted": "2.87",
+       "value": 2.87
       },
       "viewingProjectedStats": [
        {
@@ -11945,7 +11761,7 @@
         },
         "value": {
          "formatted": "0.7",
-         "value": 0.73
+         "value": 0.74
         }
        },
        {
@@ -12056,6 +11872,12 @@
       "proPlayer": {
        "headshotUrl": "https://d26bvpybnxg29h.cloudfront.net/nfl/20047.png",
        "id": 20047,
+       "injury": {
+        "description": "Neck",
+        "severity": "OUT",
+        "typeAbbreviaition": "OUT",
+        "typeFull": "Out"
+       },
        "isRookie": true,
        "nameFirst": "Peter",
        "nameFull": "Peter Woods",
@@ -12104,87 +11926,35 @@
           "location": "Kansas City",
           "name": "Chiefs"
          },
+         "awayResult": "LOSE",
+         "awayScore": 24,
          "home": {
           "abbreviation": "DEN",
           "location": "Denver",
           "name": "Broncos"
          },
+         "homeResult": "WIN",
+         "homeScore": 28,
          "id": 7974,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793568300000"
+         "startTimeEpochMilli": "1793568300000",
+         "status": "FINAL_SCORE"
         },
         "period": {
          "isNow": true,
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
+        "pointsActual": {
+         "formatted": "—"
+        },
         "pointsProjected": {
          "formatted": "1.99",
          "value": 1.9899999
-        },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "INT",
-            "id": 84,
-            "namePlural": "Interceptions",
-            "nameSingular": "Interception"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "Sack",
-            "id": 85,
-            "namePlural": "Sacks",
-            "nameSingular": "Sack"
-           },
-           "rank": {
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 89,
-            "namePlural": "Defensive TDs",
-            "nameSingular": "Defensive TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "1",
-           "value": 1.0
-          },
-          "rank": 3,
-          "rating": "RATING_BAD"
-         },
-         "position": "IL"
         },
         "stats": [
          {
@@ -12229,8 +11999,8 @@
            "nameSingular": "Assisted Tackle"
           },
           "value": {
-           "formatted": "0.8",
-           "value": 0.85
+           "formatted": "0.9",
+           "value": 0.87
           }
          },
          {
@@ -12242,7 +12012,7 @@
           },
           "value": {
            "formatted": "0.7",
-           "value": 0.71
+           "value": 0.7
           }
          },
          {
@@ -12293,6 +12063,9 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "—"
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -12341,8 +12114,8 @@
          "nameSingular": "Assisted Tackle"
         },
         "value": {
-         "formatted": "0.8",
-         "value": 0.85
+         "formatted": "0.9",
+         "value": 0.87
         }
        },
        {
@@ -12354,7 +12127,7 @@
         },
         "value": {
          "formatted": "0.7",
-         "value": 0.71
+         "value": 0.7
         }
        },
        {
@@ -12501,18 +12274,23 @@
           "location": "Baltimore",
           "name": "Ravens"
          },
+         "awayResult": "LOSE",
+         "awayScore": 10,
          "home": {
           "abbreviation": "BUF",
           "location": "Buffalo",
           "name": "Bills"
          },
+         "homeResult": "WIN",
+         "homeScore": 36,
          "id": 7971,
          "period": {
           "isNow": true,
           "ordinal": 8,
           "startEpochMilli": "1793095200000"
          },
-         "startTimeEpochMilli": "1793556000000"
+         "startTimeEpochMilli": "1793556000000",
+         "status": "FINAL_SCORE"
         },
         "participant": "HOME",
         "period": {
@@ -12520,71 +12298,13 @@
          "ordinal": 8,
          "startEpochMilli": "1793095200000"
         },
+        "pointsActual": {
+         "formatted": "3.25",
+         "value": 3.25
+        },
         "pointsProjected": {
          "formatted": "2.47",
          "value": 2.4699998
-        },
-        "ranks": {
-         "categories": [
-          {
-           "category": {
-            "abbreviation": "INT",
-            "id": 84,
-            "namePlural": "Interceptions",
-            "nameSingular": "Interception"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0.1",
-             "value": 0.14285715
-            },
-            "rank": 12
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "Sack",
-            "id": 85,
-            "namePlural": "Sacks",
-            "nameSingular": "Sack"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0.4",
-             "value": 0.42857143
-            },
-            "rank": 23,
-            "rating": "RATING_GOOD"
-           }
-          },
-          {
-           "category": {
-            "abbreviation": "TD",
-            "id": 89,
-            "namePlural": "Defensive TDs",
-            "nameSingular": "Defensive TD"
-           },
-           "rank": {
-            "isRankTied": true,
-            "mean": {
-             "formatted": "0"
-            },
-            "rank": 1,
-            "rating": "RATING_VERY_BAD"
-           }
-          }
-         ],
-         "defaultPoints": {
-          "mean": {
-           "formatted": "3.4",
-           "value": 3.4166667
-          },
-          "rank": 27,
-          "rating": "RATING_VERY_GOOD"
-         },
-         "position": "LB"
         },
         "stats": [
          {
@@ -12593,6 +12313,10 @@
            "id": 82,
            "namePlural": "Assisted Tackles",
            "nameSingular": "Assisted Tackle"
+          },
+          "value": {
+           "formatted": "1",
+           "value": 1.0
           }
          },
          {
@@ -12601,6 +12325,10 @@
            "id": 83,
            "namePlural": "Solo Tackles",
            "nameSingular": "Solo Tackle"
+          },
+          "value": {
+           "formatted": "1",
+           "value": 1.0
           }
          },
          {
@@ -12609,6 +12337,9 @@
            "id": 84,
            "namePlural": "Interceptions",
            "nameSingular": "Interception"
+          },
+          "value": {
+           "formatted": "0"
           }
          },
          {
@@ -12617,6 +12348,9 @@
            "id": 85,
            "namePlural": "Sacks",
            "nameSingular": "Sack"
+          },
+          "value": {
+           "formatted": "0"
           }
          }
         ],
@@ -12630,7 +12364,7 @@
           },
           "value": {
            "formatted": "0.9",
-           "value": 0.88
+           "value": 0.89
           }
          },
          {
@@ -12642,7 +12376,7 @@
           },
           "value": {
            "formatted": "1",
-           "value": 1.03
+           "value": 1.02
           }
          },
          {
@@ -12694,6 +12428,10 @@
        "isLineupStatusLocked": true,
        "locked": {}
       },
+      "viewingActualPoints": {
+       "formatted": "3.25",
+       "value": 3.25
+      },
       "viewingActualStats": [
        {
         "category": {
@@ -12701,6 +12439,10 @@
          "id": 82,
          "namePlural": "Assisted Tackles",
          "nameSingular": "Assisted Tackle"
+        },
+        "value": {
+         "formatted": "1",
+         "value": 1.0
         }
        },
        {
@@ -12709,6 +12451,10 @@
          "id": 83,
          "namePlural": "Solo Tackles",
          "nameSingular": "Solo Tackle"
+        },
+        "value": {
+         "formatted": "1",
+         "value": 1.0
         }
        },
        {
@@ -12717,6 +12463,9 @@
          "id": 84,
          "namePlural": "Interceptions",
          "nameSingular": "Interception"
+        },
+        "value": {
+         "formatted": "0"
         }
        },
        {
@@ -12725,6 +12474,9 @@
          "id": 85,
          "namePlural": "Sacks",
          "nameSingular": "Sack"
+        },
+        "value": {
+         "formatted": "0"
         }
        }
       ],
@@ -12743,7 +12495,7 @@
         },
         "value": {
          "formatted": "0.9",
-         "value": 0.88
+         "value": 0.89
         }
        },
        {
@@ -12755,7 +12507,7 @@
         },
         "value": {
          "formatted": "1",
-         "value": 1.03
+         "value": 1.02
         }
        },
        {
