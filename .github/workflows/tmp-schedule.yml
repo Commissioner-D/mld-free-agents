@@ -1,0 +1,21 @@
+name: Tmp Schedule
+on:
+  push:
+    branches: [tmp-schedule]
+    paths: [.github/workflows/tmp-schedule.yml]
+permissions:
+  contents: write
+jobs:
+  s:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: |
+          mkdir -p sched
+          for w in 12 13 14; do
+            curl -s -A "mld-fa/1.0" "https://www.fleaflicker.com/api/FetchLeagueScoreboard?sport=NFL&league_id=294292&season=2026&scoring_period=$w" > sched/w$w.json
+            sleep 2
+          done
+          curl -s -A "mld-fa/1.0" "https://www.fleaflicker.com/api/FetchLeagueStandings?sport=NFL&league_id=294292&season=2026" > sched/standings.json
+          git config user.name github-actions; git config user.email actions@github.com
+          git add sched && git commit -q -m "tmp schedule" && git push -q origin HEAD:tmp-schedule
