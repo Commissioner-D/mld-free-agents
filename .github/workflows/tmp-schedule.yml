@@ -11,11 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - run: |
-          mkdir -p sched
-          for w in 12 13 14; do
-            curl -s -A "mld-fa/1.0" "https://www.fleaflicker.com/api/FetchLeagueScoreboard?sport=NFL&league_id=294292&season=2026&scoring_period=$w" > sched/w$w.json
-            sleep 2
+          mkdir -p dl
+          for p in "" settings rules trades transactions; do
+            curl -s -L -A "Mozilla/5.0" "https://www.fleaflicker.com/nfl/leagues/294292/$p" > "dl/page_${p:-home}.html"; sleep 2
           done
-          curl -s -A "mld-fa/1.0" "https://www.fleaflicker.com/api/FetchLeagueStandings?sport=NFL&league_id=294292&season=2026" > sched/standings.json
+          curl -s -A "mld-fa/1.0" "https://www.fleaflicker.com/api/FetchLeagueRules?sport=NFL&league_id=294292" > dl/rules.json
+          curl -s -A "mld-fa/1.0" "https://www.fleaflicker.com/api/FetchTrades?sport=NFL&league_id=294292&filter=TRADES_COMPLETED" > dl/trades.json
           git config user.name github-actions; git config user.email actions@github.com
-          git add sched && git commit -q -m "tmp schedule" && git push -q origin HEAD:tmp-schedule
+          git add dl && git commit -q -m "tmp pages" && git push -q origin HEAD:tmp-schedule
